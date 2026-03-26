@@ -183,7 +183,7 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
 </div>
         </div>
         <div class="fg"><label>Brand</label>
-          <input type="text" id="dash-brand" class="search-box" placeholder="e.g. KFC..." style="width:140px" oninput="renderDashboard()"/>
+          <input type="text" id="dash-brand" class="search-box" placeholder="e.g. KFC..." style="width:140px" oninput="_debouncedDash()"/>
         </div>
         <div class="fg" style="position:relative"><label>L2 Category</label>
           <div id="dcat-btn" data-dd="dcat-dd" onclick="mddToggle(this.dataset.dd)" style="background:var(--surf);border:1px solid var(--bord);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--txt);cursor:pointer;min-width:150px;display:flex;justify-content:space-between;align-items:center;user-select:none;white-space:nowrap"><span id="dcat-btn-lbl">All Categories</span><span style="color:var(--mut);margin-left:8px">▾</span></div>
@@ -225,7 +225,7 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
   <div style="position:sticky;top:92px;z-index:50;background:var(--bg);padding-bottom:10px">
     <div class="card" style="margin-bottom:0;padding:12px 16px">
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end">
-        <div class="fg"><label>Search</label><input class="search-box" type="text" placeholder="Brand, programme, PIC..." id="search" oninput="applyFilters()"/></div>
+        <div class="fg"><label>Search</label><input class="search-box" type="text" placeholder="Brand, programme, PIC..." id="search" oninput="_debouncedFilter()"/></div>
         <div class="fg"><label>Source</label><select class="flt" id="flt-source" onchange="applyFilters()"><option value="">All Sources</option><option value="BD">BD Programs</option><option value="MKT">MKT</option></select></div>
         <div class="fg" style="position:relative"><label>Programme</label>
           <div id="bprog-btn" data-dd="bprog-dd" onclick="mddToggle(this.dataset.dd)" style="background:var(--surf);border:1px solid var(--bord);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--txt);cursor:pointer;min-width:150px;display:flex;justify-content:space-between;align-items:center;user-select:none;white-space:nowrap"><span id="bprog-btn-lbl">All Programmes</span><span style="color:var(--mut);margin-left:8px">▾</span></div>
@@ -430,7 +430,7 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
     </div>
     <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-top:10px">
       <div class="fg"><label>Brand Search <span style="color:var(--mut);font-weight:400;text-transform:none;letter-spacing:0">(comma-separated)</span></label>
-        <input type="text" id="vbrand" placeholder="e.g. Highlands, KFC..." oninput="renderVis()" style="min-width:220px"/></div>
+        <input type="text" id="vbrand" placeholder="e.g. Highlands, KFC..." oninput="_debouncedVis()" style="min-width:220px"/></div>
       <div class="fg" style="position:relative"><label>L2 Category</label>
         <div id="vcat-btn" onclick="toggleVcatDD()" style="background:var(--surf);border:1px solid var(--bord);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--txt);cursor:pointer;min-width:160px;display:flex;justify-content:space-between;align-items:center;user-select:none">
           <span id="vcat-label">All Categories</span><span style="color:var(--mut)">▾</span></div>
@@ -632,97 +632,45 @@ function applyFilters(noHist){
     return true;
   });
   if(sortKey)filtered.sort((a,b)=>{let av=a[sortKey]||'',bv=b[sortKey]||'';return sortAsc?(av>bv?1:-1):(av<bv?1:-1);});
-  curPage=1;renderList();
+  curPage=1;
+  requestAnimationFrame(renderList);
   historySave();
 }
 function BM(b){if(!b)return 'Hometop';if(b.startsWith('Hometop'))return 'Hometop';if(b.startsWith('HTC')||b==='HTC'||b==='Home Circle'||b.startsWith('HC '))return 'HTC';if(b.startsWith('Static'))return 'Static';if(b.startsWith('Bottom'))return 'Bottom';if(b.startsWith('Flash')||b==='Flash')return 'Flash';if(b==='Floating')return 'Floating';if(b==='Popup')return 'Popup';if(b==='Ongoing')return 'Ongoing';if(b==='Search'||b==='Search_Banner')return 'Search';if(b==='OngoingOrder')return 'OngoingOrder';return 'Hometop';}function runQC(b){
-  const checks=[];const pm=PM[b.prog]||{cat:'PLF'};const isPLF=PLF_SET.has(b.prog);const isIND=IND_SET.has(b.prog);const banner=BM(b.banner);const city=b.city||(b.cities||[])[0]||'HCM';const cityKey=TIER_A.includes(city)?city:'OTH';
-  if(b.start&&b.end&&b.start>b.end)checks.push({st:'fail',name:'Date Invalid',det:'End date before start date'});
-  if(b.source==='BD'&&isPLF)checks.push({st:'warn',name:'Source Mismatch',det:'PLF programme should go to MKT|Campaign tab'});
-  if(b.source==='MKT'&&!isPLF)checks.push({st:'warn',name:'Source Mismatch',det:'Brand programme should go to BD Programs tab'});
-  if(b.banner==='Hometop_0'&&b.prog!=='PLF_NEWUSER')checks.push({st:'fail',name:'Hometop #0 — New User Only',det:'Hometop Banner 0 is exclusively for [PLF] New User'});
-  if(['Hometop_1','Hometop_2','Hometop_3'].includes(b.banner)&&BAU_WC.has(b.prog))checks.push({st:'fail',name:'Hometop #1-3 Blocked',det:`${(PM[b.prog]||{}).l} cannot book Hometop #1-3. Use slot #4+.`});
-  if(['Ongoing','Search'].includes(banner)&&b.prog!=='PNS')checks.push({st:'fail',name:'PNS-Only Banner',det:`${banner} banner is exclusively for [PNS] programme`});
-  if(banner==='Flash'&&!['SJBP','WIN1','WIN2','WIN3','WIN4','ALACARTE','ALACARECB'].includes(b.prog))checks.push({st:'warn',name:'Flash Sale Programme',det:'Flash Sale typically for [SJBP] or Individual Ads'});
-  // ── L2 Category × Hour check ──
-  if(b.timeslot&&b.timeslot!=='all'&&b.cat&&b.cat.trim()){
-    const slot=b.timeslot;const cat=b.cat.trim();
-    const ck=TIER_A.includes(city)?city:'OTH';
-    const allowed=HOUR_CAT[slot]?.[ck]||[];
-    const blocked=BLOCKED_AT[slot]||[];
-    const catLower=cat.toLowerCase();
-    const matchAllowed=allowed.some(a=>catLower.includes(a.toLowerCase())||a.toLowerCase().includes(catLower));
-    const matchBlocked=blocked.some(bl=>catLower.includes(bl.toLowerCase())||bl.toLowerCase().includes(catLower));
-    if(matchBlocked)
-      checks.push({st:'fail',name:'L2 Category Not Suitable for This Hour',det:`"${cat}" is NOT recommended during ${slot} in ${city}. Blocked categories: ${blocked.join(', ')}`});
-    else if(!matchAllowed&&allowed.length>0)
-      checks.push({st:'warn',name:'L2 Category Mismatch for This Hour',det:`"${cat}" is not in the preferred list for ${slot} in ${city}. Recommended: ${allowed.slice(0,5).join(', ')}`});
-  }
-  // ── Daily cap & Monthly cap ──────────────────────────────────────────────
-  // Hometop has 14 numbered slots (#0-#13). Each slot holds 1 booking at a time.
-  // Cap only makes sense when we know the EXACT slot (e.g. "Hometop_1").
-  // If banner is just generic "Hometop" (no slot number) we skip — cannot evaluate.
-  const hasExactSlot = b.banner && b.banner.includes('_') && (b.banner.startsWith('Hometop_') || b.banner.startsWith('HTC_'));
-  const isGenericBanner = ['Hometop','HTC'].includes(b.banner); // no slot info → skip cap
+  const checks=[];
+  const pm=PM[b.prog]||{cat:'PLF'};
+  const isPLF=PLF_SET.has(b.prog);
+  const isIND=IND_SET.has(b.prog);
+  const banner=BM(b.banner);
+  const city=b.city||'HCM';
 
-  if(b.start&&b.end&&city&&!isGenericBanner){
-    if(hasExactSlot){
-      // Exact slot known → flag only if same slot is double-booked same city + overlapping dates
-      const sameSlot=ALL_BOOKINGS.filter(bk=>
-        bk.id!==b.id&&bk.banner===b.banner&&
-        ((bk.cities||[]).includes(city)||(bk.city===city))&&
-        bk.start&&bk.end&&bk.start<=b.end&&bk.end>=b.start
-      ).length;
-      if(sameSlot>0)checks.push({st:'fail',name:`Slot Double-Booked — ${b.banner}`,det:`${sameSlot} other booking(s) already occupy ${b.banner} in ${city} on overlapping dates`});
-    } else {
-      // Non-Hometop/HTC banners (Floating, Popup, Flash, etc.) → check daily total
-      const caps=DAILY_CAPS[banner];
-      if(caps&&caps.TOTAL<99){
-        const n=ALL_BOOKINGS.filter(bk=>
-          bk.id!==b.id&&BM(bk.banner)===banner&&
-          ((bk.cities||[]).includes(city)||(bk.city===city))&&
-          bk.start&&bk.end&&bk.start<=b.end&&bk.end>=b.start
-        ).length+1;
-        if(n>caps.TOTAL)checks.push({st:'fail',name:`Daily Cap Exceeded — ${banner}`,det:`${n} bookings in ${city} on overlapping dates (cap: ${caps.TOTAL}/day)`});
-        else if(n>caps.TOTAL*0.8)checks.push({st:'warn',name:`Nearing Daily Cap — ${banner}`,det:`${n}/${caps.TOTAL} daily slots used in ${city}`});
-      }
+  if(b.source==='BD'&&isPLF)
+    checks.push({st:'warn',name:'BD booking in PLF programme',det:'BD bookings should use brand programmes, not PLF'});
+  if(b.source==='MKT'&&!isPLF)
+    checks.push({st:'warn',name:'MKT booking in brand programme',det:'MKT/Campaign bookings should use PLF programmes'});
+  if(b.banner==='Hometop_0'&&b.prog!=='PLF_NEWUSER')
+    checks.push({st:'fail',name:'Hometop #0 Reserved',det:'Hometop #0 is New User only ([PLF] New User programme)'});
+  if(['Hometop_1','Hometop_2','Hometop_3'].includes(b.banner)&&BAU_WC.has(b.prog))
+    checks.push({st:'fail',name:'Hometop #1-3 Blocked',det:`${(PM[b.prog]||{}).l} cannot book Hometop #1-3. Use slot #4+`});
+  if(['Ongoing','Search'].includes(banner)&&b.prog!=='PNS')
+    checks.push({st:'fail',name:'PNS-Only Slot',det:'Ongoing and Search slots are reserved for [PNS] programme only'});
+  if(b.start&&b.end&&b.start>b.end)
+    checks.push({st:'fail',name:'Date Error',det:`Start ${b.start} is after End ${b.end}`});
+  if(['WIN1','WIN2','WIN3','WIN4','ALACARECB','ALACARTE'].includes(b.prog)&&banner==='Flash'&&!(b.cities||[]).includes('HCM'))
+    checks.push({st:'warn',name:'Flash Sale City Check',det:'Flash Sale for Individual Ads typically runs in HCM'});
+  if(banner==='Hometop'&&b.prog==='PLF_BAU'&&b.start){
+    // BAU ≤3 days/week — use pre-built index
+    var bauKey=b.prog+'|'+banner+'|'+city;
+    var bauDates=_QC_IDX[bauKey]||{};
+    if(b.start){
+      var bStart=new Date(b.start+'T00:00:00');
+      var wStart=new Date(bStart);wStart.setDate(bStart.getDate()-bStart.getDay());
+      var wEnd=new Date(wStart);wEnd.setDate(wStart.getDate()+6);
+      var wKey=wStart.toISOString().split('T')[0];
+      var cnt=(bauDates[wKey]||0);
+      if(cnt>3)checks.push({st:'fail',name:'BAU Weekly Limit',det:`[PLF] BAU booked ${cnt} days this week (max 3/week per city in Hometop)`});
     }
   }
-  // Monthly cap — only when exact slot is known
-  if(b.month&&city&&hasExactSlot){
-    const mn=b.month.charAt(0).toUpperCase()+b.month.slice(1,3).toLowerCase();
-    let cap=999,capLabel='';
-    if(b.banner==='Hometop_1'||b.banner==='Hometop_2'){cap=60;capLabel='Hometop #1-2 = 60/month per slot';}
-    else if(['Hometop_3','Hometop_4','Hometop_5','Hometop_6'].includes(b.banner)){cap=30;capLabel='Hometop #3-6 = 30/month per slot';}
-    else if(['Hometop_7-9','Hometop_10-12'].includes(b.banner)){cap=90;capLabel='Hometop #7-12 = 90/month per slot';}
-    else if(b.banner==='Hometop_0'){cap=30;capLabel='Hometop #0 = 30/month';}
-    if(cap<999){
-      const cnt=ALL_BOOKINGS.filter(bk=>
-        bk.id!==b.id&&bk.banner===b.banner&&
-        ((bk.cities||[]).includes(city)||(bk.city===city))&&
-        (bk.month||'').charAt(0).toUpperCase()+(bk.month||'').slice(1,3).toLowerCase()===mn
-      ).length+1;
-      if(cnt>cap)checks.push({st:'fail',name:`Monthly Cap Exceeded — ${b.banner}`,det:`${cnt}/${cap} bookings this month for ${b.banner} in ${city} (${capLabel})`});
-      else if(cnt>cap*0.85)checks.push({st:'warn',name:`Monthly Cap Near Limit — ${b.banner}`,det:`${cnt}/${cap} bookings this month for ${b.banner} in ${city} (${capLabel})`});
-    }
-  } else if(b.month&&city&&!isGenericBanner&&!hasExactSlot){
-    // Non-Hometop/HTC banners monthly cap
-    const mn=b.month.charAt(0).toUpperCase()+b.month.slice(1,3).toLowerCase();
-    const mc=MONTHLY_CAPS[banner];
-    if(mc){
-      const cap=mc[cityKey]||mc['OTH']||999;
-      if(cap<999){
-        const cnt=ALL_BOOKINGS.filter(bk=>
-          bk.id!==b.id&&BM(bk.banner)===banner&&
-          ((bk.cities||[]).includes(city)||(bk.city===city))&&
-          (bk.month||'').charAt(0).toUpperCase()+(bk.month||'').slice(1,3).toLowerCase()===mn
-        ).length+1;
-        if(cnt>cap)checks.push({st:'fail',name:`Monthly Cap Exceeded — ${banner}`,det:`${cnt}/${cap} monthly slots used in ${city}`});
-        else if(cnt>cap*0.85)checks.push({st:'warn',name:`Monthly Cap Near Limit — ${banner}`,det:`${cnt}/${cap} monthly slots in ${city}`});
-      }
-    }
-  }
-  // HTC consecutive days
   if((banner==='HTC'||banner==='Hometop')&&b.start&&b.end&&b.brand){
     var thisDates=[];
     var c2=b.start;
@@ -743,21 +691,17 @@ function BM(b){if(!b)return 'Hometop';if(b.startsWith('Hometop'))return 'Hometop
       return false;
     }
     if(banner==='HTC'&&totalDays>2)
-      checks.push({st:'fail',name:'HTC — Brand Consecutive Limit',
-        det:'This HTC booking runs '+totalDays+' days ('+b.start+' to '+b.end+'). Max 2 consecutive days per booking.'});
+      checks.push({st:'fail',name:'HTC — Brand Consecutive Limit',det:'This HTC booking runs '+totalDays+' days ('+b.start+' to '+b.end+'). Max 2 consecutive days per booking.'});
     if(banner==='Hometop'&&isIND){
       if(totalDays>3)
-        checks.push({st:'fail',name:'Hometop — Ind. Ads Max 3 Days',
-          det:'This booking runs '+totalDays+' days ('+b.start+' to '+b.end+'). Max 3 days for Individual Ads.'});
+        checks.push({st:'fail',name:'Hometop — Ind. Ads Max 3 Days',det:'This booking runs '+totalDays+' days ('+b.start+' to '+b.end+'). Max 3 days for Individual Ads.'});
       else if(hasNConsec(thisDates,3))
-        checks.push({st:'fail',name:'Hometop — Ind. Ads No 3 Consecutive Days',
-          det:'Booking has 3+ consecutive days. Must not run 3 days in a row. ('+b.start+' to '+b.end+')'});
+        checks.push({st:'fail',name:'Hometop — Ind. Ads No 3 Consecutive Days',det:'Booking has 3+ consecutive days. Must not run 3 days in a row. ('+b.start+' to '+b.end+')'});
     }
   }
-  // BAU >3 days/week in Hometop
-  if(banner==='Hometop'&&b.prog==='PLF_BAU'&&b.start){const wEnd=new Date(new Date(b.start+'T00:00:00').getTime()+7*86400000).toISOString().split('T')[0];const wBAU=ALL_BOOKINGS.filter(bk=>bk.id!==b.id&&BM(bk.banner)==='Hometop'&&bk.prog==='PLF_BAU'&&((bk.cities||[]).includes(city)||(bk.city===city))&&bk.start&&bk.start>=b.start&&bk.start<=wEnd).length+1;if(wBAU>3)checks.push({st:'warn',name:'Hometop — BAU >3 Days/Week',det:`${wBAU} BAU bookings in ${city} within 7 days of start (max 3/week)`});}
-  if(!checks.length)checks.push({st:'pass',name:'All Rules Passed',det:'No violations detected'});
-  return{checks,errors:checks.filter(c=>c.st==='fail').length,warns:checks.filter(c=>c.st==='warn').length};
+  var errors=checks.filter(function(c){return c.st==='fail';}).length;
+  var warns=checks.filter(function(c){return c.st==='warn';}).length;
+  return{checks:checks,errors:errors,warns:warns};
 }
 // ── Generic multi-select dropdown helpers ────────────────────────────────
 function mddToggle(ddId){
@@ -836,6 +780,40 @@ document.addEventListener('click',function(e){
   if(!inDd&&!inBtn)dds.forEach(function(dd){dd.style.display='none';});
 });
 
+
+// ── Pre-build QC lookup index (call after ALL_BOOKINGS loads) ──────────
+var _QC_IDX={};
+function buildQCIndex(){
+  _QC_IDX={};
+  // BAU weekly count: key=prog|banner|city → {weekStart: count}
+  ALL_BOOKINGS.filter(function(bk){return bk.prog==='PLF_BAU'&&BM(bk.banner)==='Hometop'&&bk.start;}).forEach(function(bk){
+    var city=bk.city||'HCM';
+    var key='PLF_BAU|Hometop|'+city;
+    if(!_QC_IDX[key])_QC_IDX[key]={};
+    var bStart=new Date(bk.start+'T00:00:00');
+    var wStart=new Date(bStart);wStart.setDate(bStart.getDate()-bStart.getDay());
+    var wKey=wStart.toISOString().split('T')[0];
+    // Count days this booking spans in this week
+    var cur=bk.start;
+    var wEnd=new Date(wStart);wEnd.setDate(wStart.getDate()+6);
+    var wEndStr=wEnd.toISOString().split('T')[0];
+    while(cur<=bk.end&&cur<=wEndStr){
+      _QC_IDX[key][wKey]=(_QC_IDX[key][wKey]||0)+1;
+      var p=cur.split('-'),y=+p[0],m=+p[1],d=+p[2]+1;
+      var nd=new Date(y,m-1,d);
+      cur=nd.getFullYear()+'-'+String(nd.getMonth()+1).padStart(2,'0')+'-'+String(nd.getDate()).padStart(2,'0');
+    }
+  });
+}
+
+// ── QC result cache ────────────────────────────────────────────────────
+var _QC_CACHE={};
+function getQC(b){
+  if(!_QC_CACHE[b.id])_QC_CACHE[b.id]=runQC(b);
+  return _QC_CACHE[b.id];
+}
+function invalidateQCCache(){_QC_CACHE={};_QC_IDX={};}
+
 function detectL2Brand(text){
   const t=(text||'').toLowerCase();
   const map=[['highlands','Cafe'],['starbucks','Cafe'],['coffee house','Cafe'],['phúc long','Cafe'],['phê la','Cafe'],['cheese coffee','Cafe'],['katinat','Cafe'],['cà phê','Cafe'],['trà sữa','Trà Sữa'],['tocotoco','Trà Sữa'],['sunday basic','Trà Sữa'],['sekai','Trà Sữa'],['mixue','Trà Sữa'],['may cha','Trà Sữa'],['gong cha','Trà Sữa'],['kfc','Gà Rán'],['popeyes','Gà Rán'],['texas chicken','Gà Rán'],["domino",'Pizza'],['pizza hut','Pizza'],['pizza','Pizza'],["mcdonald",'Burger'],['lotteria','Burger'],['cơm tấm','Cơm Tấm'],['bún bò','Bún Bò'],['phở','Phở'],['hanuri','Món Hàn'],['korean','Món Hàn'],['busan','Món Hàn'],['bánh mì','Bánh Mì']];
@@ -866,8 +844,8 @@ function renderDashboard(){
     if(['Ongoing','Search'].includes(BM(b.banner))&&b.prog!=='PNS')e++;
     if(b.start&&b.end&&b.start>b.end)e++;
     return{errors:e,warns:w};}
-  const errs=bks.filter(b=>runQC(b).errors>0).length;
-  const warns=bks.filter(b=>{const q=runQC(b);return q.errors===0&&q.warns>0;}).length;
+  const errs=bks.filter(b=>getQC(b).errors>0).length;
+  const warns=bks.filter(b=>{const q=getQC(b);return q.errors===0&&q.warns>0;}).length;
   document.getElementById('dash-stats').innerHTML=
     '<div class="stat"><div class="stat-lbl">Total Bookings</div><div class="stat-val">'+total.toLocaleString()+'</div></div>'+
     '<div class="stat" style="cursor:pointer" data-qct="bd" onclick="showQCDetail(this.dataset.qct)" title="Click to see BD bookings"><div class="stat-lbl">BD Programs ↗</div><div class="stat-val" style="color:#60a5fa">'+bd.toLocaleString()+'</div></div>'+
@@ -912,7 +890,7 @@ function renderDashboard(){
     mm+='<td style="font-weight:700;color:var(--acc)">'+rt+'</td></tr>';});
   mm+='</tbody></table>';document.getElementById('dash-media-mx').innerHTML=mm;
   const wt={},wtype={};
-  bks.slice(0,500).forEach(b=>{runQC(b).checks.filter(c=>c.st!=='pass').forEach(c=>{wt[c.name]=(wt[c.name]||0)+1;wtype[c.name]=c.st;});});
+  bks.slice(0,500).forEach(b=>{getQC(b).checks.filter(c=>c.st!=='pass').forEach(c=>{wt[c.name]=(wt[c.name]||0)+1;wtype[c.name]=c.st;});});
   document.getElementById('dash-qc').innerHTML=Object.entries(wt).length
     ?Object.entries(wt).sort((a,b)=>b[1]-a[1]).map(([n,c])=>
         '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;cursor:pointer" data-qcn="'+n.replace(/"/g,'&quot;')+'" onclick="showQCDetail(\'name\',this.dataset.qcn)">'+
@@ -926,17 +904,17 @@ function showQCDetail(type,name){
   // Use exact same filtered set that the dashboard stat cards used
   const base=_dashBks.length>0?_dashBks:ALL_BOOKINGS;
   let bksToShow;
-  if(type==='err')bksToShow=base.filter(b=>runQC(b).errors>0);
-  else if(type==='warn')bksToShow=base.filter(b=>{const q=runQC(b);return q.errors===0&&q.warns>0;});
+  if(type==='err')bksToShow=base.filter(b=>getQC(b).errors>0);
+  else if(type==='warn')bksToShow=base.filter(b=>{const q=getQC(b);return q.errors===0&&q.warns>0;});
   else if(type==='bd')bksToShow=base.filter(b=>b.source==='BD');
   else if(type==='mkt')bksToShow=base.filter(b=>b.source==='MKT');
-  else bksToShow=base.filter(b=>runQC(b).checks.some(c=>c.st!=='pass'&&c.name===name));
+  else bksToShow=base.filter(b=>getQC(b).checks.some(c=>c.st!=='pass'&&c.name===name));
   const title=type==='err'?'QC Errors':type==='warn'?'QC Warnings':type==='bd'?'BD Programs':type==='mkt'?'MKT Campaigns':'QC: '+name;
   document.getElementById('modal-title').textContent=title;
   document.getElementById('modal-body').innerHTML=
     '<div style="font-size:12px;color:var(--mut);margin-bottom:12px">'+bksToShow.length+' booking(s)</div>'+
     bksToShow.slice(0,100).map(b=>{
-      const qc=runQC(b);const issues=qc.checks.filter(c=>c.st!=='pass'&&(type!=='name'||c.name===name));
+      const qc=getQC(b);const issues=qc.checks.filter(c=>c.st!=='pass'&&(type!=='name'||c.name===name));
       return '<div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px;margin-bottom:8px">'+
         '<div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;flex-wrap:wrap">'+
         '<span class="b '+(PM[b.prog]||{cls:'b-plf'}).cls+'">'+(PM[b.prog]||{l:b.prog}).l+'</span>'+
@@ -969,7 +947,7 @@ function renderList(){
   document.getElementById('btn-prev').disabled=curPage<=1;
   document.getElementById('btn-next').disabled=curPage>=Math.ceil(total/pageSize);
   document.getElementById('list-tbody').innerHTML=page.map(b=>{
-    const pm=PM[b.prog]||{l:b.prog_raw||b.prog,cls:'b-plf'};const qc=runQC(b);
+    const pm=PM[b.prog]||{l:b.prog_raw||b.prog,cls:'b-plf'};const qc=getQC(b);
     const rowCls=qc.errors>0?'br-err':qc.warns>0?'br-warn':'';
     const flags=qc.checks.filter(c=>c.st!=='pass').map(c=>'<span class="b '+(c.st==='fail'?'b-err':'b-warn')+'" title="'+c.det+'" style="font-size:10px;margin-bottom:2px;display:inline-block">'+(c.st==='fail'?'❌':'⚠️')+' '+c.name.split('—')[0].trim().substring(0,18)+'</span>').join('<br>');
     const sb=b.status==='Confirmed'?'<span class="b b-conf">Confirmed</span>':b.status==='Done'?'<span class="b b-done">Done</span>':b.status?'<span class="b b-pend">'+b.status+'</span>':'';
@@ -1000,7 +978,7 @@ function renderList(){
 }
 function prevPage(){if(curPage>1){curPage--;renderList();}}function nextPage(){if(curPage*pageSize<filtered.length){curPage++;renderList();}}function showDetail(id){
   const b=ALL_BOOKINGS.find(x=>x.id===id);if(!b)return;
-  const pm=PM[b.prog]||{l:b.prog_raw||b.prog,cls:'b-plf'};const qc=runQC(b);
+  const pm=PM[b.prog]||{l:b.prog_raw||b.prog,cls:'b-plf'};const qc=getQC(b);
   document.getElementById('modal-title').textContent=b.brand||'Booking Detail';
   document.getElementById('modal-body').innerHTML=`
     <div class="modal-field"><label>Programme</label><div><span class="b ${pm.cls}">${pm.l}</span> <span class="b ${b.source==='BD'?'b-bd':'b-mkt'}">${b.source}</span></div></div>
@@ -1017,7 +995,7 @@ function prevPage(){if(curPage>1){curPage--;renderList();}}function nextPage(){i
     <div style="font-family:var(--mono);font-size:10px;color:var(--acc);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">QC Results — ${qc.errors} errors, ${qc.warns} warnings</div>
     ${qc.checks.map(c=>`<div class="rc ${c.st}"><div class="rc-ico">${c.st==='pass'?'✅':c.st==='warn'?'⚠️':'❌'}</div><div><div class="rc-name">${c.name}</div><div class="rc-det">${c.det}</div></div></div>`).join('')}`;
   document.getElementById('modal').classList.add('on');
-}function closeModal(){document.getElementById('modal').classList.remove('on');}function liveQC(){const b={source:document.getElementById('f_source').value,prog:document.getElementById('f_prog').value,banner:document.getElementById('f_banner').value,start:document.getElementById('f_start').value,end:document.getElementById('f_end').value,city:document.getElementById('f_city').value,cities:[document.getElementById('f_city').value],month:'New',id:-1,timeslot:document.getElementById('f_timeslot').value,brand:document.getElementById('f_brand').value,cat:document.getElementById('f_cat').value};const qc=runQC(b);const badge=document.getElementById('qc-badge');badge.textContent=qc.errors>0?`❌ ${qc.errors} error(s)`:qc.warns>0?`⚠️ ${qc.warns} warning(s)`:'✅ Pass';badge.className='b '+(qc.errors>0?'b-err':qc.warns>0?'b-warn':'b-ok');document.getElementById('qc-body').innerHTML=qc.checks.map(c=>`<div class="rc ${c.st}"><div class="rc-ico">${c.st==='pass'?'✅':c.st==='warn'?'⚠️':'❌'}</div><div><div class="rc-name">${c.name}</div><div class="rc-det">${c.det}</div></div></div>`).join('');}function addBooking(){const b={id:Date.now(),source:document.getElementById('f_source').value,prog:document.getElementById('f_prog').value,prog_raw:document.getElementById('f_prog').options[document.getElementById('f_prog').selectedIndex].text,brand:document.getElementById('f_brand').value,scheme:'',banner:document.getElementById('f_banner').value,start:document.getElementById('f_start').value,end:document.getElementById('f_end').value,cities:[document.getElementById('f_city').value],city:document.getElementById('f_city').value,month:'New',status:'Pending',pic:'',detail:'',timeslot:document.getElementById('f_timeslot').value,cat:document.getElementById('f_cat').value};ALL_BOOKINGS.unshift(b);liveQC();alert(`Booking added! View in All Bookings tab.`);}function clearForm(){['f_brand'].forEach(id=>document.getElementById(id).value='');document.getElementById('qc-body').innerHTML='<div class="empty">Fill form to run QC</div>';document.getElementById('qc-badge').textContent='—';document.getElementById('qc-badge').className='b';}async function renderVis(){
+}function closeModal(){document.getElementById('modal').classList.remove('on');}function liveQC(){const b={source:document.getElementById('f_source').value,prog:document.getElementById('f_prog').value,banner:document.getElementById('f_banner').value,start:document.getElementById('f_start').value,end:document.getElementById('f_end').value,city:document.getElementById('f_city').value,cities:[document.getElementById('f_city').value],month:'New',id:-1,timeslot:document.getElementById('f_timeslot').value,brand:document.getElementById('f_brand').value,cat:document.getElementById('f_cat').value};const qc=getQC(b);const badge=document.getElementById('qc-badge');badge.textContent=qc.errors>0?`❌ ${qc.errors} error(s)`:qc.warns>0?`⚠️ ${qc.warns} warning(s)`:'✅ Pass';badge.className='b '+(qc.errors>0?'b-err':qc.warns>0?'b-warn':'b-ok');document.getElementById('qc-body').innerHTML=qc.checks.map(c=>`<div class="rc ${c.st}"><div class="rc-ico">${c.st==='pass'?'✅':c.st==='warn'?'⚠️':'❌'}</div><div><div class="rc-name">${c.name}</div><div class="rc-det">${c.det}</div></div></div>`).join('');}function addBooking(){const b={id:Date.now(),source:document.getElementById('f_source').value,prog:document.getElementById('f_prog').value,prog_raw:document.getElementById('f_prog').options[document.getElementById('f_prog').selectedIndex].text,brand:document.getElementById('f_brand').value,scheme:'',banner:document.getElementById('f_banner').value,start:document.getElementById('f_start').value,end:document.getElementById('f_end').value,cities:[document.getElementById('f_city').value],city:document.getElementById('f_city').value,month:'New',status:'Pending',pic:'',detail:'',timeslot:document.getElementById('f_timeslot').value,cat:document.getElementById('f_cat').value};ALL_BOOKINGS.unshift(b);liveQC();alert(`Booking added! View in All Bookings tab.`);}function clearForm(){['f_brand'].forEach(id=>document.getElementById(id).value='');document.getElementById('qc-body').innerHTML='<div class="empty">Fill form to run QC</div>';document.getElementById('qc-badge').textContent='—';document.getElementById('qc-badge').className='b';}async function renderVis(){
   const mode = document.getElementById('vmode').value;
   const vmEl = document.getElementById('vm');
   if(!vmEl.value) vmEl.value = new Date().toISOString().substring(0,7);
@@ -1457,7 +1435,7 @@ function prevPage(){if(curPage>1){curPage--;renderList();}}function nextPage(){i
   document.getElementById('vmode').value='day';
   document.getElementById('vday').value=ds;
   await renderVis();
-}function exportCSV(){const hdrs=['ID','Source','Programme','Brand','Scheme','Month','Start','End','Banner','Cities','Status','PIC','QC_Errors','QC_Warns','QC_Flags'];const rows=filtered.map(b=>{const qc=runQC(b);const flags=qc.checks.filter(c=>c.st!=='pass').map(c=>c.name).join(' | ');return[b.id,b.source,b.prog,`"${(b.brand||'').replace(/"/g,"'")}"`,`"${(b.scheme||'').replace(/"/g,"'")}"`,b.month,b.start,b.end,b.banner,`"${(b.cities||[]).join(',')}"`,b.status,b.pic,qc.errors,qc.warns,`"${flags}"`].join(',');});const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent([hdrs.join(','),...rows].join('\\n'));a.download='shopeefood_bookings.csv';a.click();}
+}function exportCSV(){const hdrs=['ID','Source','Programme','Brand','Scheme','Month','Start','End','Banner','Cities','Status','PIC','QC_Errors','QC_Warns','QC_Flags'];const rows=filtered.map(b=>{const qc=getQC(b);const flags=qc.checks.filter(c=>c.st!=='pass').map(c=>c.name).join(' | ');return[b.id,b.source,b.prog,`"${(b.brand||'').replace(/"/g,"'")}"`,`"${(b.scheme||'').replace(/"/g,"'")}"`,b.month,b.start,b.end,b.banner,`"${(b.cities||[]).join(',')}"`,b.status,b.pic,qc.errors,qc.warns,`"${flags}"`].join(',');});const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent([hdrs.join(','),...rows].join('\\n'));a.download='shopeefood_bookings.csv';a.click();}
 function toggleVcatDD(){
   const dd=document.getElementById('vcat-dd');
   if(dd)dd.style.display=dd.style.display==='none'?'block':'none';
@@ -1485,12 +1463,28 @@ document.addEventListener('keydown',function(e){
   if((e.ctrlKey||e.metaKey)&&(e.key==='y'||(e.key==='z'&&e.shiftKey))){e.preventDefault();historyRedo();}
 });
 
+
+// ── Debounce helpers ──────────────────────────────────────────────────
+function _debounce(fn,ms){var t;return function(){clearTimeout(t);t=setTimeout(fn,ms);};}
+var _debouncedFilter=_debounce(applyFilters,250);
+var _debouncedDash=_debounce(renderDashboard,250);
+var _debouncedVis=_debounce(renderVis,250);
+
 (async function init(){
   const ov=document.getElementById('loading-overlay');
   if(ov)ov.style.display='flex';
   try{
     const [bk,caps]=await Promise.all([fetch('/api/bookings').then(r=>r.json()),fetch('/api/caps').then(r=>r.json())]);
-    ALL_BOOKINGS=bk;DAILY_CAPS=caps.daily;MONTHLY_CAPS=caps.monthly;
+    // Expand slim field names back to full names for JS compatibility
+    ALL_BOOKINGS=bk.map(function(b){
+      return {
+        id:b.id, source:b.src, month:b.mo, prog:b.p, prog_raw:b.pr||b.p,
+        brand:b.b, start:b.st||'', end:b.en||'', cities:b.cs||[b.city||'HCM'],
+        city:b.city||'HCM', status:b.ss||'', pic:b.pic||'', banner:b.bn, cat:''
+      };
+    });
+    DAILY_CAPS=caps.daily;MONTHLY_CAPS=caps.monthly;
+    buildQCIndex();
   }catch(e){if(ov)ov.style.display='none';alert('Could not load data. Run prepare_data.py first.');return;}
   if(ov)ov.style.display='none';
   const t=new Date().toISOString().split('T')[0];

@@ -5,18 +5,29 @@ Run: python3 app.py
 Open: http://127.0.0.1:8080
 """
 
-import os, json
-from flask import Flask, jsonify, render_template, abort
+import os, json, gzip
+from flask import Flask, jsonify, render_template, abort, Response
 
 app = Flask(__name__)
 DATA_DIR = 'data'
 
-def load(filename):
+def load_raw(filename):
     path = os.path.join(DATA_DIR, filename)
     if not os.path.exists(path):
         abort(503, f"Data not found: {filename}. Run prepare_data.py first.")
-    with open(path, encoding='utf-8') as f:
-        return json.load(f)
+    with open(path, 'rb') as f:
+        return f.read()
+
+def load(filename):
+    return json.loads(load_raw(filename))
+
+def gzip_json(data_bytes):
+    compressed = gzip.compress(data_bytes, compresslevel=6)
+    resp = Response(compressed, mimetype='application/json')
+    resp.headers['Content-Encoding'] = 'gzip'
+    resp.headers['Cache-Control'] = 'no-store'
+    resp.headers['Vary'] = 'Accept-Encoding'
+    return resp
 
 @app.route('/')
 def index():
@@ -24,21 +35,15 @@ def index():
 
 @app.route('/api/bookings')
 def api_bookings():
-    from flask import make_response
-    resp = make_response(jsonify(load('bookings.json')))
-    resp.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate'
-    return resp
+    return gzip_json(load_raw('bookings.json'))
 
 @app.route('/api/visibility')
 def api_visibility():
-    from flask import make_response
-    resp = make_response(jsonify(load('visibility.json')))
-    resp.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate'
-    return resp
+    return gzip_json(load_raw('visibility.json'))
 
 @app.route('/api/caps')
 def api_caps():
-    return jsonify(load('caps.json'))
+    return gzip_json(load_raw('caps.json'))
 
 @app.route('/api/status')
 def api_status():

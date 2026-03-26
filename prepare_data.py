@@ -386,14 +386,23 @@ if __name__ == '__main__':
 
     os.makedirs('data', exist_ok=True)
 
+    # Slim bookings to reduce wire size
+    def slim_booking(b):
+        return {
+            'id':  b['id'],   'src': b['source'],   'mo':  b['month'],
+            'p':   b['prog'], 'pr':  b['prog_raw'],  'b':   b['brand'],
+            'st':  b.get('start',''), 'en': b.get('end',''),
+            'cs':  b.get('cities',[]), 'city': b.get('city',''),
+            'ss':  b.get('status',''), 'pic': b.get('pic',''),
+            'bn':  b['banner'],
+        }
+    slimmed = [slim_booking(b) for b in bookings]
     with open('data/bookings.json',   'w', encoding='utf-8') as f:
-        json.dump(bookings, f, ensure_ascii=False, separators=(',',':'))
-
+        json.dump(slimmed, f, ensure_ascii=False, separators=(',',':'))
     with open('data/visibility.json', 'w', encoding='utf-8') as f:
-        json.dump(vis,      f, ensure_ascii=False, separators=(',',':'))
-
+        json.dump(vis, f, ensure_ascii=False, separators=(',',':'))
     with open('data/caps.json',       'w', encoding='utf-8') as f:
-        json.dump(CAPS,     f, ensure_ascii=False, separators=(',',':'))
+        json.dump(CAPS, f, ensure_ascii=False, separators=(',',':'))
 
     print(f"\nDone! Files saved to data/")
     bk_kb  = os.path.getsize('data/bookings.json')   // 1024
