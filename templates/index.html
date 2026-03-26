@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>ShopeeFood Media Ops</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+
+:root{
+  --bg:#0a0812;
+  --surf:rgba(255,255,255,.04);
+  --card:rgba(255,255,255,.06);
+  --bord:rgba(255,255,255,.1);
+  --bord2:rgba(255,255,255,.15);
+  --acc:#f97316;
+  --grn:#22c55e;
+  --red:#ef4444;
+  --ylw:#eab308;
+  --cyan:#22d3ee;
+  --txt:rgba(255,255,255,.92);
+  --mut:rgba(255,255,255,.38);
+  --mono:'DM Mono',monospace;
+  --sans:'Inter',sans-serif;
+  --dis:'Syne',sans-serif;
+  --glass-bg:rgba(255,255,255,.06);
+  --glass-border:rgba(255,255,255,.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:var(--bg);
+  color:var(--txt);
+  font-family:var(--sans);
+  font-size:13px;
+  line-height:1.6;
+  min-height:100vh;
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(ellipse 600px 500px at 10% 20%,rgba(124,58,237,.18) 0%,transparent 70%),
+    radial-gradient(ellipse 500px 400px at 85% 70%,rgba(236,72,153,.14) 0%,transparent 70%),
+    radial-gradient(ellipse 400px 300px at 60% 10%,rgba(99,102,241,.1) 0%,transparent 70%);
+  pointer-events:none;
+  z-index:0;
+}
+body > *{position:relative;z-index:1;}
+.hdr{background:rgba(10,8,18,.7);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.08);padding:0 18px;display:flex;align-items:center;gap:18px;height:50px;position:sticky;top:0;z-index:100;}
+.logo{font-family:var(--dis);font-size:14px;font-weight:800;color:var(--acc);white-space:nowrap;}
+.logo span{color:var(--txt);}
+.nav{display:flex;gap:2px;}
+.nb{background:none;border:1px solid transparent;color:var(--mut);font-family:var(--sans);font-size:12px;font-weight:500;padding:5px 10px;border-radius:6px;cursor:pointer;transition:all .2s;}
+.nb:hover{color:var(--txt);background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.1);}
+.nb.on{color:var(--acc);background:rgba(249,115,22,.15);border-color:rgba(249,115,22,.3);}
+.page{display:none;padding:18px 20px;max-width:1500px;margin:0 auto;}.page.on{display:block;}
+.pg-title{font-family:var(--dis);font-size:19px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.pg-title::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--acc);flex-shrink:0;}
+.sub-lbl{font-family:var(--mono);font-size:10px;color:var(--acc);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--bord);}
+.card{background:rgba(255,255,255,.06);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px;margin-bottom:14px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;} .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;} .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.stat-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.stat{background:rgba(255,255,255,.05);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 16px;min-width:130px;}
+.stat-lbl{font-family:var(--mono);font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
+.stat-val{font-family:var(--dis);font-size:22px;font-weight:800;}
+.stat-sub{font-size:11px;color:var(--mut);margin-top:2px;}
+.toolbar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center;}
+.search-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:var(--txt);font-family:var(--sans);font-size:12px;padding:7px 12px;outline:none;width:230px;} .search-box:focus{border-color:var(--acc);background:rgba(255,255,255,.09);}
+select.flt{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:var(--txt);font-family:var(--sans);font-size:12px;padding:7px 10px;outline:none;cursor:pointer;} select.flt option{background:#1a1528;}
+.tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid rgba(255,255,255,.1);max-height:68vh;overflow-y:auto;backdrop-filter:blur(8px);}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+thead{position:sticky;top:0;z-index:10;} thead tr{background:rgba(10,8,18,.8);backdrop-filter:blur(12px);}
+th{font-family:var(--mono);font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:1px;padding:9px 12px;text-align:left;border-bottom:1px solid var(--bord);white-space:nowrap;cursor:pointer;user-select:none;} th:hover{color:var(--txt);}
+td{padding:7px 12px;border-bottom:1px solid rgba(37,42,56,.5);vertical-align:middle;}
+tr:last-child td{border-bottom:none;} tr:hover td{background:rgba(255,255,255,.02);}
+.br-err td{background:rgba(239,68,68,.04)!important;} .br-warn td{background:rgba(234,179,8,.03)!important;}
+.b{display:inline-flex;align-items:center;font-family:var(--mono);font-size:10px;font-weight:500;padding:2px 7px;border-radius:4px;white-space:nowrap;margin:1px;}
+.b-plf{background:rgba(6,182,212,.15);color:#22d3ee;border:1px solid rgba(6,182,212,.3);}
+.b-sjbp{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.3);}
+.b-jbp{background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3);}
+.b-svip{background:rgba(234,179,8,.15);color:#fbbf24;border:1px solid rgba(234,179,8,.3);}
+.b-vip{background:rgba(168,85,247,.15);color:#c084fc;border:1px solid rgba(168,85,247,.3);}
+.b-win{background:rgba(249,115,22,.15);color:#fb923c;border:1px solid rgba(249,115,22,.3);}
+.b-ala{background:rgba(139,92,246,.15);color:#a78bfa;border:1px solid rgba(139,92,246,.3);}
+.b-pns{background:rgba(236,72,153,.15);color:#f472b6;border:1px solid rgba(236,72,153,.3);}
+.b-mart{background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.3);}
+.b-ok{background:rgba(34,197,94,.12);color:#4ade80;border:1px solid rgba(34,197,94,.3);}
+.b-warn{background:rgba(234,179,8,.12);color:#facc15;border:1px solid rgba(234,179,8,.3);}
+.b-err{background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.3);}
+.b-bd{background:rgba(59,130,246,.12);color:#60a5fa;border:1px solid rgba(59,130,246,.3);}
+.b-mkt{background:rgba(168,85,247,.12);color:#c084fc;border:1px solid rgba(168,85,247,.3);}
+.b-city-a{background:rgba(249,115,22,.1);color:var(--acc);border:1px solid rgba(249,115,22,.25);}
+.b-city-b{background:rgba(99,102,241,.1);color:#818cf8;border:1px solid rgba(99,102,241,.2);}
+.b-conf{background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.2);}
+.b-done{background:rgba(6,182,212,.1);color:#22d3ee;border:1px solid rgba(6,182,212,.2);}
+.b-pend{background:rgba(234,179,8,.1);color:#facc15;border:1px solid rgba(234,179,8,.2);}
+.flag{display:inline-flex;align-items:center;gap:2px;font-family:var(--mono);font-size:9px;padding:1px 5px;border-radius:3px;margin:1px;cursor:help;}
+.flag-e{background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.2);}
+.flag-w{background:rgba(234,179,8,.15);color:#facc15;border:1px solid rgba(234,179,8,.2);}
+.pg-bar{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:var(--mut);}
+.pg-btn{background:var(--card);border:1px solid var(--bord);border-radius:5px;padding:4px 10px;font-size:11px;cursor:pointer;color:var(--mut);} .pg-btn:hover{color:var(--txt);} .pg-btn:disabled{opacity:.3;cursor:not-allowed;}
+.qc-side{background:var(--surf);border:1px solid var(--bord);border-radius:10px;overflow:hidden;}
+.qc-hdr{padding:12px 16px;background:var(--card);border-bottom:1px solid var(--bord);font-family:var(--dis);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:space-between;}
+.qc-body{padding:14px;}
+.rc{display:flex;align-items:flex-start;gap:9px;padding:9px 11px;border-radius:7px;margin-bottom:6px;border:1px solid transparent;}
+.rc.pass{background:rgba(34,197,94,.06);border-color:rgba(34,197,94,.2);}
+.rc.fail{background:rgba(239,68,68,.06);border-color:rgba(239,68,68,.2);}
+.rc.warn{background:rgba(234,179,8,.06);border-color:rgba(234,179,8,.2);}
+.rc-ico{font-size:13px;flex-shrink:0;margin-top:1px;} .rc-name{font-weight:600;font-size:12px;margin-bottom:1px;} .rc-det{font-size:11px;color:var(--mut);}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;} .modal-bg.on{display:flex;}
+.modal{background:var(--card);border:1px solid var(--bord);border-radius:12px;padding:24px;max-width:640px;width:90%;max-height:85vh;overflow-y:auto;}
+.modal-hdr{font-family:var(--dis);font-size:15px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;}
+.modal-close{background:none;border:none;color:var(--mut);font-size:20px;cursor:pointer;}
+.modal-field{margin-bottom:10px;} .modal-field label{font-family:var(--mono);font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:3px;}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:14px;}
+.fg{display:flex;flex-direction:column;gap:4px;} .fg label{font-family:var(--mono);font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:1px;} .full{grid-column:1/-1;}
+input,select,textarea{background:var(--surf);border:1px solid var(--bord);border-radius:6px;color:var(--txt);font-family:var(--sans);font-size:12px;padding:7px 10px;outline:none;transition:border-color .2s;width:100%;} input:focus,select:focus{border-color:var(--acc);} select option{background:var(--card);}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:6px;border:none;font-family:var(--sans);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-p{background:var(--acc);color:#fff;} .btn-p:hover{background:#ea6c0a;}
+.btn-s{background:var(--card);color:var(--txt);border:1px solid var(--bord);} .btn-s:hover{border-color:var(--mut);}
+.bgrp{display:flex;gap:8px;flex-wrap:wrap;}
+/* PLAYBOOK */
+.rs{border:1px solid var(--bord);border-radius:10px;margin-bottom:16px;overflow:hidden;}
+.rs-hdr{background:var(--card);padding:12px 18px;font-family:var(--dis);font-size:14px;font-weight:700;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--bord);}
+.rs-body{padding:16px 18px;background:var(--surf);}
+.ri{display:flex;gap:12px;padding:10px 14px;border-radius:8px;margin-bottom:8px;border-left:3px solid var(--bord);background:var(--card);}
+.ri.hard{border-left-color:var(--red);} .ri.soft{border-left-color:var(--ylw);} .ri.info{border-left-color:var(--cyan);}
+.ri-ico{font-size:15px;flex-shrink:0;} .ri-name{font-weight:700;font-size:12px;margin-bottom:3px;} .ri-desc{font-size:11px;color:var(--mut);line-height:1.5;}
+/* CAP GRID */
+.cg{display:grid;gap:1px;background:var(--bord);border:1px solid var(--bord);border-radius:8px;overflow:hidden;font-size:11px;}
+.cc{background:var(--card);padding:7px 10px;display:flex;align-items:center;justify-content:center;}
+.cc-hdr{background:var(--surf);font-family:var(--mono);font-size:9px;color:var(--mut);text-transform:uppercase;}
+.cc-lbl{justify-content:flex-start;font-weight:600;} .cc-tot{background:rgba(249,115,22,.1);font-weight:700;color:var(--acc);} .cc-0{color:var(--bord);}
+/* HOUR TABLE */
+.ht{border-collapse:collapse;width:100%;font-size:12px;}
+.ht th{background:var(--surf);border:1px solid var(--bord);padding:8px 12px;font-family:var(--mono);font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:1px;}
+.ht td{border:1px solid var(--bord);padding:8px 12px;vertical-align:top;}
+.ht .hc{background:rgba(249,115,22,.08);font-family:var(--mono);font-size:11px;color:var(--acc);font-weight:600;white-space:nowrap;}
+.ht .lc{background:var(--card);font-size:11px;color:var(--mut);white-space:nowrap;}
+/* DASHBOARD MATRIX */
+.dm{overflow-x:auto;border-radius:8px;border:1px solid var(--bord);}
+.dm table{width:100%;border-collapse:collapse;font-size:11px;}
+.dm th{background:var(--surf);border:1px solid var(--bord);padding:7px 10px;font-family:var(--mono);font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:1px;white-space:nowrap;text-align:center;}
+.dm td{border:1px solid var(--bord);padding:6px 10px;text-align:center;}
+.dm .rh{background:var(--card);text-align:left;font-weight:600;font-size:11px;white-space:nowrap;padding:6px 12px;}
+.d0{color:var(--bord);} .dlo{background:rgba(34,197,94,.08);color:#4ade80;} .dmd{background:rgba(59,130,246,.08);color:#60a5fa;} .dhi{background:rgba(249,115,22,.1);color:var(--acc);font-weight:700;}
+/* VISIBILITY */
+.vw{overflow-x:auto;max-height:65vh;overflow-y:auto;}
+.vt{border-collapse:collapse;font-size:11px;}
+.vt th,.vt td{border:1px solid var(--bord);padding:5px 8px;text-align:center;white-space:nowrap;}
+.vt th{background:var(--surf);font-family:var(--mono);font-size:9px;color:var(--mut);text-transform:uppercase;position:sticky;top:0;}
+.vt .rl{background:var(--card);font-family:var(--mono);font-size:10px;color:var(--acc);text-align:left;min-width:140px;position:sticky;left:0;z-index:5;}
+.vok{background:rgba(34,197,94,.2);color:#4ade80;font-weight:600;} .vfull{background:rgba(239,68,68,.2);color:#f87171;font-weight:600;} .vwe{color:var(--acc)!important;}
+::-webkit-scrollbar{width:5px;height:5px;} ::-webkit-scrollbar-track{background:var(--surf);} ::-webkit-scrollbar-thumb{background:var(--bord);border-radius:3px;}
+.empty{text-align:center;padding:32px;color:var(--mut);}
+.pill{display:inline-block;border-radius:20px;padding:2px 9px;font-size:11px;font-family:var(--mono);margin:2px;}
+.pill-a{background:rgba(249,115,22,.1);color:var(--acc);border:1px solid rgba(249,115,22,.25);}
+.pill-b{background:rgba(59,130,246,.1);color:#93c5fd;border:1px solid rgba(59,130,246,.2);}
+
+    @keyframes spin {to{transform:rotate(360deg)}}
+    #loading-overlay{display:none;position:fixed;inset:0;background:rgba(10,8,18,.95);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+    .spinner{width:44px;height:44px;border:3px solid #222736;border-top-color:#f97316;border-radius:50%;animation:spin .8s linear infinite;}
+    .loading-txt{font-family:'DM Mono',monospace;font-size:11px;color:#6b7280;letter-spacing:2px;text-transform:uppercase;}
+  </style>
+</head>
+<body>
+
+<div id="loading-overlay">
+  <div class="spinner"></div>
+  <div class="loading-txt">Loading data...</div>
+</div>
+
+<header class="hdr">
+  <div class="logo">SHOPEEFOOD <span>MEDIA OPS</span></div>
+  <nav class="nav">
+    <button class="nb on" onclick="gp('dashboard',this)">📊 Dashboard</button>
+    <button class="nb" onclick="gp('bookings',this)">📋 All Bookings</button>
+    <button class="nb" onclick="gp('new-booking',this)">➕ New Booking</button>
+    <button class="nb" onclick="gp('playbook',this)">📖 Playbook</button>
+    <button class="nb" onclick="gp('visibility',this)">🗓 Visibility</button>
+  </nav>
+</header>
+
+<div class="modal-bg" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-hdr"><span id="modal-title">Booking Detail</span><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="page-dashboard" class="page on">
+  <div class="pg-title">Dashboard</div>
+  <div class="toolbar" style="margin-bottom:18px;">
+    <select class="flt" id="dash-city" onchange="renderDashboard()">
+      <option value="">All Cities</option>
+      <option>HCM</option><option>HN</option><option>DN</option>
+      <option>HP</option><option>CT</option><option>OTH</option>
+    </select>
+    <select class="flt" id="dash-month" onchange="renderDashboard()">
+      <option value="">All Months</option>
+      <option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option>
+      <option>May</option><option>Jun</option><option>Jul</option><option>Aug</option>
+      <option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option>
+    </select>
+  </div>
+  <div class="stat-row" id="dash-stats"></div>
+  <div class="g2">
+    <div class="card"><div class="sub-lbl">By Programme</div><div id="dash-prog"></div></div>
+    <div class="card"><div class="sub-lbl">By Month</div><div id="dash-mo"></div></div>
+  </div>
+  <div class="card"><div class="sub-lbl">City x Programme Matrix</div><div class="dm" id="dash-city-mx"></div></div>
+  <div class="card"><div class="sub-lbl">Media Type x Programme Matrix</div><div class="dm" id="dash-media-mx"></div></div>
+  <div class="card"><div class="sub-lbl">QC Issues</div><div id="dash-qc"></div></div>
+</div>
+
+<!-- ALL BOOKINGS -->
+<div id="page-bookings" class="page">
+  <div class="pg-title">All Bookings <span id="total-count" style="font-family:var(--mono);font-size:13px;color:var(--mut);font-weight:400;margin-left:8px;"></span></div>
+  <div class="toolbar">
+    <input class="search-box" type="text" placeholder="🔍 Search brand, programme, PIC..." id="search" oninput="applyFilters()"/>
+    <select class="flt" id="flt-source" onchange="applyFilters()"><option value="">All Sources</option><option value="BD">BD Programs</option><option value="MKT">MKT</option></select>
+    <select class="flt" id="flt-prog" onchange="applyFilters()">
+      <option value="">All Programmes</option>
+      <option value="ALACARECB">[Alacarte CB]</option><option value="ALACARTE">[Alacarte]</option>
+      <option value="SJBP">[SJBP]</option><option value="JBP">[JBP]</option>
+      <option value="SUPERVIP">[SuperVIP]</option><option value="VIP">[VIP]</option>
+      <option value="WIN1">[Win 1]</option><option value="WIN2">[Win 2]</option>
+      <option value="WIN3">[Win 3]</option><option value="WIN4">[Win 4]</option>
+      <option value="PNS">[PNS]</option><option value="PLF_CP">[PLF CP]</option>
+      <option value="PLF_BAU">[PLF BAU]</option><option value="PLF_MART">[Mart]</option>
+    </select>
+    <select class="flt" id="flt-month" onchange="applyFilters()">
+      <option value="">All Months</option>
+      <option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option>
+      <option>May</option><option>Jun</option><option>Jul</option><option>Aug</option>
+      <option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option>
+    </select>
+    <select class="flt" id="flt-city" onchange="applyFilters()">
+      <option value="">All Cities</option>
+      <option>HCM</option><option>HN</option><option>DN</option>
+      <option>HP</option><option>CT</option><option>OTH</option>
+    </select>
+    <select class="flt" id="flt-qc" onchange="applyFilters()">
+      <option value="">All QC</option>
+      <option value="error">❌ Errors</option>
+      <option value="warn">⚠️ Warnings</option>
+      <option value="ok">✅ Clean</option>
+    </select>
+    <select class="flt" id="flt-status" onchange="applyFilters()">
+      <option value="">All Status</option>
+      <option value="Confirmed">Confirmed</option><option value="Done">Done</option>
+    </select>
+    <button class="btn btn-s" style="font-size:11px;padding:5px 10px" onclick="exportCSV()">⬇ CSV</button>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th onclick="sortBy('id')">#</th><th>Src</th><th onclick="sortBy('prog')">Programme</th>
+        <th onclick="sortBy('brand')">Brand / Campaign</th><th onclick="sortBy('month')">Month</th>
+        <th>Timeline</th><th>Banner</th><th>Cities</th>
+        <th onclick="sortBy('status')">Status</th><th onclick="sortBy('pic')">PIC</th>
+        <th>QC Flags</th><th></th>
+      </tr></thead>
+      <tbody id="list-tbody"></tbody>
+    </table>
+  </div>
+  <div class="pg-bar">
+    <button class="pg-btn" id="btn-prev" onclick="prevPage()">◀ Prev</button>
+    <span id="pg-info" style="font-size:12px;"></span>
+    <button class="pg-btn" id="btn-next" onclick="nextPage()">Next ▶</button>
+    <span style="margin-left:8px;font-size:11px;color:var(--mut)">Rows:</span>
+    <select class="flt" style="width:70px;padding:3px 6px;font-size:11px" onchange="pageSize=+this.value;curPage=1;renderList()">
+      <option value="50">50</option><option value="100">100</option><option value="200">200</option>
+    </select>
+  </div>
+</div>
+
+<!-- NEW BOOKING -->
+<div id="page-new-booking" class="page">
+  <div class="pg-title">New Booking & QC Check</div>
+  <div style="display:grid;grid-template-columns:1fr 400px;gap:18px;align-items:start;">
+    <div class="card">
+      <div class="sub-lbl" style="margin-bottom:14px;">Booking Details</div>
+      <div class="fgrid">
+        <div class="fg"><label>Source Tab</label>
+          <select id="f_source" onchange="liveQC()"><option value="BD">BD Programs</option><option value="MKT">MKT|Campaign</option></select></div>
+        <div class="fg"><label>Programme</label>
+          <select id="f_prog" onchange="liveQC()">
+            <optgroup label="Platform"><option value="PLF_BAU">[PLF] BAU</option><option value="PLF_WC">[PLF] WC</option><option value="PLF_CP">[PLF] CP</option><option value="PLF_MASSADS">[PLF] Mass Ads</option><option value="PLF_MART">[Mart]</option><option value="PLF_NEWUSER">[PLF] New User</option></optgroup>
+            <optgroup label="Brand"><option value="SJBP">[SJBP]</option><option value="JBP">[JBP]</option><option value="SUPERVIP">[SuperVIP]</option><option value="VIP">[VIP]</option><option value="WIN1">[Win 1]</option><option value="WIN2">[Win 2]</option><option value="WIN3">[Win 3]</option><option value="WIN4">[Win 4]</option><option value="ALACARTE">[Alacarte]</option><option value="ALACARECB">[Alacarte CB]</option><option value="PNS">[PNS]</option></optgroup>
+          </select></div>
+        <div class="fg"><label>Brand / Campaign</label><input type="text" id="f_brand" placeholder="e.g. Starbucks Coffee" oninput="liveQC()"/></div>
+        <div class="fg"><label>Banner Slot</label>
+          <select id="f_banner" onchange="liveQC()">
+            <optgroup label="HTC"><option value="HTC">HTC (Home Circle)</option></optgroup>
+            <optgroup label="Hometop"><option value="Hometop_0">Hometop 0 (New User)</option><option value="Hometop_1">Hometop 1</option><option value="Hometop_2">Hometop 2</option><option value="Hometop_3">Hometop 3</option><option value="Hometop_4">Hometop 4</option><option value="Hometop_5">Hometop 5</option><option value="Hometop_6">Hometop 6</option><option value="Hometop_7-9">Hometop 7-9</option><option value="Hometop_10-12">Hometop 10-12</option></optgroup>
+            <optgroup label="Other"><option value="Static">Static</option><option value="Bottom">Bottom</option><option value="Flash">Flash Sale</option><option value="Floating">Floating</option><option value="Popup">Pop Up</option><option value="Ongoing">Ongoing</option><option value="Search">Search Banner</option><option value="OngoingOrder">Ongoing Order</option></optgroup>
+          </select></div>
+        <div class="fg"><label>City</label>
+          <select id="f_city" onchange="liveQC()"><option value="HCM">HCM</option><option value="HN">HN</option><option value="DN">DN</option><option value="HP">HP</option><option value="CT">CT</option><option value="OTH">OTH</option></select></div>
+        <div class="fg"><label>Start Date</label><input type="date" id="f_start" oninput="liveQC()"/></div>
+        <div class="fg"><label>End Date</label><input type="date" id="f_end" oninput="liveQC()"/></div>
+        <div class="fg"><label>Time Slot</label>
+          <select id="f_timeslot" onchange="liveQC()"><option value="all">All Day</option><option value="0-5h">0h-5h</option><option value="5-10h">5h-10h</option><option value="10-13h">10h-13h</option><option value="13-16h">13h-16h</option><option value="16-24h">16h-24h</option></select></div>
+        <div class="fg"><label>L2 Category (Brand)</label><input type="text" id="f_cat" placeholder="e.g. Cafe, Trà sữa, Cơm, Bún Mì" oninput="liveQC()"/></div>
+        <div class="fg full"><label>Notes</label><input type="text" id="f_notes" placeholder="Key message, scheme details..."/></div>
+      </div>
+      <div class="bgrp">
+        <button class="btn btn-p" onclick="addBooking()">✅ Submit & QC Check</button>
+        <button class="btn btn-s" onclick="clearForm()">🗑 Clear</button>
+      </div>
+    </div>
+    <div class="qc-side">
+      <div class="qc-hdr">Live QC <span id="qc-badge" class="b">—</span></div>
+      <div class="qc-body" id="qc-body"><div class="empty">Fill form to run QC</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PLAYBOOK -->
+<div id="page-playbook" class="page">
+  <div class="pg-title">Playbook — All Rules</div>
+
+  <!-- OVERALL -->
+  <div class="rs">
+    <div class="rs-hdr">🌐 Overall Rules</div>
+    <div class="rs-body">
+      <div class="g2">
+        <div>
+          <div class="ri info"><div class="ri-ico">🗺</div><div><div class="ri-name">City Tier → Visibility Sheet</div><div class="ri-desc"><span class="b b-city-a">HCM</span><span class="b b-city-a">HN</span><span class="b b-city-a">DN</span> → <strong>Visibility 3B</strong><br>All other cities → <strong>Visibility OTH</strong></div></div></div>
+          <div class="ri info"><div class="ri-ico">📦</div><div><div class="ri-name">Booking Tab by Programme Type</div><div class="ri-desc">Brand progs ([SJBP][JBP][VIP][Win][Alacarte][PNS]) → <strong>BD Programs</strong><br>Platform progs ([PLF][Mart]) → <strong>MKT|Campaign</strong></div></div></div>
+          <div class="ri info"><div class="ri-ico">🏷</div><div><div class="ri-name">Programme Priority Order</div><div class="ri-desc"><span class="b b-sjbp">[SJBP]</span>&gt;<span class="b b-jbp">[JBP]</span>&gt;<span class="b b-svip">[SuperVIP]</span>&gt;<span class="b b-vip">[VIP]</span>&gt;<span class="b b-win">[Win 1-4]</span>&gt;<span class="b b-ala">[Alacarte]</span>&gt;<span class="b b-pns">[PNS]</span></div></div></div>
+        </div>
+        <div>
+          <div class="ri hard"><div class="ri-ico">🚫</div><div><div class="ri-name">Block Days — No BD Bookings</div><div class="ri-desc"><span class="b b-err">Double Day</span> (1.1, 2.2...) &nbsp; <span class="b b-err">Midmonth (15th)</span> &nbsp; <span class="b b-err">SPF Day</span> &nbsp; <span class="b b-err">Thematic</span></div></div></div>
+          <div class="ri soft"><div class="ri-ico">📊</div><div><div class="ri-name">Monthly Slot Caps Apply Per City</div><div class="ri-desc">Each banner type has a monthly quota per city. See daily cap table below for values. Exceeding monthly cap = hard block.</div></div></div>
+          <div class="ri soft"><div class="ri-ico">🕐</div><div><div class="ri-name">Hour Rules Apply to HTC Slot Selection</div><div class="ri-desc">Category shown in HTC should match the recommended L2 category for that time window and city. See Hour Rules section.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAILY CAPS + SPECIFIC RULES -->
+  <div class="rs">
+    <div class="rs-hdr">📊 Daily Cap + Rules by Media Type</div>
+    <div class="rs-body">
+      <p style="font-size:12px;color:var(--mut);margin-bottom:12px;">Max bookings per day per banner. <span style="color:var(--red);font-weight:600;">Hard block</span> if exceeded.</p>
+      <div style="overflow-x:auto;">
+        <div class="cg" style="grid-template-columns:150px repeat(7,1fr) 80px;">
+          <div class="cc cc-hdr cc-lbl">Banner</div>
+          <div class="cc cc-hdr">Campaign/BAU</div><div class="cc cc-hdr">SJBP</div><div class="cc cc-hdr">JBP</div>
+          <div class="cc cc-hdr">VIP/SVIP</div><div class="cc cc-hdr">Ind. Ads</div><div class="cc cc-hdr">PNS</div><div class="cc cc-hdr">Mart</div>
+          <div class="cc cc-hdr" style="color:var(--acc)">TOTAL/day</div>
+          <div class="cc cc-lbl">🏠 Hometop</div><div class="cc">3</div><div class="cc">2</div><div class="cc">2</div><div class="cc">1</div><div class="cc">6</div><div class="cc">1</div><div class="cc">1</div><div class="cc cc-tot">14</div>
+          <div class="cc cc-lbl">⭕ HTC</div><div class="cc">3</div><div class="cc">2</div><div class="cc">2</div><div class="cc">1</div><div class="cc">3</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-tot">3/slot</div>
+          <div class="cc cc-lbl">📌 Static</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc">2</div><div class="cc">4</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-tot">6</div>
+          <div class="cc cc-lbl">⬇ Bottom</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc">2</div><div class="cc">4</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-tot">6</div>
+          <div class="cc cc-lbl">⚡ Flash Sale</div><div class="cc cc-0">—</div><div class="cc">4</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc">4</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-tot">4</div>
+          <div class="cc cc-lbl">🔲 Floating</div><div class="cc">2</div><div class="cc">1</div><div class="cc">1</div><div class="cc">1</div><div class="cc">4</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-tot">7</div>
+          <div class="cc cc-lbl">🔔 Pop Up</div><div class="cc">2</div><div class="cc">2</div><div class="cc">2</div><div class="cc">1</div><div class="cc">3</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-tot">7</div>
+          <div class="cc cc-lbl">🔁 Ongoing</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc">PNS</div><div class="cc cc-0">—</div><div class="cc cc-tot">1</div>
+          <div class="cc cc-lbl">🔍 Search</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc">PNS</div><div class="cc cc-0">—</div><div class="cc cc-tot">1</div>
+        </div>
+      </div>
+      <div style="margin-top:16px;" class="g2">
+        <div>
+          <div class="sub-lbl" style="margin-top:4px">Monthly Caps (per city)</div>
+          <div style="overflow-x:auto;border-radius:8px;border:1px solid var(--bord);">
+            <table><thead><tr><th>Asset</th><th>HCM</th><th>HN</th><th>DN</th><th>OTH</th></tr></thead>
+            <tbody>
+              <tr><td>HTC (per time block)</td><td>90</td><td>90</td><td>90</td><td>90</td></tr>
+              <tr><td>Hometop #1-2</td><td>60</td><td>60</td><td>60</td><td>60</td></tr>
+              <tr><td>Hometop #3-6</td><td>30</td><td>30</td><td>30</td><td>30</td></tr>
+              <tr><td>Hometop #7-12</td><td>90</td><td>90</td><td>90</td><td>90</td></tr>
+              <tr><td>Static #1-3 / Bottom</td><td>90</td><td>90</td><td>90</td><td>90</td></tr>
+              <tr><td>Flash Sale</td><td>120</td><td>120</td><td>120</td><td>120</td></tr>
+              <tr><td>Floating (7 slots)</td><td>210</td><td>210</td><td>210</td><td>210</td></tr>
+              <tr><td>Pop Up (6 slots)</td><td>180</td><td>180</td><td>180</td><td>180</td></tr>
+              <tr><td>Ongoing / Search</td><td>30</td><td>30</td><td>30</td><td>30</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+        <div>
+          <div class="sub-lbl" style="margin-top:4px">Specific Rules per Banner</div>
+          <div class="ri hard" style="margin-bottom:8px"><div class="ri-ico">🏠</div><div><div class="ri-name">Hometop — WC/BAU Blocked from Slot #1-3</div><div class="ri-desc">PLF BAU, WC, Mass Ads must use slot #4 or higher. Slots 1-3 are for SJBP/JBP/VIP.</div></div></div>
+          <div class="ri hard" style="margin-bottom:8px"><div class="ri-ico">🏠</div><div><div class="ri-name">Hometop #0 — New User Only</div><div class="ri-desc">Hometop Banner 0 is exclusively for [PLF] New User programme.</div></div></div>
+          <div class="ri soft" style="margin-bottom:8px"><div class="ri-ico">🏠</div><div><div class="ri-name">Hometop — BAU Max 3 Days/Collection/Week</div><div class="ri-desc">Same BAU collection max 3 days per week in Hometop.</div></div></div>
+          <div class="ri soft" style="margin-bottom:8px"><div class="ri-ico">🏠</div><div><div class="ri-name">Hometop — Adjacent Slots Cannot Share Category</div><div class="ri-desc">Adjacent Hometop slots (#1/#2, #2/#3...) same day must have different L2 food categories.</div></div></div>
+          <div class="ri soft" style="margin-bottom:8px"><div class="ri-ico">🏠</div><div><div class="ri-name">Hometop — Individual Ads Max 3 Consecutive Days</div><div class="ri-desc">[Win 1-4] and [Alacarte] in Hometop cannot run more than 3 consecutive days.</div></div></div>
+          <div class="ri soft" style="margin-bottom:8px"><div class="ri-ico">⭕</div><div><div class="ri-name">HTC — Same Brand Max 2 Consecutive Days</div><div class="ri-desc">A brand cannot occupy HTC for more than 2 consecutive days in a row.</div></div></div>
+          <div class="ri soft" style="margin-bottom:8px"><div class="ri-ico">⭕</div><div><div class="ri-name">HTC — Coffee/Trà Sữa No Morning Weekend</div><div class="ri-desc">Coffee & Trà Sữa brands cannot book HTC 0-8h or 8-16h slots on Saturday or Sunday.</div></div></div>
+          <div class="ri hard" style="margin-bottom:0"><div class="ri-ico">🔍</div><div><div class="ri-name">Ongoing / Search Banner — PNS Only</div><div class="ri-desc">These banner types are exclusively for [PNS] programme. No other programmes allowed.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOUR RULES -->
+  <div class="rs">
+    <div class="rs-hdr">🕐 Rules by Hour of Day — Recommended L2 Categories</div>
+    <div class="rs-body">
+      <p style="font-size:12px;color:var(--mut);margin-bottom:12px;">Category featured in HTC and Hometop should match the time window. Mismatches are flagged as <span style="color:var(--ylw);font-weight:600;">soft warning</span>.</p>
+      <div style="overflow-x:auto;">
+        <table class="ht">
+          <thead><tr><th>Hour Range</th><th>Period</th><th>HCM — Recommended</th><th>HN — Recommended</th><th>DN + OTH</th></tr></thead>
+          <tbody>
+            <tr><td class="hc">0h – 5h</td><td class="lc">🌙 Late Night</td><td>Cú đêm / Fast food / Cháo / Xôi</td><td>Cú đêm / Bún mì / Xôi / Bánh mì</td><td>Cú đêm / Đồ ăn khuya</td></tr>
+            <tr><td class="hc">5h – 10h</td><td class="lc">🌅 Morning</td><td>Cafe / Bánh mì / Bún phở sáng</td><td>Cafe / Xôi / Bánh mì / Bún cháo</td><td>Bánh mì / Cafe / Bún Mì</td></tr>
+            <tr><td class="hc">10h – 13h</td><td class="lc">☀️ Lunch</td><td>Cơm / Bún Mì / Gà rán / Món Hàn</td><td>Cơm / Bún Mì / Các món cuốn</td><td>Cơm / Gà rán / Bún Mì</td></tr>
+            <tr><td class="hc">13h – 16h</td><td class="lc">🧋 Afternoon</td><td>Trà sữa / Cafe / Ăn vặt / Xiên que</td><td>Cafe / Trà sữa / Bánh tráng / Ăn vặt</td><td>Cafe / Trà sữa / Ăn vặt</td></tr>
+            <tr><td class="hc">16h – 20h</td><td class="lc">🍽 Dinner</td><td>Cơm tấm / Bún Mì / Món Hàn / Món Âu</td><td>Cơm bún mì / Món Hàn / Gà Rán / Pizza</td><td>Cơm / Bún Mì / Gà rán / Pizza</td></tr>
+            <tr><td class="hc">20h – 24h</td><td class="lc">🌃 Late Eve</td><td>Cơm tấm / Hủ tiếu / Trà Sữa / Xiên Que</td><td>Xôi / Phở / Mì / Chè / Trà Sữa</td><td>Chè / Bánh tráng / Trà Sữa / Nem chua</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY OF MONTH -->
+  <div class="rs">
+    <div class="rs-hdr">📅 Rules by Day of Month</div>
+    <div class="rs-body">
+      <div class="g2">
+        <div>
+          <div class="ri hard" style="margin-bottom:8px"><div class="ri-ico">🚫</div><div><div class="ri-name">Double Day — Full Platform Block</div><div class="ri-desc">1/1, 2/2, 3/3... 12/12. All slots reserved for platform campaign. No standard BD brand bookings.</div></div></div>
+          <div class="ri hard"><div class="ri-ico">🚫</div><div><div class="ri-name">15th Midmonth — Block Day</div><div class="ri-desc">15th of every month is reserved for SPF campaigns. No BD brand bookings on this date.</div></div></div>
+        </div>
+        <div>
+          <div class="ri soft" style="margin-bottom:8px"><div class="ri-ico">⚠️</div><div><div class="ri-name">SPF Day — Platform Priority</div><div class="ri-desc">ShopeeFood event days — check with ops lead. Brand slots may be significantly reduced.</div></div></div>
+          <div class="ri soft"><div class="ri-ico">⚠️</div><div><div class="ri-name">Thematic Campaign Dates</div><div class="ri-desc">During Tết, Sale Seasons, Back to School etc. — brand booking slots are reduced and may require campaign alignment. Confirm with ops before booking.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CITIES -->
+  <div class="rs">
+    <div class="rs-hdr">🗺 City Reference</div>
+    <div class="rs-body">
+      <div class="g3">
+        <div><div class="sub-lbl">Tier A — Visibility 3B</div><span class="pill pill-a">HCM</span><span class="pill pill-a">HN</span><span class="pill pill-a">DN</span></div>
+        <div><div class="sub-lbl">Tier 2 — T2 (6 cities)</div><span class="pill pill-b">HP</span><span class="pill pill-b">CT</span><span class="pill pill-b">BD</span><span class="pill pill-b">BH</span><span class="pill pill-b">Hue</span><span class="pill pill-b">VT</span></div>
+        <div><div class="sub-lbl">Tier 3 / OTH (30+ cities)</div><span style="font-size:11px;color:var(--mut)">An Giang, Bac Ninh, Binh Dinh, Dak Lak, Khanh Hoa, Lam Dong, Nghe An, Quang Nam, Quang Ninh, Thai Nguyen, Thanh Hoa, Tien Giang, Hai Duong, Nam Dinh, Dong Thap, Kien Giang, Phu Yen, Bac Lieu, Ben Tre, Ca Mau, Hau Giang, Soc Trang, Tra Vinh, Vinh Long, Binh Phuoc, Gia Lai, Ninh Thuan, Tay Ninh + new batches</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VISIBILITY -->
+<div id="page-visibility" class="page">
+  <div class="pg-title">Visibility Calendar</div>
+  <div class="card" style="margin-bottom:14px">
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
+      <div class="fg"><label>View Mode</label>
+        <select id="vmode" onchange="renderVis()">
+          <option value="month">📅 Month Allocation</option>
+          <option value="day">🔍 Day Slot Detail</option>
+        </select>
+      </div>
+      <div class="fg"><label>City</label>
+        <select id="vc" onchange="renderVis()">
+          <option>HCM</option><option>HN</option><option>DN</option>
+          <option>HP</option><option>CT</option><option>OTH</option>
+        </select>
+      </div>
+      <div class="fg"><label>Month</label>
+        <input type="month" id="vm" onchange="renderVis()"/>
+      </div>
+      <div class="fg" id="vrange-wrap"><label>Date Range</label>
+        <div style="display:flex;gap:6px;align-items:center">
+          <input type="date" id="vfrom" onchange="renderVisMonth()"/>
+          <span style="color:var(--mut)">→</span>
+          <input type="date" id="vto" onchange="renderVisMonth()"/>
+        </div>
+      </div>
+      <div class="fg" id="vday-wrap" style="display:none"><label>Day</label>
+        <input type="date" id="vday" onchange="renderVisDay()"/>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-top:10px">
+      <div class="fg"><label>Brand Search</label>
+        <input type="text" id="vbrand" placeholder="e.g. Highlands, KFC..."
+          oninput="renderVis()" onkeydown="if(event.key==='Enter') renderVis()"/>
+      </div>
+      <div class="fg"><label>L2 Category</label>
+        <select id="vcat" onchange="renderVis()">
+          <option value="">All Categories</option>
+          <option>Cafe</option><option>Trà Sữa</option><option>Gà Rán</option>
+          <option>Pizza</option><option>Burger</option><option>Cơm Tấm</option>
+          <option>Món Hàn</option><option>Phở</option><option>Bánh Mì</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div id="vis-grid" style="background:rgba(255,255,255,.06);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.12);border-radius:14px;overflow-x:auto;margin-bottom:14px"></div>
+</div>
+
+<script>
+// Data fetched from Flask API
+let ALL_BOOKINGS=[], DAILY_CAPS={}, MONTHLY_CAPS={}, _visCache=null;
+async function getVD(){
+  if(!_visCache){const r=await fetch('/api/visibility');_visCache=await r.json();}
+  return _visCache;
+}
+
+// L2 category rules by hour × city
+// key: timeslot code → { city: [allowed categories] }
+const HOUR_CAT = {
+  '0-5h':   { HCM:['Cháo','Xôi','Fast Food','Cú đêm','Bún Mì','Ăn khuya'],
+               HN: ['Cháo','Xôi','Bánh mì','Bún Mì','Ăn khuya'],
+               OTH:['Cháo','Xôi','Bún Mì','Ăn khuya'] },
+  '5-10h':  { HCM:['Cafe','Cà phê','Bánh mì','Bún phở','Phở','Bún','Xôi','Breakfast'],
+               HN: ['Cafe','Cà phê','Xôi','Bánh mì','Bún','Cháo','Breakfast'],
+               OTH:['Cafe','Cà phê','Bánh mì','Bún Mì','Breakfast'] },
+  '10-13h': { HCM:['Cơm','Bún Mì','Gà rán','Món Hàn','Cơm tấm','Bún','Mì','Lunch'],
+               HN: ['Cơm','Bún Mì','Món cuốn','Gà rán','Bún','Mì','Lunch'],
+               OTH:['Cơm','Bún Mì','Gà rán','Lunch'] },
+  '13-16h': { HCM:['Trà sữa','Cafe','Cà phê','Ăn vặt','Xiên que','Tráng miệng','Snack'],
+               HN: ['Cafe','Cà phê','Trà sữa','Bánh tráng','Ăn vặt','Snack'],
+               OTH:['Cafe','Cà phê','Trà sữa','Ăn vặt','Snack'] },
+  '16-24h': { HCM:['Cơm tấm','Bún Mì','Cơm','Món Hàn','Pizza','Món Âu','Hủ tiếu','Trà sữa','Xiên Que','Dinner'],
+               HN: ['Cơm','Bún Mì','Gà rán','Pizza','Món Hàn','Xôi','Phở','Chè','Trà sữa','Dinner'],
+               OTH:['Cơm','Bún Mì','Gà rán','Pizza','Chè','Trà sữa','Dinner'] },
+};
+// Blocked categories per slot (soft warning)
+const BLOCKED_AT = {
+  '5-10h':  ['Trà sữa','Cơm','Bún Mì','Hủ tiếu','Ăn vặt','Pizza','Xiên que'],
+  '10-13h': ['Trà sữa','Cafe','Cà phê','Ăn vặt','Xiên que','Bánh tráng'],
+  '13-16h': ['Cơm','Bún Mì','Phở','Hủ tiếu','Gà rán','Pizza','Cơm tấm'],
+  '16-24h': ['Cafe','Cà phê','Bánh mì','Xôi','Cháo'],
+};
+
+
+
+const PM = {
+  PLF_BAU:{l:'[PLF] BAU',cls:'b-plf',cat:'PLF'},PLF_WC:{l:'[PLF] WC',cls:'b-plf',cat:'PLF'},
+  PLF_CP:{l:'[PLF] CP',cls:'b-plf',cat:'PLF'},PLF_MASSADS:{l:'[PLF] Mass Ads',cls:'b-plf',cat:'PLF'},
+  PLF_MART:{l:'[Mart]',cls:'b-mart',cat:'PLF'},PLF_SPXI:{l:'[PLF] SPXI',cls:'b-plf',cat:'PLF'},
+  PLF_SPL:{l:'[PLF] SPL',cls:'b-plf',cat:'PLF'},PLF_NEWUSER:{l:'[PLF] New User',cls:'b-plf',cat:'PLF'},
+  PLF_ONBOARD:{l:'[PLF] Onboard',cls:'b-plf',cat:'PLF'},
+  SJBP:{l:'[SJBP]',cls:'b-sjbp',cat:'SJBP'},JBP:{l:'[JBP]',cls:'b-jbp',cat:'JBP'},
+  SUPERVIP:{l:'[SuperVIP]',cls:'b-svip',cat:'VIP'},VIP:{l:'[VIP]',cls:'b-vip',cat:'VIP'},
+  WIN1:{l:'[Win 1]',cls:'b-win',cat:'IND'},WIN2:{l:'[Win 2]',cls:'b-win',cat:'IND'},
+  WIN3:{l:'[Win 3]',cls:'b-win',cat:'IND'},WIN4:{l:'[Win 4]',cls:'b-win',cat:'IND'},
+  ALACARTE:{l:'[Alacarte]',cls:'b-ala',cat:'IND'},ALACARECB:{l:'[Alacarte CB]',cls:'b-ala',cat:'IND'},
+  PNS:{l:'[PNS]',cls:'b-pns',cat:'PNS'},OTHER:{l:'Other',cls:'b-plf',cat:'PLF'},
+};
+const TIER_A=['HCM','HN','DN'];
+const PLF_SET=new Set(['PLF_BAU','PLF_WC','PLF_CP','PLF_MASSADS','PLF_MART','PLF_SPXI','PLF_SPL','PLF_NEWUSER','PLF_ONBOARD']);
+const BAU_WC=new Set(['PLF_BAU','PLF_WC','PLF_MASSADS']);
+const IND_SET=new Set(['WIN1','WIN2','WIN3','WIN4','ALACARTE','ALACARECB']);
+function BM(b){if(!b)return 'Hometop';if(b.startsWith('Hometop'))return 'Hometop';if(b.startsWith('HTC')||b==='HTC')return 'HTC';if(b.startsWith('Static'))return 'Static';if(b.startsWith('Bottom'))return 'Bottom';if(b.startsWith('Flash')||b==='Flash')return 'Flash';if(b==='Floating')return 'Floating';if(b==='Popup')return 'Popup';if(b==='Ongoing')return 'Ongoing';if(b==='Search'||b==='Search_Banner')return 'Search';if(b==='OngoingOrder')return 'OngoingOrder';return 'Hometop';}
+
+function runQC(b){
+  const checks=[];const pm=PM[b.prog]||{cat:'PLF'};const isPLF=PLF_SET.has(b.prog);const isIND=IND_SET.has(b.prog);const banner=BM(b.banner);const city=b.city||(b.cities||[])[0]||'HCM';const cityKey=TIER_A.includes(city)?city:'OTH';
+  if(b.start&&b.end&&b.start>b.end)checks.push({st:'fail',name:'Date Invalid',det:'End date before start date'});
+  if(b.source==='BD'&&isPLF)checks.push({st:'warn',name:'Source Mismatch',det:'PLF programme should go to MKT|Campaign tab'});
+  if(b.source==='MKT'&&!isPLF)checks.push({st:'warn',name:'Source Mismatch',det:'Brand programme should go to BD Programs tab'});
+  if(b.banner==='Hometop_0'&&b.prog!=='PLF_NEWUSER')checks.push({st:'fail',name:'Hometop #0 — New User Only',det:'Hometop Banner 0 is exclusively for [PLF] New User'});
+  if(['Hometop_1','Hometop_2','Hometop_3'].includes(b.banner)&&BAU_WC.has(b.prog))checks.push({st:'fail',name:'Hometop #1-3 Blocked',det:`${(PM[b.prog]||{}).l} cannot book Hometop #1-3. Use slot #4+.`});
+  if(['Ongoing','Search'].includes(banner)&&b.prog!=='PNS')checks.push({st:'fail',name:'PNS-Only Banner',det:`${banner} banner is exclusively for [PNS] programme`});
+  if(banner==='Flash'&&!['SJBP','WIN1','WIN2','WIN3','WIN4','ALACARTE','ALACARECB'].includes(b.prog))checks.push({st:'warn',name:'Flash Sale Programme',det:'Flash Sale typically for [SJBP] or Individual Ads'});
+  // ── L2 Category × Hour check ──
+  if(b.timeslot&&b.timeslot!=='all'&&b.cat&&b.cat.trim()){
+    const slot=b.timeslot;const cat=b.cat.trim();
+    const ck=TIER_A.includes(city)?city:'OTH';
+    const allowed=HOUR_CAT[slot]?.[ck]||[];
+    const blocked=BLOCKED_AT[slot]||[];
+    const catLower=cat.toLowerCase();
+    const matchAllowed=allowed.some(a=>catLower.includes(a.toLowerCase())||a.toLowerCase().includes(catLower));
+    const matchBlocked=blocked.some(bl=>catLower.includes(bl.toLowerCase())||bl.toLowerCase().includes(catLower));
+    if(matchBlocked)
+      checks.push({st:'fail',name:'L2 Category Not Suitable for This Hour',det:`"${cat}" is NOT recommended during ${slot} in ${city}. Blocked categories: ${blocked.join(', ')}`});
+    else if(!matchAllowed&&allowed.length>0)
+      checks.push({st:'warn',name:'L2 Category Mismatch for This Hour',det:`"${cat}" is not in the preferred list for ${slot} in ${city}. Recommended: ${allowed.slice(0,5).join(', ')}`});
+  }
+  // ── Daily cap & Monthly cap ──────────────────────────────────────────────
+  // Hometop has 14 numbered slots (#0-#13). Each slot holds 1 booking at a time.
+  // Cap only makes sense when we know the EXACT slot (e.g. "Hometop_1").
+  // If banner is just generic "Hometop" (no slot number) we skip — cannot evaluate.
+  const hasExactSlot = b.banner && b.banner.includes('_') && (b.banner.startsWith('Hometop_') || b.banner.startsWith('HTC_'));
+  const isGenericBanner = ['Hometop','HTC'].includes(b.banner); // no slot info → skip cap
+
+  if(b.start&&b.end&&city&&!isGenericBanner){
+    if(hasExactSlot){
+      // Exact slot known → flag only if same slot is double-booked same city + overlapping dates
+      const sameSlot=ALL_BOOKINGS.filter(bk=>
+        bk.id!==b.id&&bk.banner===b.banner&&
+        ((bk.cities||[]).includes(city)||(bk.city===city))&&
+        bk.start&&bk.end&&bk.start<=b.end&&bk.end>=b.start
+      ).length;
+      if(sameSlot>0)checks.push({st:'fail',name:`Slot Double-Booked — ${b.banner}`,det:`${sameSlot} other booking(s) already occupy ${b.banner} in ${city} on overlapping dates`});
+    } else {
+      // Non-Hometop/HTC banners (Floating, Popup, Flash, etc.) → check daily total
+      const caps=DAILY_CAPS[banner];
+      if(caps&&caps.TOTAL<99){
+        const n=ALL_BOOKINGS.filter(bk=>
+          bk.id!==b.id&&BM(bk.banner)===banner&&
+          ((bk.cities||[]).includes(city)||(bk.city===city))&&
+          bk.start&&bk.end&&bk.start<=b.end&&bk.end>=b.start
+        ).length+1;
+        if(n>caps.TOTAL)checks.push({st:'fail',name:`Daily Cap Exceeded — ${banner}`,det:`${n} bookings in ${city} on overlapping dates (cap: ${caps.TOTAL}/day)`});
+        else if(n>caps.TOTAL*0.8)checks.push({st:'warn',name:`Nearing Daily Cap — ${banner}`,det:`${n}/${caps.TOTAL} daily slots used in ${city}`});
+      }
+    }
+  }
+  // Monthly cap — only when exact slot is known
+  if(b.month&&city&&hasExactSlot){
+    const mn=b.month.charAt(0).toUpperCase()+b.month.slice(1,3).toLowerCase();
+    let cap=999,capLabel='';
+    if(b.banner==='Hometop_1'||b.banner==='Hometop_2'){cap=60;capLabel='Hometop #1-2 = 60/month per slot';}
+    else if(['Hometop_3','Hometop_4','Hometop_5','Hometop_6'].includes(b.banner)){cap=30;capLabel='Hometop #3-6 = 30/month per slot';}
+    else if(['Hometop_7-9','Hometop_10-12'].includes(b.banner)){cap=90;capLabel='Hometop #7-12 = 90/month per slot';}
+    else if(b.banner==='Hometop_0'){cap=30;capLabel='Hometop #0 = 30/month';}
+    if(cap<999){
+      const cnt=ALL_BOOKINGS.filter(bk=>
+        bk.id!==b.id&&bk.banner===b.banner&&
+        ((bk.cities||[]).includes(city)||(bk.city===city))&&
+        (bk.month||'').charAt(0).toUpperCase()+(bk.month||'').slice(1,3).toLowerCase()===mn
+      ).length+1;
+      if(cnt>cap)checks.push({st:'fail',name:`Monthly Cap Exceeded — ${b.banner}`,det:`${cnt}/${cap} bookings this month for ${b.banner} in ${city} (${capLabel})`});
+      else if(cnt>cap*0.85)checks.push({st:'warn',name:`Monthly Cap Near Limit — ${b.banner}`,det:`${cnt}/${cap} bookings this month for ${b.banner} in ${city} (${capLabel})`});
+    }
+  } else if(b.month&&city&&!isGenericBanner&&!hasExactSlot){
+    // Non-Hometop/HTC banners monthly cap
+    const mn=b.month.charAt(0).toUpperCase()+b.month.slice(1,3).toLowerCase();
+    const mc=MONTHLY_CAPS[banner];
+    if(mc){
+      const cap=mc[cityKey]||mc['OTH']||999;
+      if(cap<999){
+        const cnt=ALL_BOOKINGS.filter(bk=>
+          bk.id!==b.id&&BM(bk.banner)===banner&&
+          ((bk.cities||[]).includes(city)||(bk.city===city))&&
+          (bk.month||'').charAt(0).toUpperCase()+(bk.month||'').slice(1,3).toLowerCase()===mn
+        ).length+1;
+        if(cnt>cap)checks.push({st:'fail',name:`Monthly Cap Exceeded — ${banner}`,det:`${cnt}/${cap} monthly slots used in ${city}`});
+        else if(cnt>cap*0.85)checks.push({st:'warn',name:`Monthly Cap Near Limit — ${banner}`,det:`${cnt}/${cap} monthly slots in ${city}`});
+      }
+    }
+  }
+  // HTC consecutive days
+  if(banner==='HTC'&&b.start&&b.end){const s=new Date(b.start+'T00:00:00'),e=new Date(b.end+'T00:00:00');const days=Math.round((e-s)/86400000)+1;if(days>2)checks.push({st:'fail',name:'HTC — Brand Consecutive Limit',det:`Booking spans ${days} days (max 2 consecutive days for same brand in HTC)`});}
+  // Individual ads 3-day limit in Hometop
+  if(banner==='Hometop'&&isIND&&b.start&&b.end){const s=new Date(b.start+'T00:00:00'),e=new Date(b.end+'T00:00:00');const days=Math.round((e-s)/86400000)+1;if(days>3)checks.push({st:'fail',name:'Hometop — Ind. Ads Max 3 Days',det:`Booking runs ${days} consecutive days (max 3 for Individual Ads in Hometop)`});}
+  // BAU >3 days/week in Hometop
+  if(banner==='Hometop'&&b.prog==='PLF_BAU'&&b.start){const wEnd=new Date(new Date(b.start+'T00:00:00').getTime()+7*86400000).toISOString().split('T')[0];const wBAU=ALL_BOOKINGS.filter(bk=>bk.id!==b.id&&BM(bk.banner)==='Hometop'&&bk.prog==='PLF_BAU'&&((bk.cities||[]).includes(city)||(bk.city===city))&&bk.start&&bk.start>=b.start&&bk.start<=wEnd).length+1;if(wBAU>3)checks.push({st:'warn',name:'Hometop — BAU >3 Days/Week',det:`${wBAU} BAU bookings in ${city} within 7 days of start (max 3/week)`});}
+  if(!checks.length)checks.push({st:'pass',name:'All Rules Passed',det:'No violations detected'});
+  return{checks,errors:checks.filter(c=>c.st==='fail').length,warns:checks.filter(c=>c.st==='warn').length};
+}
+
+function gp(id,btn){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('on');});
+  document.getElementById('page-'+id).classList.add('on');
+  btn.classList.add('on');
+  if(id==='dashboard') renderDashboard();
+  if(id==='visibility') renderVis();
+  if(id==='bookings') applyFilters();
+}
+function sortBy(k){if(sortKey===k)sortAsc=!sortAsc;else{sortKey=k;sortAsc=true;}applyFilters();}
+function renderList(){
+  const total=filtered.length,start=(curPage-1)*pageSize,page=filtered.slice(start,start+pageSize);
+  // Quick count for header — full runQC only on visible page rows
+  const errs=filtered.filter(b=>{const isPLF=PLF_SET.has(b.prog);if(b.source==='BD'&&isPLF)return false;if(b.source==='MKT'&&!isPLF)return false;if(b.banner==='Hometop_0'&&b.prog!=='PLF_NEWUSER')return true;if(['Hometop_1','Hometop_2','Hometop_3'].includes(b.banner)&&BAU_WC.has(b.prog))return true;if(['Ongoing','Search'].includes(BM(b.banner))&&b.prog!=='PNS')return true;if(b.start&&b.end&&b.start>b.end)return true;return false;}).length;
+  const warns=filtered.filter(b=>{const isPLF=PLF_SET.has(b.prog);return(b.source==='BD'&&isPLF)||(b.source==='MKT'&&!isPLF);}).length;
+  document.getElementById('total-count').textContent=`(${total.toLocaleString()} — ❌ ${errs} errors  ⚠️ ${warns} warnings)`;
+  document.getElementById('pg-info').textContent=`Page ${curPage}/${Math.ceil(total/pageSize)} — ${start+1}–${Math.min(start+pageSize,total)} of ${total}`;
+  document.getElementById('btn-prev').disabled=curPage<=1;document.getElementById('btn-next').disabled=curPage>=Math.ceil(total/pageSize);
+  document.getElementById('list-tbody').innerHTML=page.map(b=>{
+    const pm=PM[b.prog]||{l:b.prog_raw||b.prog,cls:'b-plf'};const qc=runQC(b);
+    const rowCls=qc.errors>0?'br-err':qc.warns>0?'br-warn':'';
+    const flags=qc.checks.filter(c=>c.st!=='pass').map(c=>`<span class="flag ${c.st==='fail'?'flag-e':'flag-w'}" title="${c.det}">${c.st==='fail'?'❌':'⚠️'} ${c.name.split('—')[0].trim().substring(0,15)}</span>`).join('');
+    const sb=b.status==='Confirmed'?`<span class="b b-conf">Confirmed</span>`:b.status==='Done'?`<span class="b b-done">Done</span>`:b.status?`<span class="b b-pend">${b.status}</span>`:'';
+    const cities=(b.cities||['?']).map(c=>`<span class="b ${TIER_A.includes(c)?'b-city-a':'b-city-b'}">${c}</span>`).join('');
+    const tl=(b.start&&b.end&&b.start!==b.end)?`${b.start}<br><span style="color:var(--mut)">${b.end}</span>`:b.start||'—';
+    return`<tr class="${rowCls}"><td style="color:var(--mut);font-family:var(--mono);font-size:10px">${b.id}</td><td><span class="b ${b.source==='BD'?'b-bd':'b-mkt'}">${b.source}</span></td><td><span class="b ${pm.cls}">${pm.l}</span></td><td style="max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500" title="${b.brand}">${b.brand||'—'}</td><td style="font-family:var(--mono);font-size:11px">${b.month||'—'}</td><td style="font-family:var(--mono);font-size:10px;white-space:nowrap">${tl}</td><td style="font-family:var(--mono);font-size:10px;color:var(--mut)">${b.banner||'—'}</td><td>${cities}</td><td>${sb}</td><td style="color:var(--mut);font-size:11px">${b.pic||'—'}</td><td>${flags||'<span style="color:var(--grn);font-size:11px">✅</span>'}</td><td><button class="btn btn-s" style="padding:3px 8px;font-size:10px" onclick="showDetail(${b.id})">👁</button></td></tr>`;
+  }).join('')||'<tr><td colspan="12" class="empty">No bookings match filters</td></tr>';
+}
+function prevPage(){if(curPage>1){curPage--;renderList();}}
+function nextPage(){if(curPage*pageSize<filtered.length){curPage++;renderList();}}
+
+function showDetail(id){
+  const b=ALL_BOOKINGS.find(x=>x.id===id);if(!b)return;
+  const pm=PM[b.prog]||{l:b.prog_raw||b.prog,cls:'b-plf'};const qc=runQC(b);
+  document.getElementById('modal-title').textContent=b.brand||'Booking Detail';
+  document.getElementById('modal-body').innerHTML=`
+    <div class="modal-field"><label>Programme</label><div><span class="b ${pm.cls}">${pm.l}</span> <span class="b ${b.source==='BD'?'b-bd':'b-mkt'}">${b.source}</span></div></div>
+    <div class="modal-field"><label>Brand</label><div style="font-weight:600">${b.brand||'—'}</div></div>
+    <div class="modal-field"><label>Scheme</label><div>${b.scheme||'—'}</div></div>
+    <div class="modal-field"><label>Month</label><div>${b.month||'—'}</div></div>
+    <div class="modal-field"><label>Timeline</label><div style="font-family:var(--mono)">${b.start||'—'} → ${b.end||'—'}</div></div>
+    <div class="modal-field"><label>Cities</label><div>${(b.cities||[]).map(c=>`<span class="b ${TIER_A.includes(c)?'b-city-a':'b-city-b'}">${c}</span>`).join('')}</div></div>
+    <div class="modal-field"><label>Banner</label><div style="font-family:var(--mono)">${b.banner||'—'}</div></div>
+    <div class="modal-field"><label>PIC</label><div>${b.pic||'—'}</div></div>
+    <div class="modal-field"><label>Status</label><div>${b.status||'—'}</div></div>
+    ${b.detail?`<div class="modal-field"><label>Detail</label><div style="font-size:11px;color:var(--mut);white-space:pre-wrap;max-height:100px;overflow-y:auto">${b.detail}</div></div>`:''}
+    <hr style="border:none;border-top:1px solid var(--bord);margin:14px 0"/>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--acc);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">QC Results — ${qc.errors} errors, ${qc.warns} warnings</div>
+    ${qc.checks.map(c=>`<div class="rc ${c.st}"><div class="rc-ico">${c.st==='pass'?'✅':c.st==='warn'?'⚠️':'❌'}</div><div><div class="rc-name">${c.name}</div><div class="rc-det">${c.det}</div></div></div>`).join('')}`;
+  document.getElementById('modal').classList.add('on');
+}
+function closeModal(){document.getElementById('modal').classList.remove('on');}
+
+function renderDashboard(){
+  const cityF=document.getElementById('dash-city').value,monthF=document.getElementById('dash-month').value;
+  const bks=ALL_BOOKINGS.filter(b=>{
+    if(cityF&&!((b.cities||[]).includes(cityF)||(b.city===cityF)))return false;
+    if(monthF&&!(b.month||'').toLowerCase().startsWith(monthF.toLowerCase()))return false;
+    return true;
+  });
+  const total=bks.length,bd=bks.filter(b=>b.source==='BD').length,mkt=bks.filter(b=>b.source==='MKT').length;
+  // Lightweight QC for dashboard counts — skip expensive cap checks (O(n²))
+  function quickCheck(b){
+    let e=0,w=0;
+    const isPLF=PLF_SET.has(b.prog);
+    if(b.source==='BD'&&isPLF)w++;
+    if(b.source==='MKT'&&!isPLF)w++;
+    if(b.banner==='Hometop_0'&&b.prog!=='PLF_NEWUSER')e++;
+    if(['Hometop_1','Hometop_2','Hometop_3'].includes(b.banner)&&BAU_WC.has(b.prog))e++;
+    if(['Ongoing','Search'].includes(BM(b.banner))&&b.prog!=='PNS')e++;
+    if(b.start&&b.end&&b.start>b.end)e++;
+    return{errors:e,warns:w};
+  }
+  const errs=bks.filter(b=>quickCheck(b).errors>0).length,warns=bks.filter(b=>{const q=quickCheck(b);return q.errors===0&&q.warns>0;}).length;
+  document.getElementById('dash-stats').innerHTML=`
+    <div class="stat"><div class="stat-lbl">Total Bookings</div><div class="stat-val">${total.toLocaleString()}</div><div class="stat-sub">${cityF||'All Cities'} · ${monthF||'All Months'}</div></div>
+    <div class="stat"><div class="stat-lbl">BD Programs</div><div class="stat-val" style="color:#60a5fa">${bd.toLocaleString()}</div></div>
+    <div class="stat"><div class="stat-lbl">MKT Campaigns</div><div class="stat-val" style="color:#c084fc">${mkt.toLocaleString()}</div></div>
+    <div class="stat"><div class="stat-lbl">QC Errors</div><div class="stat-val" style="color:var(--red)">${errs}</div></div>
+    <div class="stat"><div class="stat-lbl">QC Warnings</div><div class="stat-val" style="color:var(--ylw)">${warns}</div></div>`;
+  const pc={};bks.forEach(b=>{pc[b.prog]=(pc[b.prog]||0)+1;});
+  const sp=Object.entries(pc).sort((a,b)=>b[1]-a[1]).slice(0,14);const mx=sp[0]?.[1]||1;
+  document.getElementById('dash-prog').innerHTML=sp.map(([p,n])=>{const pm=PM[p]||{l:p,cls:'b-plf'};return`<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="b ${pm.cls}" style="min-width:100px;justify-content:center">${pm.l}</span><div style="flex:1;background:var(--bord);border-radius:3px;height:6px"><div style="background:var(--acc);width:${Math.round(n/mx*100)}%;height:100%;border-radius:3px"></div></div><span style="font-family:var(--mono);font-size:11px;color:var(--mut);min-width:32px;text-align:right">${n}</span></div>`;}).join('');
+  const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const mc={};bks.forEach(b=>{const m=(b.month||'');const k=m.charAt(0).toUpperCase()+m.slice(1,3).toLowerCase();mc[k]=(mc[k]||0)+1;});
+  const mxm=Math.max(...Object.values(mc),1);
+  document.getElementById('dash-mo').innerHTML=mo.map(m=>{const n=mc[m]||0;return`<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-family:var(--mono);font-size:11px;color:var(--mut);min-width:30px">${m}</span><div style="flex:1;background:var(--bord);border-radius:3px;height:6px"><div style="background:#3b82f6;width:${Math.round(n/mxm*100)}%;height:100%;border-radius:3px"></div></div><span style="font-family:var(--mono);font-size:11px;color:var(--mut);min-width:30px;text-align:right">${n}</span></div>`;}).join('');
+  // City x Programme matrix
+  const cities=cityF?[cityF]:['HCM','HN','DN','HP','CT','OTH'];
+  const progs=['SJBP','JBP','SUPERVIP','VIP','WIN1','WIN2','WIN3','WIN4','ALACARECB','ALACARTE','PNS','PLF_CP','PLF_BAU','PLF_MART'];
+  let cm=`<table><thead><tr><th class="rh">City \\ Programme</th>${progs.map(p=>`<th><span class="b ${(PM[p]||{cls:'b-plf'}).cls}">${(PM[p]||{l:p}).l}</span></th>`).join('')}<th>Total</th></tr></thead><tbody>`;
+  cities.forEach(c=>{const cb=bks.filter(b=>(b.cities||[]).includes(c)||(b.city===c));let rt=0;cm+=`<tr><td class="rh"><span class="b ${TIER_A.includes(c)?'b-city-a':'b-city-b'}">${c}</span></td>`;progs.forEach(p=>{const n=cb.filter(b=>b.prog===p).length;rt+=n;const cl=n===0?'d0':n<5?'dlo':n<20?'dmd':'dhi';cm+=`<td class="${cl}">${n||''}</td>`;});cm+=`<td style="font-weight:700;color:var(--acc)">${rt}</td></tr>`;});
+  cm+=`</tbody></table>`;document.getElementById('dash-city-mx').innerHTML=cm;
+  // Media x Programme matrix
+  const banners=['Hometop','HTC','Static','Bottom','Flash','Floating','Popup','Ongoing','Search'];
+  const p2=['SJBP','JBP','SUPERVIP','VIP','WIN1','ALACARECB','PNS','PLF_CP','PLF_BAU'];
+  let mm=`<table><thead><tr><th class="rh">Banner \\ Programme</th>${p2.map(p=>`<th><span class="b ${(PM[p]||{cls:'b-plf'}).cls}">${(PM[p]||{l:p}).l}</span></th>`).join('')}<th>Total</th></tr></thead><tbody>`;
+  banners.forEach(bn=>{const bb=bks.filter(b=>BM(b.banner)===bn);let rt=0;mm+=`<tr><td class="rh" style="font-family:var(--mono);font-size:11px;color:var(--acc)">${bn}</td>`;p2.forEach(p=>{const n=bb.filter(b=>b.prog===p).length;rt+=n;const cl=n===0?'d0':n<5?'dlo':n<20?'dmd':'dhi';mm+=`<td class="${cl}">${n||''}</td>`;});mm+=`<td style="font-weight:700;color:var(--acc)">${rt}</td></tr>`;});
+  mm+=`</tbody></table>`;document.getElementById('dash-media-mx').innerHTML=mm;
+  // QC issues: sample first 300 bookings to avoid freezing
+  const qcSample=bks.slice(0,300);
+  const wt={};qcSample.forEach(b=>{runQC(b).checks.filter(c=>c.st!=='pass').forEach(c=>{wt[c.name]=(wt[c.name]||0)+1;});});
+  document.getElementById('dash-qc').innerHTML=Object.entries(wt).length?Object.entries(wt).sort((a,b)=>b[1]-a[1]).map(([n,c])=>`<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:12px;flex:1">${n}</span><span class="b b-warn">${c}</span></div>`).join(''):'<p style="color:var(--mut);font-size:12px">No QC issues 🎉</p>';
+}
+
+function liveQC(){const b={source:document.getElementById('f_source').value,prog:document.getElementById('f_prog').value,banner:document.getElementById('f_banner').value,start:document.getElementById('f_start').value,end:document.getElementById('f_end').value,city:document.getElementById('f_city').value,cities:[document.getElementById('f_city').value],month:'New',id:-1,timeslot:document.getElementById('f_timeslot').value,brand:document.getElementById('f_brand').value,cat:document.getElementById('f_cat').value};const qc=runQC(b);const badge=document.getElementById('qc-badge');badge.textContent=qc.errors>0?`❌ ${qc.errors} error(s)`:qc.warns>0?`⚠️ ${qc.warns} warning(s)`:'✅ Pass';badge.className='b '+(qc.errors>0?'b-err':qc.warns>0?'b-warn':'b-ok');document.getElementById('qc-body').innerHTML=qc.checks.map(c=>`<div class="rc ${c.st}"><div class="rc-ico">${c.st==='pass'?'✅':c.st==='warn'?'⚠️':'❌'}</div><div><div class="rc-name">${c.name}</div><div class="rc-det">${c.det}</div></div></div>`).join('');}
+function addBooking(){const b={id:Date.now(),source:document.getElementById('f_source').value,prog:document.getElementById('f_prog').value,prog_raw:document.getElementById('f_prog').options[document.getElementById('f_prog').selectedIndex].text,brand:document.getElementById('f_brand').value,scheme:'',banner:document.getElementById('f_banner').value,start:document.getElementById('f_start').value,end:document.getElementById('f_end').value,cities:[document.getElementById('f_city').value],city:document.getElementById('f_city').value,month:'New',status:'Pending',pic:'',detail:'',timeslot:document.getElementById('f_timeslot').value,cat:document.getElementById('f_cat').value};ALL_BOOKINGS.unshift(b);liveQC();alert(`Booking added! View in All Bookings tab.`);}
+function clearForm(){['f_brand'].forEach(id=>document.getElementById(id).value='');document.getElementById('qc-body').innerHTML='<div class="empty">Fill form to run QC</div>';document.getElementById('qc-badge').textContent='—';document.getElementById('qc-badge').className='b';}
+
+
+async function renderVis(){
+  const mode = document.getElementById('vmode').value;
+  const vmEl = document.getElementById('vm');
+  if(!vmEl.value) vmEl.value = new Date().toISOString().substring(0,7);
+  const month = vmEl.value;
+  const [yr,mo] = month.split('-');
+  const lastDay = new Date(+yr,+mo,0).getDate();
+
+  document.getElementById('vday-wrap').style.display   = mode==='day'   ? 'flex' : 'none';
+  document.getElementById('vrange-wrap').style.display = mode==='month' ? 'flex' : 'none';
+
+  if(mode==='month'){
+    const fromEl = document.getElementById('vfrom');
+    const toEl   = document.getElementById('vto');
+    if(!fromEl.value || !fromEl.value.startsWith(month)){
+      fromEl.value = month+'-01';
+      toEl.value   = month+'-'+String(lastDay).padStart(2,'0');
+    }
+    await renderVisMonth();
+  } else {
+    const city  = document.getElementById('vc').value;
+    const dayEl = document.getElementById('vday');
+    dayEl.min   = month+'-01';
+    dayEl.max   = month+'-'+String(lastDay).padStart(2,'0');
+    if(!dayEl.value || !dayEl.value.startsWith(month)){
+      const vd    = await getVD();
+      const dates = Object.keys(vd).filter(function(d){ return d.startsWith(month)&&(vd[d]||{})[city]; }).sort();
+      dayEl.value = dates.length ? dates[dates.length-1] : month+'-01';
+    }
+    await renderVisDay();
+  }
+}
+
+async function renderVisMonth(){
+  const city   = document.getElementById('vc').value;
+  const fromEl = document.getElementById('vfrom');
+  const toEl   = document.getElementById('vto');
+  var   from   = fromEl ? fromEl.value : '';
+  var   to     = toEl   ? toEl.value   : '';
+  const brandF = (document.getElementById('vbrand')||{}).value||'';
+  const catF   = (document.getElementById('vcat')||{}).value||'';
+  const grid   = document.getElementById('vis-grid');
+
+  if(!from||!to){
+    const vm=document.getElementById('vm').value||new Date().toISOString().substring(0,7);
+    const [yr,mo]=vm.split('-');
+    from=vm+'-01'; to=vm+'-'+String(new Date(+yr,+mo,0).getDate()).padStart(2,'0');
+    if(fromEl) fromEl.value=from;
+    if(toEl)   toEl.value=to;
+  }
+
+  const vd=await getVD();
+  const dates=[];
+  var d0=new Date(from+'T00:00:00'), d1=new Date(to+'T00:00:00');
+  while(d0<=d1){ dates.push(d0.toISOString().split('T')[0]); d0.setDate(d0.getDate()+1); }
+
+  function ok(item){
+    if(brandF&&item.b.toLowerCase().indexOf(brandF.toLowerCase())<0) return false;
+    if(catF&&item.l!==catF) return false;
+    return true;
+  }
+
+  const SLOTS=[
+    {k:'Search_01-05h',lbl:'Search 01-05h',grp:'Search'},
+    {k:'Search_05-10h',lbl:'Search 05-10h',grp:'Search'},
+    {k:'Search_10-12h',lbl:'Search 10-12h',grp:'Search'},
+    {k:'Search_12-14h',lbl:'Search 12-14h',grp:'Search'},
+    {k:'Search_14-17h',lbl:'Search 14-17h',grp:'Search'},
+    {k:'Search_17-19h',lbl:'Search 17-19h',grp:'Search'},
+    {k:'HTC_1st_0-8h',  lbl:'HC 1st 0-8h',  grp:'Home Circle'},
+    {k:'HTC_1st_8-16h', lbl:'HC 1st 8-16h', grp:'Home Circle'},
+    {k:'HTC_1st_16-24h',lbl:'HC 1st 16-24h',grp:'Home Circle'},
+    {k:'HTC_2nd_0-8h',  lbl:'HC 2nd 0-8h',  grp:'Home Circle'},
+    {k:'HTC_2nd_8-16h', lbl:'HC 2nd 8-16h', grp:'Home Circle'},
+    {k:'HTC_2nd_16-24h',lbl:'HC 2nd 16-24h',grp:'Home Circle'},
+    {k:'Hometop_0', lbl:'HT #0 NU',    grp:'Hometop'},
+    {k:'Hometop_1', lbl:'HT #1',       grp:'Hometop'},
+    {k:'Hometop_2', lbl:'HT #2',       grp:'Hometop'},
+    {k:'Hometop_3', lbl:'HT #3',       grp:'Hometop'},
+    {k:'Hometop_4', lbl:'HT #4',       grp:'Hometop'},
+    {k:'Hometop_5', lbl:'HT #5',       grp:'Hometop'},
+    {k:'Hometop_6', lbl:'HT #6',       grp:'Hometop'},
+    {k:'Hometop_7', lbl:'HT #7',       grp:'Hometop'},
+    {k:'Hometop_8', lbl:'HT #8',       grp:'Hometop'},
+    {k:'Hometop_9', lbl:'HT #9',       grp:'Hometop'},
+    {k:'Hometop_10',lbl:'HT #10',      grp:'Hometop'},
+    {k:'Hometop_11',lbl:'HT #11',      grp:'Hometop'},
+    {k:'Hometop_12',lbl:'HT #12',      grp:'Hometop'},
+    {k:'Hometop_13',lbl:'HT #13 Mart', grp:'Hometop'},
+    {k:'Static_1',lbl:'Static #1',grp:'Static'},
+    {k:'Static_2',lbl:'Static #2',grp:'Static'},
+    {k:'Static_3',lbl:'Static #3',grp:'Static'},
+    {k:'Static_4',lbl:'Static #4',grp:'Static'},
+    {k:'Static_5',lbl:'Static #5',grp:'Static'},
+    {k:'Static_6',lbl:'Static #6',grp:'Static'},
+    {k:'Bottom_1',lbl:'Bottom #1',grp:'Bottom'},
+    {k:'Bottom_2',lbl:'Bottom #2',grp:'Bottom'},
+    {k:'Bottom_3',lbl:'Bottom #3',grp:'Bottom'},
+    {k:'Bottom_4',lbl:'Bottom #4',grp:'Bottom'},
+    {k:'Bottom_5',lbl:'Bottom #5',grp:'Bottom'},
+    {k:'Bottom_6',lbl:'Bottom #6',grp:'Bottom'},
+    {k:'Flash_1',lbl:'Flash #1',grp:'Flash'},
+    {k:'Flash_2',lbl:'Flash #2',grp:'Flash'},
+    {k:'Flash_3',lbl:'Flash #3',grp:'Flash'},
+    {k:'Flash_4',lbl:'Flash #4',grp:'Flash'},
+    {k:'Ongoing',      lbl:'Ongoing',      grp:'Other'},
+    {k:'Search_Banner',lbl:'Search Banner',grp:'Other'},
+  ];
+
+  const active=SLOTS.filter(function(s){
+    return dates.some(function(d){
+      var a=(vd[d]||{})[city]; a=a&&a[s.k];
+      return Array.isArray(a)&&a.some(ok);
+    });
+  });
+
+  if(!active.length){
+    grid.innerHTML='<div class="empty" style="padding:32px">No data'+(brandF?' for "'+brandF+'"':'')+' in '+city+'</div>';
+    return;
+  }
+
+  var show=(brandF||catF)?dates.filter(function(d){
+    return active.some(function(s){
+      var a=(vd[d]||{})[city]; a=a&&a[s.k];
+      return Array.isArray(a)&&a.some(ok);
+    });
+  }):dates;
+
+  // FIXED WIDTHS — slot label 140px, each date 180px
+  // Width set directly on every th/td — no colgroup, no table-layout tricks
+  var SW=140, DW=180;
+  var wds=['Su','Mo','Tu','We','Th','Fr','Sa'];
+
+  // Detect L2 tags from text — returns all matching categories
+  function allL2(text){
+    var t=text.toLowerCase(), tags=[], seen={};
+    var L2MAP=[
+      ['highlands','Cafe'],['starbucks','Cafe'],['coffee house','Cafe'],
+      ['phúc long','Cafe'],['phe la','Cafe'],['phê la','Cafe'],['cheese coffee','Cafe'],
+      ['katinat','Cafe'],['cà phê','Cafe'],['ca phe','Cafe'],
+      ['trà sữa','Trà Sữa'],['tra sua','Trà Sữa'],['tocotoco','Trà Sữa'],
+      ['sunday basic','Trà Sữa'],['sekai','Trà Sữa'],['mixue','Trà Sữa'],
+      ['may cha','Trà Sữa'],['gong cha','Trà Sữa'],['rau má','Trà Sữa'],
+      ['kfc','Gà Rán'],['popeyes','Gà Rán'],['gà rán','Gà Rán'],['texas chicken','Gà Rán'],
+      ["domino",'Pizza'],['pizza hut','Pizza'],['pizza','Pizza'],
+      ["mcdonald",'Burger'],['lotteria','Burger'],['jollibee','Burger'],
+      ['cơm tấm','Cơm Tấm'],['cơm thố','Cơm'],['bún đậu','Bún Đậu'],
+      ['bún bò','Bún Bò'],['phở','Phở'],['hủ tiếu','Hủ Tiếu'],
+      ['hanuri','Món Hàn'],['korean','Món Hàn'],['busan','Món Hàn'],
+      ['bánh mì','Bánh Mì'],['pepsi','Nước Uống'],
+    ];
+    L2MAP.forEach(function(pair){
+      if(t.indexOf(pair[0])>-1 && !seen[pair[1]]){
+        seen[pair[1]]=1; tags.push(pair[1]);
+      }
+    });
+    return tags;
+  }
+
+  function cell(items){
+    if(!items||!items.length) return '<span style="color:var(--bord)">—</span>';
+    return items.map(function(x){
+
+      // ── Classify booking type for colour ────────────────────────────
+      var b0=(x.b||'').toLowerCase(), p0=(x.p||'').toLowerCase();
+      var isBlock   = b0.indexOf('block')>-1;
+      var isSPF     = b0.indexOf('spf')>-1||b0.indexOf('spfday')>-1||b0.indexOf('spf day')>-1;
+      var isFlash   = b0.indexOf(' fs ')>-1||b0.indexOf('flash sale')>-1||p0.indexOf('flash')>-1;
+      var isThematic= b0.indexOf('thematic')>-1;
+      var isMidMonth= b0.indexOf('mid month')>-1;
+      var isPlf     = p0.indexOf('[plf')>-1||p0.indexOf('[mart')>-1;
+
+      var bg, border, labelC;
+      if(isBlock)    { bg='rgba(100,116,139,.15)'; border='rgba(100,116,139,.4)';  labelC='#94a3b8'; }
+      else if(isSPF) { bg='rgba(239,68,68,.15)';   border='rgba(239,68,68,.4)';    labelC='#f87171'; }
+      else if(isFlash){ bg='rgba(234,179,8,.15)';  border='rgba(234,179,8,.4)';    labelC='#facc15'; }
+      else if(isThematic){ bg='rgba(20,184,166,.15)'; border='rgba(20,184,166,.4)'; labelC='#2dd4bf'; }
+      else if(isMidMonth){ bg='rgba(168,85,247,.18)'; border='rgba(168,85,247,.3)'; labelC='#c084fc'; }
+      else if(isPlf) { bg='rgba(168,85,247,.14)';  border='rgba(168,85,247,.25)';  labelC='#c084fc'; }
+      else           { bg='rgba(59,130,246,.14)';   border='rgba(59,130,246,.25)';  labelC='#60a5fa'; }
+
+      // ── Extract time from t field or brand text prefix ───────────────
+      var timeStr=x.t||'';
+      var brandText=x.b||'';
+      if(!timeStr && brandText){
+        var tm=brandText.match(/^(\d{1,2}[\-–\d\s&hHhH:]{1,20}[hH])[: ]+/i);
+        if(tm){ timeStr=tm[1].trim(); brandText=brandText.slice(tm[0].length).trim(); }
+      }
+      // If brand still empty, use programme tags as label
+      if(!brandText){
+        var tagM=(x.p||'').match(/\[([^\]]+)\]/g);
+        brandText=tagM?tagM.join(' '):'—';
+      }
+
+      // ── Time pill (always orange) ────────────────────────────────────
+      var tpill=timeStr?'<div style="margin-bottom:4px"><span style="background:#f97316;color:#fff;font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">'+timeStr+'</span></div>':'';
+
+      // ── Programme badges ─────────────────────────────────────────────
+      var badges='', prog=x.p||'';
+      var tagRE=/\[([^\]]+)\]/g, tagM2;
+      while((tagM2=tagRE.exec(prog))!==null){
+        var tag='['+tagM2[1]+']', cls='b-plf';
+        for(var c in PM){ if(PM[c].l===tag){cls=PM[c].cls;break;} }
+        badges+='<span class="b '+cls+'" style="font-size:9px;padding:1px 4px;margin:0 2px 2px 0">'+tag+'</span>';
+      }
+      var badgeRow=badges?'<div style="margin-bottom:3px">'+badges+'</div>':'';
+
+      // ── L2 tags ──────────────────────────────────────────────────────
+      var l2tags=x.l?[x.l]:[];
+      allL2(brandText+' '+x.p).forEach(function(tag){
+        if(l2tags.indexOf(tag)<0) l2tags.push(tag);
+      });
+      var ltags=l2tags.map(function(tag){
+        return '<span style="display:inline-block;background:rgba(6,182,212,.2);color:#22d3ee;font-size:8px;padding:1px 5px;border-radius:3px;margin-right:2px">'+tag+'</span>';
+      }).join('');
+      var lrow=ltags?'<div style="margin-bottom:3px">'+ltags+'</div>':'';
+
+      return '<div style="background:'+bg+';border:1px solid '+border+';border-radius:5px;padding:6px 8px;margin-bottom:4px">'+
+        tpill+badgeRow+lrow+
+        '<span style="color:'+labelC+';font-size:11px;font-weight:500;line-height:1.3">'+brandText.substring(0,30)+'</span></div>';
+    }).join('');
+  }
+
+  // Build table — NO table-layout, NO colgroup, width on every cell
+  var h='<div style="overflow-x:auto"><table style="border-collapse:collapse"><thead><tr>';
+  // Slot header
+  h+='<th style="width:'+SW+'px;min-width:'+SW+'px;background:var(--surf);border:1px solid var(--bord);padding:8px 10px;font-family:var(--mono);font-size:9px;font-weight:700;color:var(--mut);text-transform:uppercase;position:sticky;left:0;z-index:4">SLOT</th>';
+  // Date headers
+  show.forEach(function(d){
+    var dt=new Date(d+'T00:00:00'),wd=wds[dt.getDay()],day=dt.getDate();
+    var we=wd==='Sa'||wd==='Su';
+    var hasDat=active.some(function(s){var a=(vd[d]||{})[city];a=a&&a[s.k];return Array.isArray(a)&&a.some(ok);});
+    var hbg=hasDat?'var(--card)':'var(--surf)';
+    h+='<th data-d="'+d+'" onclick="jumpToDay(this.dataset.d)" style="width:'+DW+'px;min-width:'+DW+'px;background:'+hbg+';border:1px solid var(--bord);padding:6px 4px;font-family:var(--mono);font-size:9px;color:'+(we?'var(--acc)':'var(--mut)')+';text-align:center;cursor:pointer">'+
+      '<div style="font-size:14px;font-weight:700;color:'+(we?'var(--acc)':'var(--txt)')+'">'+day+'</div>'+
+      '<div>'+wd+'</div></th>';
+  });
+  h+='</tr></thead><tbody>';
+
+  var lg='';
+  active.forEach(function(s){
+    if(s.grp!==lg){
+      h+='<tr><td colspan="'+(show.length+1)+'" style="background:rgba(249,115,22,.08);backdrop-filter:blur(4px);border:1px solid rgba(249,115,22,.15);padding:4px 12px;font-family:var(--mono);font-size:9px;font-weight:700;color:#f97316;text-transform:uppercase;letter-spacing:1.5px">'+s.grp+'</td></tr>';
+      lg=s.grp;
+    }
+    h+='<tr>';
+    h+='<td style="width:'+SW+'px;min-width:'+SW+'px;background:var(--card);border:1px solid var(--bord);padding:8px 10px;font-family:var(--mono);font-size:10px;font-weight:600;color:var(--txt);position:sticky;left:0;z-index:2;white-space:nowrap">'+s.lbl+'</td>';
+    show.forEach(function(d){
+      var a=(vd[d]||{})[city]; a=a&&a[s.k]; var items=Array.isArray(a)?a.filter(ok):[];
+      var isP=items.some(function(x){return x.p.indexOf('[PLF')>-1||x.p.indexOf('[Mart')>-1;});
+      var bc=items.length?(isP?'rgba(168,85,247,.35)':'rgba(59,130,246,.35)'):'var(--bord)';
+      var bg=items.length?(isP?'rgba(168,85,247,.04)':'rgba(59,130,246,.04)'):'';
+      h+='<td data-d="'+d+'" onclick="jumpToDay(this.dataset.d)" style="width:'+DW+'px;min-width:'+DW+'px;border:1px solid '+bc+';padding:6px 7px;vertical-align:top;background:'+bg+';cursor:pointer">'+cell(items)+'</td>';
+    });
+    h+='</tr>';
+  });
+  h+='</tbody></table></div>';
+  h+='<div style="padding:8px 14px;font-size:11px;color:var(--mut)">🟦 Brand &nbsp;🟣 Platform &nbsp;·&nbsp; Click any date header or cell → Day detail</div>';
+  grid.innerHTML=h;
+}
+
+
+async function jumpToDay(ds){
+  document.getElementById('vmode').value='day';
+  document.getElementById('vday').value=ds;
+  await renderVis();
+}
+
+async function renderVisDay(){
+  const city = document.getElementById('vc').value;
+  const ds   = document.getElementById('vday').value;
+  if(!ds){ document.getElementById('vis-grid').innerHTML='<div class="empty">Select a date</div></div>'; return; }
+
+  const vd  = await getVD();
+  const day = (vd[ds]||{})[city]||{};
+  const dow = new Date(ds+'T00:00:00').toLocaleDateString('vi-VN',{weekday:'long'});
+
+  // Filters
+  const brandF = (document.getElementById('vbrand')||{}).value||'';
+  const catF   = (document.getElementById('vcat')||{}).value||'';
+
+  // Filter helper
+  function matchItem(item){
+    if(brandF && item.b.toLowerCase().indexOf(brandF.toLowerCase())<0) return false;
+    if(catF && item.l !== catF) return false;
+    return true;
+  }
+
+  // ── Column groups ───────────────────────────────────────────────────
+  const COL_GROUPS = [
+    { label:'🔍 Search Placeholder', cols:['Search_01-05h','Search_05-10h','Search_10-12h','Search_12-14h','Search_14-17h','Search_17-19h','Search_19-22h'], short:['01-05h','05-10h','10-12h','12-14h','14-17h','17-19h','19-22h'] },
+    { label:'⭕ Home Circle — 1st Scroll', cols:['HTC_1st_0-8h','HTC_1st_8-16h','HTC_1st_16-24h'], short:['0-8h','8-16h','16-24h'] },
+    { label:'⭕ Home Circle — 2nd Scroll', cols:['HTC_2nd_0-8h','HTC_2nd_8-16h','HTC_2nd_16-24h'], short:['0-8h','8-16h','16-24h'] },
+    { label:'🏠 Hometop Banner', cols:['Hometop_0','Hometop_1','Hometop_2','Hometop_3','Hometop_4','Hometop_5','Hometop_6','Hometop_7','Hometop_8','Hometop_9','Hometop_10','Hometop_11','Hometop_12','Hometop_13'], short:['#0 NU','#1','#2','#3','#4','#5','#6','#7','#8','#9','#10','#11','#12','#13 Mart'] },
+    { label:'📌 Static Banner', cols:['Static_1','Static_2','Static_3','Static_4','Static_5','Static_6'], short:['#1','#2','#3','#4','#5','#6'] },
+    { label:'⬇ Bottom Banner',  cols:['Bottom_1','Bottom_2','Bottom_3','Bottom_4','Bottom_5','Bottom_6'], short:['#1','#2','#3','#4','#5','#6'] },
+    { label:'⚡ Flash Sale',     cols:['Flash_1','Flash_2','Flash_3','Flash_4'], short:['#1','#2','#3','#4'] },
+    { label:'🔁 Ongoing / Search Banner', cols:['Ongoing','Search_Banner'], short:['Ongoing','Search'] },
+  ];
+
+  // Only show groups/cols with data matching filter
+  function getFiltered(col){
+    var arr = day[col];
+    if(!Array.isArray(arr)) return [];
+    return arr.filter(matchItem);
+  }
+
+  // ── Stats ────────────────────────────────────────────────────────────
+  var allItems=[];
+  Object.values(day).forEach(function(a){ if(Array.isArray(a)) allItems=allItems.concat(a.filter(matchItem)); });
+  var brandCnt=allItems.filter(function(x){return !x.p.includes('[PLF')&&!x.p.includes('[Mart');}).length;
+  var plfCnt=allItems.length-brandCnt;
+
+  var html = '<div style="font-family:var(--mono);font-size:11px;color:var(--mut);margin-bottom:12px">'+
+    '📅 '+ds+' — '+dow+' — <strong style="color:var(--acc)">'+city+'</strong></div>';
+  html += '<div class="stat-row" style="margin-bottom:16px">'+
+    '<div style="background:rgba(255,255,255,.06);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 16px;min-width:120px"><div class="stat-lbl">Total</div><div class="stat-val">'+allItems.length+'</div></div>'+
+    '<div class="stat"><div class="stat-lbl">Brand</div><div class="stat-val" style="color:#60a5fa">'+brandCnt+'</div></div>'+
+    '<div class="stat"><div class="stat-lbl">Platform</div><div class="stat-val" style="color:#c084fc">'+plfCnt+'</div></div>'+
+    '</div>';
+
+  // ── Render one booking card ──────────────────────────────────────────
+  function card(item){
+    var prog=item.p||'', badges='';
+    var tagRE=/\[([^\]]+)\]/g, m;
+    while((m=tagRE.exec(prog))!==null){
+      var tag='['+m[1]+']', cls='b-plf';
+      for(var c in PM){ if(PM[c].l===tag){cls=PM[c].cls;break;} }
+      badges+='<span class="b '+cls+'" style="font-size:9px;padding:1px 4px;margin:0 1px 2px 0">'+tag+'</span>';
+    }
+    var l2html = item.l ? '<div style="margin:3px 0"><span style="font-family:var(--mono);font-size:9px;background:rgba(6,182,212,.15);color:#22d3ee;border:1px solid rgba(6,182,212,.3);padding:1px 5px;border-radius:3px">🏷 '+item.l+'</span></div>' : '';
+    var brand  = item.b ? '<div style="font-size:11px;color:var(--txt);line-height:1.35;margin-top:2px">'+item.b+'</div>' : '';
+    var isPlf  = prog.includes('[PLF')||prog.includes('[Mart');
+    var cardBg = isPlf ? 'background:rgba(168,85,247,.07);border:1px solid rgba(168,85,247,.2)' : 'background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2)';
+    return '<div style="'+cardBg+';border-radius:6px;padding:6px 8px;margin-bottom:4px">'+badges+l2html+brand+'</div>';
+  }
+
+  // ── Build each group as fixed equal-width table ──────────────────────
+  COL_GROUPS.forEach(function(grp){
+    var activeCols = grp.cols.filter(function(c){ return getFiltered(c).length>0; });
+    if(!activeCols.length) return;
+
+    // Collect all unique time windows across active cols
+    var twSet = new Set(['All Day']);
+    activeCols.forEach(function(col){
+      getFiltered(col).forEach(function(item){
+        var t = item.t&&item.t.trim() ? item.t.trim() : 'All Day';
+        twSet.add(t);
+      });
+    });
+    var tws = Array.from(twSet).sort(function(a,b){
+      if(a==='All Day') return -1; if(b==='All Day') return 1;
+      return (parseInt(a)||0)-(parseInt(b)||0);
+    });
+
+    // Only show time rows that have data
+    var activeTws = tws.filter(function(tw){
+      return activeCols.some(function(col){
+        return getFiltered(col).some(function(x){ return (x.t&&x.t.trim()?x.t.trim():'All Day')===tw; });
+      });
+    });
+    if(!activeTws.length) return;
+
+    var colW = Math.max(140, Math.floor(1100/activeCols.length))+'px';
+    var filledCount = activeCols.reduce(function(s,c){ return s+getFiltered(c).length; },0);
+
+    html += '<div style="margin-bottom:22px">';
+    html += '<div style="font-family:var(--mono);font-size:10px;color:var(--acc);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">'+grp.label+
+            ' <span style="color:var(--mut)">('+activeCols.length+' slots · '+filledCount+' bookings)</span></div>';
+    html += '<div style="overflow-x:auto;border-radius:8px;border:1px solid var(--bord)">';
+    html += '<table style="border-collapse:collapse;table-layout:fixed;min-width:100%">';
+
+    // Header
+    html += '<colgroup><col style="width:100px"/>';
+    activeCols.forEach(function(){ html += '<col style="width:'+colW+'"/>'; });
+    html += '</colgroup>';
+    html += '<thead><tr>';
+    html += '<th style="background:var(--card);border:1px solid var(--bord);padding:8px 10px;font-family:var(--mono);font-size:10px;color:var(--mut);text-transform:uppercase;white-space:nowrap;position:sticky;left:0;z-index:3">Time</th>';
+    activeCols.forEach(function(col){
+      var idx2 = grp.cols.indexOf(col);
+      var lbl  = grp.short[idx2]||col;
+      html += '<th style="background:var(--card);border:1px solid var(--bord);padding:8px 10px;font-family:var(--mono);font-size:10px;color:var(--mut);text-transform:uppercase;white-space:nowrap;text-align:center">'+lbl+'</th>';
+    });
+    html += '</tr></thead><tbody>';
+
+    // Rows
+    activeTws.forEach(function(tw){
+      html += '<tr>';
+      var twLabel = tw==='All Day'
+        ? '<span style="font-family:var(--mono);font-size:10px;color:var(--mut)">All Day</span>'
+        : '<span style="font-family:var(--mono);font-size:10px;font-weight:700;color:#fff;background:#f97316;padding:3px 8px;border-radius:4px;white-space:nowrap">'+tw+'</span>';
+      html += '<td style="border:1px solid var(--bord);padding:8px 10px;background:var(--surf);position:sticky;left:0;z-index:2;vertical-align:top">'+twLabel+'</td>';
+
+      activeCols.forEach(function(col){
+        var items = getFiltered(col).filter(function(x){ return (x.t&&x.t.trim()?x.t.trim():'All Day')===tw; });
+        var isPlf  = items.some(function(x){ return x.p.includes('[PLF')||x.p.includes('[Mart'); });
+        var borderC= items.length ? (isPlf?'rgba(168,85,247,.3)':'rgba(59,130,246,.3)') : 'var(--bord)';
+        html += '<td style="border:1px solid '+borderC+';padding:8px 10px;vertical-align:top">';
+        if(!items.length){
+          html += '<span style="color:var(--bord);font-size:11px">—</span>';
+        } else {
+          items.forEach(function(item){ html += card(item); });
+        }
+        html += '</td>';
+      });
+      html += '</tr>';
+    });
+
+    html += '</tbody></table></div></div>';
+  });
+
+  if(!allItems.length) html += '<div class="empty">No data for '+ds+' in '+city+(brandF?' matching "'+brandF+'"':'')+'</div>';
+  document.getElementById('vis-grid').innerHTML=html;
+}
+
+function exportCSV(){const hdrs=['ID','Source','Programme','Brand','Scheme','Month','Start','End','Banner','Cities','Status','PIC','QC_Errors','QC_Warns','QC_Flags'];const rows=filtered.map(b=>{const qc=runQC(b);const flags=qc.checks.filter(c=>c.st!=='pass').map(c=>c.name).join(' | ');return[b.id,b.source,b.prog,`"${(b.brand||'').replace(/"/g,"'")}"`,`"${(b.scheme||'').replace(/"/g,"'")}"`,b.month,b.start,b.end,b.banner,`"${(b.cities||[]).join(',')}"`,b.status,b.pic,qc.errors,qc.warns,`"${flags}"`].join(',');});const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent([hdrs.join(','),...rows].join('\\n'));a.download='shopeefood_bookings.csv';a.click();}
+
+// Defer all init until after first paint — prevents blank page on large datasets
+(async function init(){
+  const ov=document.getElementById('loading-overlay');
+  if(ov) ov.style.display='flex';
+  try{
+    const [bk,caps]=await Promise.all([
+      fetch('/api/bookings').then(r=>r.json()),
+      fetch('/api/caps').then(r=>r.json()),
+    ]);
+    ALL_BOOKINGS=bk; DAILY_CAPS=caps.daily; MONTHLY_CAPS=caps.monthly;
+  }catch(e){
+    if(ov) ov.style.display='none';
+    alert('Could not load data. Run prepare_data.py first.');
+    return;
+  }
+  if(ov) ov.style.display='none';
+  const t=new Date().toISOString().split('T')[0];
+  document.getElementById('f_start').value=t;
+  document.getElementById('f_end').value=t;
+  document.getElementById('vm').value=t.substring(0,7);
+  applyFilters();
+  renderDashboard();
+})();
+</script>
+</body>
+</html>
