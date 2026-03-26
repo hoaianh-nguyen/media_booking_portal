@@ -7,9 +7,44 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
   <style>
 .page{display:none;padding:18px 20px;max-width:1500px;margin:0 auto;}.page.on{display:block;}
-#btn-undo,#btn-redo{background:var(--surf);border:1px solid var(--bord);border-radius:6px;color:var(--mut);font-size:12px;padding:4px 10px;cursor:pointer;transition:all .15s;}
-#btn-undo:hover:not(:disabled),#btn-redo:hover:not(:disabled){color:var(--txt);border-color:var(--acc);}
-#btn-undo:disabled,#btn-redo:disabled{opacity:.3;cursor:not-allowed;}
+#btn-undo,#btn-redo{cursor:pointer;transition:all .15s;}
+#btn-undo:disabled,#btn-redo:disabled{cursor:not-allowed;}
+.tr-missing td{background:rgba(239,68,68,.05)!important;}
+.b-bd{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.25);}
+.b-mkt{background:rgba(168,85,247,.15);color:#c084fc;border:1px solid rgba(168,85,247,.25);}
+.b-conf{background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.25);}
+.b-done{background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.25);}
+.b-pend{background:rgba(234,179,8,.15);color:#fbbf24;border:1px solid rgba(234,179,8,.25);}
+.b-warn{background:rgba(234,179,8,.15);color:#fbbf24;border:1px solid rgba(234,179,8,.25);}
+.b-err{background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.25);}
+.b-ok{background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.25);}
+.b-city-a{background:rgba(249,115,22,.15);color:#fb923c;border:1px solid rgba(249,115,22,.25);}
+.b-city-b{background:rgba(100,116,139,.15);color:#94a3b8;border:1px solid rgba(100,116,139,.25);}
+.b-plf{background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.25);}
+.b-vip{background:rgba(251,191,36,.15);color:#fbbf24;border:1px solid rgba(251,191,36,.25);}
+.b-svip{background:rgba(168,85,247,.15);color:#c084fc;border:1px solid rgba(168,85,247,.25);}
+.b-sjbp{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.25);}
+.b-jbp{background:rgba(20,184,166,.15);color:#2dd4bf;border:1px solid rgba(20,184,166,.25);}
+.b-win{background:rgba(249,115,22,.15);color:#fb923c;border:1px solid rgba(249,115,22,.25);}
+.b-pns{background:rgba(139,92,246,.15);color:#a78bfa;border:1px solid rgba(139,92,246,.25);}
+.b-ala{background:rgba(6,182,212,.15);color:#22d3ee;border:1px solid rgba(6,182,212,.25);}
+.br-err td:first-child{border-left:3px solid var(--red)!important;}
+.br-warn td:first-child{border-left:3px solid var(--ylw)!important;}
+.modal{background:var(--card);border:1px solid var(--bord);border-radius:14px;padding:24px;max-width:680px;width:95%;max-height:88vh;overflow-y:auto;}
+.modal-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--bord);}
+.modal-close{background:none;border:none;color:var(--mut);font-size:16px;cursor:pointer;padding:2px 6px;}
+.modal-close:hover{color:var(--txt);}
+.d0{color:var(--mut);text-align:center;font-family:var(--mono);font-size:11px;}
+.dlo{color:#60a5fa;text-align:center;font-family:var(--mono);font-size:11px;font-weight:600;}
+.dmd{color:#fb923c;text-align:center;font-family:var(--mono);font-size:11px;font-weight:600;}
+.dhi{color:#f87171;text-align:center;font-family:var(--mono);font-size:11px;font-weight:700;}
+.rh{font-family:var(--mono);font-size:11px;white-space:nowrap;}
+table{border-collapse:collapse;width:100%;font-size:12px;}
+th{font-family:var(--mono);font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:1px;padding:9px 12px;text-align:left;border-bottom:1px solid var(--bord);white-space:nowrap;cursor:pointer;user-select:none;}
+th:hover{color:var(--txt);}
+td{padding:8px 12px;border-bottom:1px solid var(--bord);color:var(--txt);vertical-align:top;}
+tr:hover td{background:rgba(255,255,255,.02);}
+.pg-bar{display:flex;align-items:center;gap:8px;margin:8px 0;}
 
 .page{display:none;padding:18px 20px;max-width:1500px;margin:0 auto;}.page.on{display:block;}
 :root{--bg:#0c0e15;--surf:#12151f;--card:#181c28;--bord:#222736;--acc:#f97316;--grn:#22c55e;--red:#ef4444;--ylw:#eab308;--cyan:#06b6d4;--txt:#e8eaf0;--mut:#6b7280;--mono:'DM Mono',monospace;--sans:'Inter',sans-serif;--dis:'Syne',sans-serif;}
@@ -60,7 +95,7 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
 .empty{text-align:center;padding:48px;color:var(--mut);font-family:var(--mono);font-size:12px;letter-spacing:1px;}
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;}
 .modal-bg.on{display:flex;}
-.modal{background:var(--card);border:1px solid var(--bord);border-radius:14px;padding:24px;max-width:640px;width:90%;max-height:85vh;overflow-y:auto;}
+.modal{background:var(--card);border:1px solid var(--bord);border-radius:14px;padding:24px;max-width:720px;width:95%;max-height:88vh;overflow-y:auto;}
 .ht th,.ht td{padding:7px 10px;}
 .ht th{font-size:11px;}
 .dm th,.dm td{padding:6px 10px;font-size:11px;}
@@ -74,29 +109,13 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
 .spinner{width:44px;height:44px;border:3px solid var(--bord);border-top-color:#f97316;border-radius:50%;animation:spin .8s linear infinite;}
 .loading-txt{font-family:'DM Mono',monospace;font-size:11px;color:var(--mut);letter-spacing:2px;text-transform:uppercase;}
 
-  
-.tr-missing td{background:rgba(239,68,68,.04)!important;}
-.tr-missing:hover td{background:rgba(239,68,68,.08)!important;}
-.b-bd{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.25);}
-.b-mkt{background:rgba(168,85,247,.15);color:#c084fc;border:1px solid rgba(168,85,247,.25);}
-.b-conf{background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.25);}
-.b-done{background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.25);}
-.b-pend{background:rgba(234,179,8,.15);color:#fbbf24;border:1px solid rgba(234,179,8,.25);}
-.b-warn{background:rgba(234,179,8,.15);color:#fbbf24;border:1px solid rgba(234,179,8,.25);}
-.b-err{background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.25);}
-.b-ok{background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.25);}
-.b-city-a{background:rgba(249,115,22,.15);color:#fb923c;border:1px solid rgba(249,115,22,.25);}
-.b-city-b{background:rgba(100,116,139,.15);color:#94a3b8;border:1px solid rgba(100,116,139,.25);}
-.br-err td{border-left:3px solid var(--red)!important;}
-.br-warn td{border-left:3px solid var(--ylw)!important;}
-</style>
+  </style>
 </head>
 <body>
 <div id="loading-overlay">
   <div class="spinner"></div>
   <div class="loading-txt">Loading data...</div>
 </div>
-
 <header class="hdr">
   <div class="logo">SHOPEEFOOD <span>MEDIA OPS</span></div>
   <nav class="nav">
@@ -108,23 +127,20 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
   </nav>
 </header>
 <div id="undo-bar" style="position:sticky;top:50px;z-index:90;background:var(--bg);border-bottom:1px solid var(--bord);padding:6px 20px;display:flex;align-items:center;gap:8px">
-  <button id="btn-undo" onclick="historyUndo()" disabled title="Undo (Cmd+Z)" style="background:var(--surf);border:1px solid var(--bord);border-radius:6px;color:var(--mut);font-size:12px;font-weight:600;padding:5px 14px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px">↩ Undo</button>
-  <button id="btn-redo" onclick="historyRedo()" disabled title="Redo (Cmd+Shift+Z)" style="background:var(--surf);border:1px solid var(--bord);border-radius:6px;color:var(--mut);font-size:12px;font-weight:600;padding:5px 14px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px">↪ Redo</button>
+  <button id="btn-undo" onclick="historyUndo()" disabled title="Undo (Cmd+Z)" style="background:#ffffff;border:1.5px solid #d1d5db;border-radius:6px;color:#6b7280;font-size:12px;font-weight:700;padding:5px 16px">↩ Undo</button>
+  <button id="btn-redo" onclick="historyRedo()" disabled title="Redo (Cmd+Shift+Z)" style="background:#ffffff;border:1.5px solid #d1d5db;border-radius:6px;color:#6b7280;font-size:12px;font-weight:700;padding:5px 16px">↪ Redo</button>
   <span id="undo-label" style="font-family:var(--mono);font-size:10px;color:var(--mut)"></span>
 </div>
 <div class="modal-bg" id="modal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
-    <div class="modal-hdr">
-      <span id="modal-title">Booking Detail</span>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
+    <div class="modal-hdr"><span id="modal-title" style="font-family:var(--dis);font-weight:700">Detail</span><button class="modal-close" onclick="closeModal()">✕</button></div>
     <div id="modal-body"></div>
   </div>
 </div>
 
 <div id="page-dashboard" class="page on">
   <div class="pg-title">Dashboard</div>
-  <div style="position:sticky;top:50px;z-index:50;background:var(--bg);padding-bottom:10px">
+  <div style="position:sticky;top:92px;z-index:50;background:var(--bg);padding-bottom:10px">
     <div class="card" style="margin-bottom:0;padding:12px 16px">
       <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
         <div class="fg"><label>City</label>
@@ -140,26 +156,56 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
             <option>May</option><option>Jun</option><option>Jul</option><option>Aug</option>
             <option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option>
           </select></div>
-        <div class="fg"><label>Programme</label>
-          <select class="flt" id="dash-prog" onchange="renderDashboard()">
-            <option value="">All Programmes</option>
-            <option value="ALACARECB">[Alacarte CB]</option><option value="ALACARTE">[Alacarte]</option>
-            <option value="SJBP">[SJBP]</option><option value="JBP">[JBP]</option>
-            <option value="SUPERVIP">[SuperVIP]</option><option value="VIP">[VIP]</option>
-            <option value="WIN1">[Win 1]</option><option value="WIN2">[Win 2]</option>
-            <option value="WIN3">[Win 3]</option><option value="WIN4">[Win 4]</option>
-            <option value="PNS">[PNS]</option><option value="PLF_CP">[PLF] CP</option>
-            <option value="PLF_BAU">[PLF] BAU</option><option value="PLF_WC">[PLF] WC</option>
-            <option value="PLF_MART">[Mart]</option><option value="PLF_NEWUSER">[PLF] New User</option>
-          </select></div>
+        <div class="fg" style="position:relative"><label>Programme</label>
+          <div id="dprog-btn" data-dd="dprog-dd" onclick="mddToggle(this.dataset.dd)" style="background:var(--surf);border:1px solid var(--bord);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--txt);cursor:pointer;min-width:150px;display:flex;justify-content:space-between;align-items:center;user-select:none;white-space:nowrap"><span id="dprog-btn-lbl">All Programmes</span><span style="color:var(--mut);margin-left:8px">▾</span></div>
+<div id="dprog-dd" style="display:none;position:absolute;top:100%;left:0;z-index:300;background:var(--card);border:1px solid var(--bord);border-radius:8px;padding:8px;min-width:190px;max-height:280px;overflow-y:auto;box-shadow:0 4px 20px rgba(0,0,0,.5)">
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" id="dprog-btn-all" data-btn="dprog-btn" data-cls="dprog-cb" onchange="mddAll(this)" checked> All</label>
+<div style="border-top:1px solid var(--bord);margin:4px 0"></div>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dprog-cb" value="ALACARECB" data-btn="dprog-btn" data-cls="dprog-cb" onchange="mddChange(this)"> [Alacarte CB]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dprog-cb" value="ALACARTE" data-btn="dprog-btn" data-cls="dprog-cb" onchange="mddChange(this)"> [Alacarte]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dprog-cb" value="SJBP" data-btn="dprog-btn" data-cls="dprog-cb" onchange="mddChange(this)"> [SJBP]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dprog-cb" value="JBP" data-btn="dprog-btn" data-cls="dprog-cb" onchange="mddChange(this)"> [JBP]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dprog-cb" value="SUPERVIP" data-btn="dprog-btn" data-cls="dprog-cb" onchange="mddChange(this)"> [SuperVIP]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dprog-cb" value="VIP" data-btn="dprog-btn" data-cls="dprog-cb" onchange="mddChange(this)"> [VIP]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dprog-cb" value="WIN1" data-btn="dprog-btn" data-cls="dprog-cb" onchange="mddChange(this)"> [Win 1]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dprog-cb" value="WIN2" data-btn="dprog-btn" data-cls="dprog-cb" onchange="mddChange(this)"> [Win 2]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dprog-cb" value="WIN3" data-btn="dprog-btn" data-cls="dprog-cb" onchange="mddChange(this)"> [Win 3]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dprog-cb" value="WIN4" data-btn="dprog-btn" data-cls="dprog-cb" onchange="mddChange(this)"> [Win 4]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dprog-cb" value="PNS" data-btn="dprog-btn" data-cls="dprog-cb" onchange="mddChange(this)"> [PNS]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dprog-cb" value="PLF_CP" data-btn="dprog-btn" data-cls="dprog-cb" onchange="mddChange(this)"> [PLF] CP</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dprog-cb" value="PLF_BAU" data-btn="dprog-btn" data-cls="dprog-cb" onchange="mddChange(this)"> [PLF] BAU</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dprog-cb" value="PLF_WC" data-btn="dprog-btn" data-cls="dprog-cb" onchange="mddChange(this)"> [PLF] WC</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dprog-cb" value="PLF_MART" data-btn="dprog-btn" data-cls="dprog-cb" onchange="mddChange(this)"> [Mart]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dprog-cb" value="PLF_NEWUSER" data-btn="dprog-btn" data-cls="dprog-cb" onchange="mddChange(this)"> [PLF] New User</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dprog-cb" value="PLF_SPXI" data-btn="dprog-btn" data-cls="dprog-cb" onchange="mddChange(this)"> [PLF] SPXI</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dprog-cb" value="PLF_SPL" data-btn="dprog-btn" data-cls="dprog-cb" onchange="mddChange(this)"> [PLF] SPL</label>
+</div>
+        </div>
         <div class="fg"><label>Brand</label>
-          <input type="text" id="dash-brand" class="search-box" placeholder="e.g. KFC..." style="width:140px" oninput="renderDashboard()"/></div>
-        <div class="fg"><label>L2 Category</label>
-          <select class="flt" id="dash-cat" onchange="renderDashboard()">
-            <option value="">All Categories</option>
-            <option>Cafe</option><option>Trà Sữa</option><option>Gà Rán</option>
-            <option>Pizza</option><option>Burger</option><option>Cơm Tấm</option><option>Món Hàn</option>
-          </select></div>
+          <input type="text" id="dash-brand" class="search-box" placeholder="e.g. KFC..." style="width:140px" oninput="renderDashboard()"/>
+        </div>
+        <div class="fg" style="position:relative"><label>L2 Category</label>
+          <div id="dcat-btn" data-dd="dcat-dd" onclick="mddToggle(this.dataset.dd)" style="background:var(--surf);border:1px solid var(--bord);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--txt);cursor:pointer;min-width:150px;display:flex;justify-content:space-between;align-items:center;user-select:none;white-space:nowrap"><span id="dcat-btn-lbl">All Categories</span><span style="color:var(--mut);margin-left:8px">▾</span></div>
+<div id="dcat-dd" style="display:none;position:absolute;top:100%;left:0;z-index:300;background:var(--card);border:1px solid var(--bord);border-radius:8px;padding:8px;min-width:190px;max-height:280px;overflow-y:auto;box-shadow:0 4px 20px rgba(0,0,0,.5)">
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" id="dcat-btn-all" data-btn="dcat-btn" data-cls="dcat-cb" onchange="mddAll(this)" checked> All</label>
+<div style="border-top:1px solid var(--bord);margin:4px 0"></div>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dcat-cb" value="Cafe" data-btn="dcat-btn" data-cls="dcat-cb" onchange="mddChange(this)"> Cafe</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dcat-cb" value="Trà Sữa" data-btn="dcat-btn" data-cls="dcat-cb" onchange="mddChange(this)"> Trà Sữa</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dcat-cb" value="Gà Rán" data-btn="dcat-btn" data-cls="dcat-cb" onchange="mddChange(this)"> Gà Rán</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dcat-cb" value="Pizza" data-btn="dcat-btn" data-cls="dcat-cb" onchange="mddChange(this)"> Pizza</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dcat-cb" value="Burger" data-btn="dcat-btn" data-cls="dcat-cb" onchange="mddChange(this)"> Burger</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dcat-cb" value="Cơm Tấm" data-btn="dcat-btn" data-cls="dcat-cb" onchange="mddChange(this)"> Cơm Tấm</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dcat-cb" value="Món Hàn" data-btn="dcat-btn" data-cls="dcat-cb" onchange="mddChange(this)"> Món Hàn</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dcat-cb" value="Phở" data-btn="dcat-btn" data-cls="dcat-cb" onchange="mddChange(this)"> Phở</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dcat-cb" value="Bánh Mì" data-btn="dcat-btn" data-cls="dcat-cb" onchange="mddChange(this)"> Bánh Mì</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dcat-cb" value="Cơm" data-btn="dcat-btn" data-cls="dcat-cb" onchange="mddChange(this)"> Cơm</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dcat-cb" value="Hủ Tiếu" data-btn="dcat-btn" data-cls="dcat-cb" onchange="mddChange(this)"> Hủ Tiếu</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dcat-cb" value="Bún Bò" data-btn="dcat-btn" data-cls="dcat-cb" onchange="mddChange(this)"> Bún Bò</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dcat-cb" value="Cháo" data-btn="dcat-btn" data-cls="dcat-cb" onchange="mddChange(this)"> Cháo</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dcat-cb" value="Xôi" data-btn="dcat-btn" data-cls="dcat-cb" onchange="mddChange(this)"> Xôi</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="dcat-cb" value="Ăn vặt" data-btn="dcat-btn" data-cls="dcat-cb" onchange="mddChange(this)"> Ăn vặt</label>
+</div>
+        </div>
       </div>
     </div>
   </div>
@@ -168,105 +214,69 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
     <div class="card"><div class="sub-lbl">By Programme</div><div id="dash-prog-chart"></div></div>
     <div class="card"><div class="sub-lbl">By Month</div><div id="dash-mo"></div></div>
   </div>
-  <div class="card" style="margin-bottom:14px">
-    <div class="sub-lbl">City × Programme Matrix</div>
-    <div class="tbl-wrap" id="dash-city-mx"></div>
-  </div>
-  <div class="card" style="margin-bottom:14px">
-    <div class="sub-lbl">Media Type × Programme Matrix</div>
-    <div class="tbl-wrap" id="dash-media-mx"></div>
-  </div>
-  <div class="card">
-    <div class="sub-lbl">QC Issues — click any row to drill down</div>
-    <div id="dash-qc"></div>
-  </div>
+  <div class="card" style="margin-bottom:14px"><div class="sub-lbl">City × Programme Matrix</div><div class="tbl-wrap" id="dash-city-mx"></div></div>
+  <div class="card" style="margin-bottom:14px"><div class="sub-lbl">Media Type × Programme Matrix</div><div class="tbl-wrap" id="dash-media-mx"></div></div>
+  <div class="card"><div class="sub-lbl">QC Issues — click any row to drill down</div><div id="dash-qc"></div></div>
 </div>
+
 <div id="page-bookings" class="page">
-  <div class="pg-title">All Bookings <span id="total-count" style="font-family:var(--mono);font-size:13px;color:var(--mut);font-weight:400;margin-left:8px;"></span></div>
-  <div style="position:sticky;top:50px;z-index:50;background:var(--bg);padding-bottom:10px">
+  <div class="pg-title">All Bookings <span id="total-count" style="font-family:var(--mono);font-size:13px;color:var(--mut);font-weight:400;margin-left:8px"></span></div>
+  <div style="position:sticky;top:92px;z-index:50;background:var(--bg);padding-bottom:10px">
     <div class="card" style="margin-bottom:0;padding:12px 16px">
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end">
-        <div class="fg"><label>Search</label>
-          <input class="search-box" type="text" placeholder="Brand, programme, PIC..." id="search" oninput="applyFilters()"/></div>
-        <div class="fg"><label>Source</label>
-          <select class="flt" id="flt-source" onchange="applyFilters()">
-            <option value="">All Sources</option>
-            <option value="BD">BD Programs</option><option value="MKT">MKT</option>
-          </select></div>
-        <div class="fg"><label>Programme</label>
-          <select class="flt" id="flt-prog" onchange="applyFilters()">
-            <option value="">All Programmes</option>
-            <option value="ALACARECB">[Alacarte CB]</option><option value="ALACARTE">[Alacarte]</option>
-            <option value="SJBP">[SJBP]</option><option value="JBP">[JBP]</option>
-            <option value="SUPERVIP">[SuperVIP]</option><option value="VIP">[VIP]</option>
-            <option value="WIN1">[Win 1]</option><option value="WIN2">[Win 2]</option>
-            <option value="WIN3">[Win 3]</option><option value="WIN4">[Win 4]</option>
-            <option value="PNS">[PNS]</option><option value="PLF_CP">[PLF] CP</option>
-            <option value="PLF_BAU">[PLF] BAU</option><option value="PLF_WC">[PLF] WC</option>
-            <option value="PLF_MART">[Mart]</option>
-          </select></div>
-        <div class="fg"><label>Month</label>
-          <select class="flt" id="flt-month" onchange="applyFilters()">
-            <option value="">All Months</option>
-            <option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option>
-            <option>May</option><option>Jun</option><option>Jul</option><option>Aug</option>
-            <option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option>
-          </select></div>
-        <div class="fg"><label>City</label>
-          <select class="flt" id="flt-city" onchange="applyFilters()">
-            <option value="">All Cities</option>
-            <option>HCM</option><option>HN</option><option>DN</option>
-            <option>HP</option><option>CT</option><option>OTH</option>
-          </select></div>
-        <div class="fg"><label>Date Range</label>
-          <div style="display:flex;align-items:center;gap:6px">
-            <input type="date" id="flt-start-from" onchange="applyFilters()" style="width:130px" title="From date"/>
-            <span style="color:var(--mut);font-size:12px">→</span>
-            <input type="date" id="flt-start-to" onchange="applyFilters()" style="width:130px" title="To date"/>
-          </div></div>
-        <div class="fg"><label>QC</label>
-          <select class="flt" id="flt-qc" onchange="applyFilters()">
-            <option value="">All QC</option>
-            <option value="err">❌ Errors</option>
-            <option value="warn">⚠️ Warnings</option>
-            <option value="ok">✅ Clean</option>
-          </select></div>
-        <div class="fg"><label>Status</label>
-          <select class="flt" id="flt-status" onchange="applyFilters()">
-            <option value="">All Status</option>
-            <option>Confirmed</option><option>Pending</option><option>Done</option>
-          </select></div>
+        <div class="fg"><label>Search</label><input class="search-box" type="text" placeholder="Brand, programme, PIC..." id="search" oninput="applyFilters()"/></div>
+        <div class="fg"><label>Source</label><select class="flt" id="flt-source" onchange="applyFilters()"><option value="">All Sources</option><option value="BD">BD Programs</option><option value="MKT">MKT</option></select></div>
+        <div class="fg" style="position:relative"><label>Programme</label>
+        <div id="bprog-btn" data-dd="bprog-dd" onclick="mddToggle(this.dataset.dd)" style="background:var(--surf);border:1px solid var(--bord);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--txt);cursor:pointer;min-width:150px;display:flex;justify-content:space-between;align-items:center;user-select:none;white-space:nowrap"><span id="bprog-btn-lbl">All Programmes</span><span style="color:var(--mut);margin-left:8px">▾</span></div>
+<div id="bprog-dd" style="display:none;position:absolute;top:100%;left:0;z-index:300;background:var(--card);border:1px solid var(--bord);border-radius:8px;padding:8px;min-width:190px;max-height:280px;overflow-y:auto;box-shadow:0 4px 20px rgba(0,0,0,.5)">
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" id="bprog-btn-all" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddAll(this)" checked> All</label>
+<div style="border-top:1px solid var(--bord);margin:4px 0"></div>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="ALACARECB" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [Alacarte CB]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="ALACARTE" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [Alacarte]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="SJBP" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [SJBP]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="JBP" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [JBP]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="SUPERVIP" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [SuperVIP]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="VIP" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [VIP]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="WIN1" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [Win 1]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="WIN2" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [Win 2]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="WIN3" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [Win 3]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="WIN4" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [Win 4]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="PNS" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [PNS]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="PLF_CP" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [PLF] CP</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="PLF_BAU" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [PLF] BAU</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="PLF_WC" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [PLF] WC</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="PLF_MART" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [Mart]</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="PLF_NEWUSER" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [PLF] New User</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="PLF_SPXI" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [PLF] SPXI</label>
+<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="PLF_SPL" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [PLF] SPL</label>
+</div>
         <button class="btn btn-s" onclick="exportCSV()">⬇ CSV</button>
       </div>
     </div>
   </div>
-  <div style="display:flex;align-items:center;gap:8px;margin:10px 0 8px">
+  <div class="pg-bar" style="margin:10px 0 8px">
     <button class="btn btn-s" id="btn-prev" onclick="prevPage()">◀ Prev</button>
     <button class="btn btn-s" id="btn-next" onclick="nextPage()">Next ▶</button>
     <span id="pg-info" style="font-size:12px;color:var(--mut)"></span>
-    <select class="flt" style="width:70px;padding:4px 6px;margin-left:auto" onchange="pageSize=+this.value;curPage=1;renderList()">
-      <option value="50">50 rows</option><option value="100">100</option><option value="200">200</option>
-    </select>
+    <select class="flt" style="width:80px;padding:4px 6px;margin-left:auto" onchange="pageSize=+this.value;curPage=1;renderList()"><option value="50">50 rows</option><option value="100">100</option><option value="200">200</option></select>
   </div>
   <div class="tbl-wrap">
-    <table>
-      <thead><tr>
-        <th onclick="sortBy('id')">#</th>
-        <th onclick="sortBy('source')">Src</th>
-        <th onclick="sortBy('prog')">Programme</th>
-        <th onclick="sortBy('brand')">Brand / Campaign</th>
-        <th onclick="sortBy('month')">Month</th>
-        <th onclick="sortBy('start')">Start Date</th>
-        <th onclick="sortBy('end')">End Date</th>
-        <th onclick="sortBy('banner')">Banner</th>
-        <th>Cities</th>
-        <th onclick="sortBy('status')">Status</th>
-        <th onclick="sortBy('pic')">PIC</th>
-        <th>QC Flags</th>
-        <th></th>
-      </tr></thead>
-      <tbody id="list-tbody"></tbody>
-    </table>
+    <table><thead><tr>
+      <th onclick="sortBy('id')">#</th>
+      <th onclick="sortBy('source')">Src</th>
+      <th onclick="sortBy('prog')">Programme</th>
+      <th onclick="sortBy('brand')">Brand / Campaign</th>
+      <th onclick="sortBy('month')">Month</th>
+      <th onclick="sortBy('start')">Start Date</th>
+      <th onclick="sortBy('end')">End Date</th>
+      <th onclick="sortBy('banner')">Banner</th>
+      <th>Cities</th>
+      <th onclick="sortBy('status')">Status</th>
+      <th onclick="sortBy('pic')">PIC</th>
+      <th>QC Flags</th>
+      <th></th>
+    </tr></thead>
+    <tbody id="list-tbody"></tbody></table>
   </div>
 </div>
 <div id="page-new-booking" class="page">
@@ -313,281 +323,108 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
 <!-- PLAYBOOK -->
 <div id="page-playbook" class="page">
   <div class="pg-title">Playbook</div>
-
-  <!-- ① OVERALL RULES -->
   <div class="card" style="margin-bottom:14px;border-left:3px solid var(--acc)">
     <div class="sub-lbl">Overall Rules</div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:10px">
-      <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:12px">
-        <div style="font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px">City Tiers</div>
-        <div style="font-size:12px;line-height:1.9"><span class="b b-city-a">HCM</span><span class="b b-city-a">HN</span><span class="b b-city-a">DN</span> → Visibility 3B<br>Other cities → Visibility OTH</div>
-      </div>
-      <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:12px">
-        <div style="font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px">Block Days</div>
-        <div style="font-size:12px;line-height:1.9">Double Day · 15th · SPF Day · Thematic<br>Only <span class="b b-plf">[PLF]</span> on block days</div>
-      </div>
-      <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:12px">
-        <div style="font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px">Exclusive Slots</div>
-        <div style="font-size:12px;line-height:1.9"><strong>Ongoing/Search</strong> → <span class="b b-pns">[PNS]</span> only<br><strong>Hometop #0</strong> → New User only<br><strong>Hometop #1-3</strong> → BAU/WC blocked</div>
-      </div>
-      <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:12px">
-        <div style="font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px">HTC / Home Circle</div>
-        <div style="font-size:12px;line-height:1.9">Max <strong>2 consecutive days</strong>/brand<br>3 blocks: 0-8h · 8-16h · 16-24h</div>
-      </div>
-      <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:12px">
-        <div style="font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px">Source Rules</div>
-        <div style="font-size:12px;line-height:1.9">BD → Brand programmes only<br>MKT/Campaign → PLF programmes only</div>
-      </div>
-      <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:12px">
-        <div style="font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px">Ind. Ads / Alacarte</div>
-        <div style="font-size:12px;line-height:1.9">Hometop: max <strong>3 consecutive days</strong><br>Flash Sale: ✅ · HTC: ✅</div>
-      </div>
+      <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:12px"><div style="font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px">City Tiers</div><div style="font-size:12px;line-height:1.9"><span class="b b-city-a">HCM</span><span class="b b-city-a">HN</span><span class="b b-city-a">DN</span> → Visibility 3B<br>Other cities → Visibility OTH</div></div>
+      <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:12px"><div style="font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px">Block Days</div><div style="font-size:12px;line-height:1.9">Double Day · 15th · SPF Day · Thematic<br>Only <span class="b b-plf">[PLF]</span> on block days</div></div>
+      <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:12px"><div style="font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px">Exclusive Slots</div><div style="font-size:12px;line-height:1.9"><strong>Ongoing/Search</strong> → <span class="b b-pns">[PNS]</span> only<br><strong>Hometop #0</strong> → New User only<br><strong>Hometop #1-3</strong> → BAU/WC blocked</div></div>
+      <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:12px"><div style="font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px">HTC / Home Circle</div><div style="font-size:12px;line-height:1.9">Max <strong>2 consecutive days</strong>/brand<br>3 blocks: 0-8h · 8-16h · 16-24h</div></div>
+      <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:12px"><div style="font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px">Source Rules</div><div style="font-size:12px;line-height:1.9">BD → Brand programmes only<br>MKT/Campaign → PLF programmes only</div></div>
+      <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:12px"><div style="font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px">Ind. Ads / Alacarte</div><div style="font-size:12px;line-height:1.9">Hometop: max <strong>3 consecutive days</strong><br>Flash Sale: ✅ · HTC: ✅</div></div>
     </div>
   </div>
-
-  <!-- ② DAILY & MONTHLY QUOTA BY MEDIA TYPE -->
   <div class="card" style="margin-bottom:14px">
-    <div class="sub-lbl">Daily & Monthly Quota — By Media Type</div>
+    <div class="sub-lbl">Daily &amp; Monthly Quota — By Media Type</div>
     <div style="overflow-x:auto;margin-top:10px">
-      <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:700px">
-        <thead>
-          <tr style="background:var(--surf)">
-            <th style="text-align:left;padding:9px 12px;border:1px solid var(--bord);font-family:var(--mono);font-size:10px;color:var(--mut);white-space:nowrap">Media Type</th>
-            <th style="padding:9px 12px;border:1px solid var(--bord);font-family:var(--mono);font-size:10px;color:var(--mut);text-align:center">Daily Slots</th>
-            <th style="padding:9px 12px;border:1px solid var(--bord);font-family:var(--mono);font-size:10px;color:var(--mut);text-align:center">Monthly Cap</th>
-            <th style="padding:9px 12px;border:1px solid var(--bord);font-family:var(--mono);font-size:10px;color:var(--mut)">Who Can Book</th>
-            <th style="padding:9px 12px;border:1px solid var(--bord);font-family:var(--mono);font-size:10px;color:var(--mut)">BD (Brand) Rules</th>
-            <th style="padding:9px 12px;border:1px solid var(--bord);font-family:var(--mono);font-size:10px;color:var(--mut)">MKT (Campaign) Rules</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">Hometop #0</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">1</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">30</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord)"><span class="b b-plf">[PLF] New User</span> only</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px;color:var(--mut)">Not available</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px;color:var(--mut)">New User onboarding only</td>
-          </tr>
-          <tr style="background:rgba(255,255,255,.015)">
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">Hometop #1–2</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">2</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono);color:var(--ylw)">60/slot</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord)">All except BAU/WC</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">SJBP, JBP, VIP, Win, Alacarte — max 3 days/wk</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">PLF CP, PLF SPXI — ❌ BAU/WC blocked</td>
-          </tr>
-          <tr>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">Hometop #3–6</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">4</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono);color:var(--ylw)">30/slot</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord)">All programmes</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">All brand programmes OK</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">BAU: max 3 days/week per city</td>
-          </tr>
-          <tr style="background:rgba(255,255,255,.015)">
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">Hometop #7–13</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">7</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono);color:var(--ylw)">90/slot</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord)">All programmes</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">All brand programmes OK</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">BAU: max 3 days/week per city</td>
-          </tr>
-          <tr>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">HTC (Home Circle)</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">3/slot</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono);color:var(--ylw)">90</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord)">All programmes</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">Max 2 consecutive days/brand</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">Max 2 consecutive days/brand</td>
-          </tr>
-          <tr style="background:rgba(255,255,255,.015)">
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">Static</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">6</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">—</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord)">All programmes</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">SJBP, JBP, VIP, Alacarte, Win</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">PLF CP, BAU, SPXI</td>
-          </tr>
-          <tr>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">Bottom</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">6</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">—</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord)">All programmes</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">All brand programmes</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">All platform programmes</td>
-          </tr>
-          <tr style="background:rgba(255,255,255,.015)">
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">Flash Sale</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">4</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono);color:var(--ylw)">120</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord)"><span class="b b-sjbp">[SJBP]</span> Ind. Ads</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">SJBP, Win 1-4, Alacarte, Alacarte CB</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px;color:var(--mut)">PLF not applicable</td>
-          </tr>
-          <tr>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">Floating</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">7</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono);color:var(--ylw)">210</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord)">All programmes</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">All brand programmes</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">All platform programmes</td>
-          </tr>
-          <tr style="background:rgba(255,255,255,.015)">
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">Popup</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">7</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono);color:var(--ylw)">180</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord)">All programmes</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">All brand programmes</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">All platform programmes</td>
-          </tr>
-          <tr>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">Ongoing / Search</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">1</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">—</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord)"><span class="b b-pns">[PNS]</span> only</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px;color:var(--mut)">N/A — PNS exclusive</td>
-            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px;color:var(--mut)">N/A — PNS exclusive</td>
-          </tr>
+      <table style="min-width:700px">
+        <thead><tr style="background:var(--surf)">
+          <th style="text-align:left">Media Type</th><th style="text-align:center">Daily Slots</th><th style="text-align:center">Monthly Cap</th><th>Who Can Book</th><th>BD (Brand) Rules</th><th>MKT (Campaign) Rules</th>
+        </tr></thead><tbody>
+          <tr><td style="font-weight:700;color:var(--acc);font-family:var(--mono)">Hometop #0</td><td style="text-align:center;font-family:var(--mono)">1</td><td style="text-align:center;font-family:var(--mono)">30</td><td><span class="b b-plf">[PLF] New User</span> only</td><td style="font-size:11px;color:var(--mut)">N/A</td><td style="font-size:11px;color:var(--mut)">New User onboarding only</td></tr>
+          <tr style="background:rgba(255,255,255,.015)"><td style="font-weight:700;color:var(--acc);font-family:var(--mono)">Hometop #1–2</td><td style="text-align:center;font-family:var(--mono)">2</td><td style="text-align:center;font-family:var(--mono);color:var(--ylw)">60/slot</td><td>All except BAU/WC</td><td style="font-size:11px">SJBP, JBP, VIP, Win, Alacarte</td><td style="font-size:11px">PLF CP — ❌ BAU/WC blocked</td></tr>
+          <tr><td style="font-weight:700;color:var(--acc);font-family:var(--mono)">Hometop #3–6</td><td style="text-align:center;font-family:var(--mono)">4</td><td style="text-align:center;font-family:var(--mono);color:var(--ylw)">30/slot</td><td>All programmes</td><td style="font-size:11px">All brand programmes</td><td style="font-size:11px">BAU: max 3 days/week per city</td></tr>
+          <tr style="background:rgba(255,255,255,.015)"><td style="font-weight:700;color:var(--acc);font-family:var(--mono)">Hometop #7–13</td><td style="text-align:center;font-family:var(--mono)">7</td><td style="text-align:center;font-family:var(--mono);color:var(--ylw)">90/slot</td><td>All programmes</td><td style="font-size:11px">All brand programmes</td><td style="font-size:11px">BAU: max 3 days/week per city</td></tr>
+          <tr><td style="font-weight:700;color:var(--acc);font-family:var(--mono)">HTC (Home Circle)</td><td style="text-align:center;font-family:var(--mono)">3/slot</td><td style="text-align:center;font-family:var(--mono);color:var(--ylw)">90</td><td>All programmes</td><td style="font-size:11px">Max 2 consecutive days/brand</td><td style="font-size:11px">Max 2 consecutive days/brand</td></tr>
+          <tr style="background:rgba(255,255,255,.015)"><td style="font-weight:700;color:var(--acc);font-family:var(--mono)">Static</td><td style="text-align:center;font-family:var(--mono)">6</td><td style="text-align:center;font-family:var(--mono)">—</td><td>All programmes</td><td style="font-size:11px">All brand programmes</td><td style="font-size:11px">PLF CP, BAU, SPXI</td></tr>
+          <tr><td style="font-weight:700;color:var(--acc);font-family:var(--mono)">Bottom</td><td style="text-align:center;font-family:var(--mono)">6</td><td style="text-align:center;font-family:var(--mono)">—</td><td>All programmes</td><td style="font-size:11px">All brand programmes</td><td style="font-size:11px">All platform programmes</td></tr>
+          <tr style="background:rgba(255,255,255,.015)"><td style="font-weight:700;color:var(--acc);font-family:var(--mono)">Flash Sale</td><td style="text-align:center;font-family:var(--mono)">4</td><td style="text-align:center;font-family:var(--mono);color:var(--ylw)">120</td><td><span class="b b-sjbp">[SJBP]</span> Ind. Ads</td><td style="font-size:11px">SJBP, Win 1-4, Alacarte</td><td style="font-size:11px;color:var(--mut)">PLF N/A</td></tr>
+          <tr><td style="font-weight:700;color:var(--acc);font-family:var(--mono)">Floating</td><td style="text-align:center;font-family:var(--mono)">7</td><td style="text-align:center;font-family:var(--mono);color:var(--ylw)">210</td><td>All programmes</td><td style="font-size:11px">All brand programmes</td><td style="font-size:11px">All platform programmes</td></tr>
+          <tr style="background:rgba(255,255,255,.015)"><td style="font-weight:700;color:var(--acc);font-family:var(--mono)">Popup</td><td style="text-align:center;font-family:var(--mono)">7</td><td style="text-align:center;font-family:var(--mono);color:var(--ylw)">180</td><td>All programmes</td><td style="font-size:11px">All brand programmes</td><td style="font-size:11px">All platform programmes</td></tr>
+          <tr><td style="font-weight:700;color:var(--acc);font-family:var(--mono)">Ongoing / Search</td><td style="text-align:center;font-family:var(--mono)">1</td><td style="text-align:center;font-family:var(--mono)">—</td><td><span class="b b-pns">[PNS]</span> only</td><td style="font-size:11px;color:var(--mut)">N/A</td><td style="font-size:11px;color:var(--mut)">N/A</td></tr>
         </tbody>
       </table>
     </div>
   </div>
-
-  <!-- ③ PER-PROGRAMME QUOTA (BD vs MKT) -->
   <div class="card" style="margin-bottom:14px">
     <div class="sub-lbl">Quota by Programme</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px">
-
-      <!-- BD side -->
       <div>
         <div style="font-family:var(--mono);font-size:10px;color:#60a5fa;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;padding:6px 10px;background:rgba(59,130,246,.1);border-radius:6px">BD Programs</div>
         <div style="display:flex;flex-direction:column;gap:8px">
-          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-sjbp">[SJBP]</span><span style="font-size:12px;font-weight:600">Super JBP</span></div>
-            <div style="font-size:11px;color:var(--mut);line-height:1.8">All media · Flash Sale ✅ · No daily limit<br>Monthly: standard caps per slot</div>
-          </div>
-          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-jbp">[JBP]</span><span style="font-size:12px;font-weight:600">JBP</span></div>
-            <div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop #1+ · HTC · Static · Bottom<br>Monthly: standard caps per slot</div>
-          </div>
-          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-svip">[SuperVIP]</span><span class="b b-vip">[VIP]</span></div>
-            <div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop · HTC · Floating · Popup<br>Monthly: standard caps per slot</div>
-          </div>
-          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-win">[Win 1–4]</span><span style="font-size:12px;font-weight:600">Individual Ads</span></div>
-            <div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop max <strong style="color:var(--txt)">3 consecutive days</strong><br>Flash Sale ✅ · HTC ✅</div>
-          </div>
-          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-ala">[Alacarte]</span><span class="b b-ala">[Alacarte CB]</span></div>
-            <div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop max <strong style="color:var(--txt)">3 consecutive days</strong><br>All media · Flash Sale ✅</div>
-          </div>
-          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-pns">[PNS]</span><span style="font-size:12px;font-weight:600">PNS</span></div>
-            <div style="font-size:11px;color:var(--mut);line-height:1.8"><strong style="color:var(--acc)">Ongoing & Search only</strong> · 1/day<br>No other media types</div>
-          </div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px"><div style="display:flex;gap:6px;margin-bottom:5px"><span class="b b-sjbp">[SJBP]</span><span style="font-size:12px;font-weight:600">Super JBP</span></div><div style="font-size:11px;color:var(--mut);line-height:1.8">All media · Flash Sale ✅ · Monthly: standard caps</div></div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px"><div style="display:flex;gap:6px;margin-bottom:5px"><span class="b b-jbp">[JBP]</span><span style="font-size:12px;font-weight:600">JBP</span></div><div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop #1+ · HTC · Static · Bottom</div></div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px"><div style="display:flex;gap:6px;margin-bottom:5px"><span class="b b-svip">[SuperVIP]</span><span class="b b-vip">[VIP]</span></div><div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop · HTC · Floating · Popup</div></div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px"><div style="display:flex;gap:6px;margin-bottom:5px"><span class="b b-win">[Win 1–4]</span><span style="font-size:12px;font-weight:600">Individual Ads</span></div><div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop max <strong style="color:var(--txt)">3 consecutive days</strong><br>Flash Sale ✅ · HTC ✅</div></div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px"><div style="display:flex;gap:6px;margin-bottom:5px"><span class="b b-ala">[Alacarte]</span><span class="b b-ala">[Alacarte CB]</span></div><div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop max <strong style="color:var(--txt)">3 consecutive days</strong> · All media</div></div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px"><div style="display:flex;gap:6px;margin-bottom:5px"><span class="b b-pns">[PNS]</span></div><div style="font-size:11px;color:var(--mut);line-height:1.8"><strong style="color:var(--acc)">Ongoing &amp; Search only</strong> · 1/day</div></div>
         </div>
       </div>
-
-      <!-- MKT side -->
       <div>
         <div style="font-family:var(--mono);font-size:10px;color:#c084fc;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;padding:6px 10px;background:rgba(168,85,247,.1);border-radius:6px">MKT / Campaign</div>
         <div style="display:flex;flex-direction:column;gap:8px">
-          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-plf">[PLF] BAU</span></div>
-            <div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop <strong style="color:var(--txt)">#4+ only</strong> (not #1–3)<br>Max <strong style="color:var(--txt)">3 days/week</strong> per city · HTC ✅<br>Monthly: #3-6 = 30 · #7+ = 90</div>
-          </div>
-          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-plf">[PLF] WC</span></div>
-            <div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop <strong style="color:var(--txt)">#4+ only</strong> (not #1–3)<br>Weekly campaign format · HTC ✅<br>Monthly: same as BAU</div>
-          </div>
-          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-plf">[PLF] CP</span></div>
-            <div style="font-size:11px;color:var(--mut);line-height:1.8">All Hometop slots · All media<br>Can book on Block/SPF days ✅<br>Monthly: #1-2 = 60 · #3-6 = 30</div>
-          </div>
-          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-plf">[PLF] SPXI</span><span class="b b-plf">[PLF] SPL</span></div>
-            <div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop #1+ · HTC · Static · Bottom<br>Monthly: standard caps</div>
-          </div>
-          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-plf">[PLF] New User</span></div>
-            <div style="font-size:11px;color:var(--mut);line-height:1.8"><strong style="color:var(--acc)">Hometop #0 only</strong><br>Monthly cap: <strong style="color:var(--txt)">30</strong> · Onboarding flow</div>
-          </div>
-          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-plf">[Mart]</span></div>
-            <div style="font-size:11px;color:var(--mut);line-height:1.8">All slots · Mart-specific campaigns<br>Block days: allowed ✅</div>
-          </div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px"><div style="display:flex;gap:6px;margin-bottom:5px"><span class="b b-plf">[PLF] BAU</span></div><div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop <strong style="color:var(--txt)">#4+ only</strong> · Max <strong style="color:var(--txt)">3 days/week</strong>/city<br>Monthly: #3-6=30 · #7+=90</div></div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px"><div style="display:flex;gap:6px;margin-bottom:5px"><span class="b b-plf">[PLF] WC</span></div><div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop <strong style="color:var(--txt)">#4+ only</strong> · HTC ✅ · Weekly format</div></div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px"><div style="display:flex;gap:6px;margin-bottom:5px"><span class="b b-plf">[PLF] CP</span></div><div style="font-size:11px;color:var(--mut);line-height:1.8">All Hometop · All media · Block days ✅<br>Monthly: #1-2=60 · #3-6=30</div></div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px"><div style="display:flex;gap:6px;margin-bottom:5px"><span class="b b-plf">[PLF] SPXI</span><span class="b b-plf">[PLF] SPL</span></div><div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop #1+ · HTC · Static · Bottom</div></div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px"><div style="display:flex;gap:6px;margin-bottom:5px"><span class="b b-plf">[PLF] New User</span></div><div style="font-size:11px;color:var(--mut);line-height:1.8"><strong style="color:var(--acc)">Hometop #0 only</strong> · Monthly cap: 30</div></div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px"><div style="display:flex;gap:6px;margin-bottom:5px"><span class="b b-plf">[Mart]</span></div><div style="font-size:11px;color:var(--mut);line-height:1.8">All slots · Mart-specific campaigns · Block days ✅</div></div>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- ④ L2 CATEGORY × HOUR -->
-  <div class="card">
-    <div class="sub-lbl">L2 Category × Hour Rules</div>
+  <div class="card"><div class="sub-lbl">L2 Category × Hour Rules</div>
     <div style="overflow-x:auto;margin-top:10px">
-      <table style="width:100%;border-collapse:collapse;font-size:11px;min-width:500px">
-        <thead>
-          <tr style="background:var(--surf)">
-            <th style="text-align:left;padding:8px 12px;border:1px solid var(--bord);font-family:var(--mono);font-size:10px;color:var(--mut)">Hour</th>
-            <th style="padding:8px 12px;border:1px solid var(--bord);font-family:var(--mono);font-size:10px;color:var(--grn)">✅ Recommended (HCM)</th>
-            <th style="padding:8px 12px;border:1px solid var(--bord);font-family:var(--mono);font-size:10px;color:var(--red)">❌ Blocked (HCM)</th>
-            <th style="padding:8px 12px;border:1px solid var(--bord);font-family:var(--mono);font-size:10px;color:var(--mut)">HN / OTH notes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td style="padding:7px 12px;border:1px solid var(--bord);font-family:var(--mono);color:var(--acc);font-weight:700;white-space:nowrap">0–5h</td><td style="padding:7px 12px;border:1px solid var(--bord)">Cháo, Xôi, Fast Food, Bún Mì, Ăn khuya</td><td style="padding:7px 12px;border:1px solid var(--bord);color:var(--mut)">—</td><td style="padding:7px 12px;border:1px solid var(--bord);font-size:10px;color:var(--mut)">Same</td></tr>
-          <tr style="background:rgba(255,255,255,.015)"><td style="padding:7px 12px;border:1px solid var(--bord);font-family:var(--mono);color:var(--acc);font-weight:700;white-space:nowrap">5–10h</td><td style="padding:7px 12px;border:1px solid var(--bord)">Cafe, Bánh mì, Bún phở, Xôi, Breakfast</td><td style="padding:7px 12px;border:1px solid var(--bord);color:#f87171">Trà sữa, Cơm, Pizza, Ăn vặt</td><td style="padding:7px 12px;border:1px solid var(--bord);font-size:10px;color:var(--mut)">HN: no Bánh tráng</td></tr>
-          <tr><td style="padding:7px 12px;border:1px solid var(--bord);font-family:var(--mono);color:var(--acc);font-weight:700;white-space:nowrap">10–13h</td><td style="padding:7px 12px;border:1px solid var(--bord)">Cơm, Bún Mì, Gà rán, Món Hàn, Lunch</td><td style="padding:7px 12px;border:1px solid var(--bord);color:#f87171">Trà sữa, Cafe, Ăn vặt, Bánh tráng</td><td style="padding:7px 12px;border:1px solid var(--bord);font-size:10px;color:var(--mut)">HN: add Món cuốn</td></tr>
-          <tr style="background:rgba(255,255,255,.015)"><td style="padding:7px 12px;border:1px solid var(--bord);font-family:var(--mono);color:var(--acc);font-weight:700;white-space:nowrap">13–16h</td><td style="padding:7px 12px;border:1px solid var(--bord)">Trà sữa, Cafe, Ăn vặt, Tráng miệng</td><td style="padding:7px 12px;border:1px solid var(--bord);color:#f87171">Cơm, Bún Mì, Gà rán, Pizza</td><td style="padding:7px 12px;border:1px solid var(--bord);font-size:10px;color:var(--mut)">HN: add Bánh tráng</td></tr>
-          <tr><td style="padding:7px 12px;border:1px solid var(--bord);font-family:var(--mono);color:var(--acc);font-weight:700;white-space:nowrap">16–24h</td><td style="padding:7px 12px;border:1px solid var(--bord)">Cơm tấm, Bún Mì, Món Hàn, Pizza, Trà sữa, Dinner</td><td style="padding:7px 12px;border:1px solid var(--bord);color:#f87171">Cafe, Bánh mì, Xôi, Cháo</td><td style="padding:7px 12px;border:1px solid var(--bord);font-size:10px;color:var(--mut)">HN: add Chè, Phở</td></tr>
-        </tbody>
-      </table>
+      <table style="min-width:500px"><thead><tr style="background:var(--surf)">
+        <th style="text-align:left">Hour</th><th>✅ Recommended (HCM)</th><th>❌ Blocked (HCM)</th><th>Notes</th>
+      </tr></thead><tbody>
+        <tr><td style="font-family:var(--mono);color:var(--acc);font-weight:700;white-space:nowrap">0–5h</td><td>Cháo, Xôi, Fast Food, Bún Mì, Ăn khuya</td><td style="color:var(--mut)">—</td><td style="font-size:10px;color:var(--mut)">Same for all cities</td></tr>
+        <tr style="background:rgba(255,255,255,.015)"><td style="font-family:var(--mono);color:var(--acc);font-weight:700;white-space:nowrap">5–10h</td><td>Cafe, Bánh mì, Bún phở, Xôi, Breakfast</td><td style="color:#f87171">Trà sữa, Cơm, Pizza, Ăn vặt</td><td style="font-size:10px;color:var(--mut)">HN: no Bánh tráng</td></tr>
+        <tr><td style="font-family:var(--mono);color:var(--acc);font-weight:700;white-space:nowrap">10–13h</td><td>Cơm, Bún Mì, Gà rán, Món Hàn, Lunch</td><td style="color:#f87171">Trà sữa, Cafe, Ăn vặt</td><td style="font-size:10px;color:var(--mut)">HN: add Món cuốn</td></tr>
+        <tr style="background:rgba(255,255,255,.015)"><td style="font-family:var(--mono);color:var(--acc);font-weight:700;white-space:nowrap">13–16h</td><td>Trà sữa, Cafe, Ăn vặt, Tráng miệng</td><td style="color:#f87171">Cơm, Bún Mì, Gà rán, Pizza</td><td style="font-size:10px;color:var(--mut)">HN: add Bánh tráng</td></tr>
+        <tr><td style="font-family:var(--mono);color:var(--acc);font-weight:700;white-space:nowrap">16–24h</td><td>Cơm tấm, Bún Mì, Món Hàn, Pizza, Dinner</td><td style="color:#f87171">Cafe, Bánh mì, Xôi, Cháo</td><td style="font-size:10px;color:var(--mut)">HN: add Chè, Phở</td></tr>
+      </tbody></table>
     </div>
   </div>
-
 </div>
 <div id="page-visibility" class="page">
   <div class="pg-title">Visibility Calendar</div>
-  <div class="card" style="margin-bottom:14px">
+  <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:10px;padding:8px 14px;background:var(--surf);border:1px solid var(--bord);border-radius:8px;font-size:11px">
+    <span style="font-family:var(--mono);font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:1px">Legend</span>
+    <span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:rgba(59,130,246,.4);display:inline-block"></span>Brand</span>
+    <span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:rgba(168,85,247,.4);display:inline-block"></span>Platform</span>
+    <span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:rgba(239,68,68,.4);display:inline-block"></span>SPF Day</span>
+    <span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:rgba(234,179,8,.4);display:inline-block"></span>Flash Sale</span>
+    <span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:rgba(20,184,166,.4);display:inline-block"></span>Thematic</span>
+    <span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:rgba(100,116,139,.4);display:inline-block"></span>Block</span>
+    <span style="display:flex;align-items:center;gap:5px"><span style="background:#f97316;color:#fff;font-size:8px;font-weight:700;padding:1px 5px;border-radius:3px">0h</span>Time slot</span>
+    <span style="margin-left:auto;color:var(--mut);font-size:10px">Click any date → Day detail</span>
+  </div>
+  <div style="position:sticky;top:92px;z-index:50;background:var(--bg);padding-bottom:8px">
+  <div class="card" style="margin-bottom:0">
     <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
-      <div class="fg"><label>View Mode</label>
-        <select id="vmode" onchange="renderVis()">
-          <option value="month">📅 Month Allocation</option>
-          <option value="day">🔍 Day Slot Detail</option>
-        </select>
-      </div>
-      <div class="fg"><label>City</label>
-        <select id="vc" onchange="renderVis()">
-          <option>HCM</option><option>HN</option><option>DN</option>
-          <option>HP</option><option>CT</option><option>OTH</option>
-        </select>
-      </div>
-      <div class="fg"><label>Month</label>
-        <input type="month" id="vm" onchange="renderVis()"/>
-      </div>
-      <div class="fg" id="vrange-wrap"><label>Date Range</label>
-        <div style="display:flex;gap:6px;align-items:center">
-          <input type="date" id="vfrom" onchange="renderVisMonth()"/>
-          <span style="color:var(--mut)">→</span>
-          <input type="date" id="vto" onchange="renderVisMonth()"/>
-        </div>
-      </div>
-      <div class="fg" id="vday-wrap" style="display:none"><label>Day</label>
-        <input type="date" id="vday" onchange="renderVisDay()"/>
-      </div>
+      <div class="fg"><label>View Mode</label><select id="vmode" onchange="renderVis()"><option value="month">📅 Month Allocation</option><option value="day">🔍 Day Slot Detail</option></select></div>
+      <div class="fg"><label>City</label><select id="vc" onchange="renderVis()"><option>HCM</option><option>HN</option><option>DN</option><option>HP</option><option>CT</option><option>OTH</option></select></div>
+      <div class="fg"><label>Month</label><input type="month" id="vm" onchange="renderVis()"/></div>
+      <div class="fg" id="vrange-wrap"><label>Date Range</label><div style="display:flex;gap:6px;align-items:center"><input type="date" id="vfrom" onchange="renderVisMonth()"/><span style="color:var(--mut)">→</span><input type="date" id="vto" onchange="renderVisMonth()"/></div></div>
+      <div class="fg" id="vday-wrap" style="display:none"><label>Day</label><input type="date" id="vday" onchange="renderVisDay()"/></div>
     </div>
     <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-top:10px">
-      <div class="fg"><label>Brand Search <span style="color:var(--mut);font-weight:400">(comma-separated)</span></label>
-        <input type="text" id="vbrand" placeholder="e.g. Highlands, KFC, Pizza..."
-          oninput="renderVis()" onkeydown="if(event.key==='Enter') renderVis()" style="min-width:260px"/>
-      </div>
-      <div class="fg" style="position:relative">
-        <label>L2 Category</label>
+      <div class="fg"><label>Brand Search <span style="color:var(--mut);font-weight:400;text-transform:none;letter-spacing:0">(comma-separated)</span></label>
+        <input type="text" id="vbrand" placeholder="e.g. Highlands, KFC..." oninput="renderVis()" style="min-width:220px"/></div>
+      <div class="fg" style="position:relative"><label>L2 Category</label>
         <div id="vcat-btn" onclick="toggleVcatDD()" style="background:var(--surf);border:1px solid var(--bord);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--txt);cursor:pointer;min-width:160px;display:flex;justify-content:space-between;align-items:center;user-select:none">
-          <span id="vcat-label">All Categories</span><span style="color:var(--mut)">▾</span>
-        </div>
+          <span id="vcat-label">All Categories</span><span style="color:var(--mut)">▾</span></div>
         <div id="vcat-dd" style="display:none;position:absolute;top:100%;left:0;z-index:200;background:var(--card);border:1px solid var(--bord);border-radius:8px;padding:8px;min-width:180px;box-shadow:0 4px 20px rgba(0,0,0,.5)">
           <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" id="vcat-all" onchange="vcatAllChange(this)" checked> All Categories</label>
           <div style="border-top:1px solid var(--bord);margin:4px 0"></div>
@@ -603,29 +440,14 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
           <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="vcat-cb" value="Cơm" onchange="vcatChange()"> Cơm</label>
         </div>
       </div>
-      <div class="fg"><label>Programme</label>
-        <select id="vprog" onchange="renderVis()">
-          <option value="">All Programmes</option>
-          <option value="PLF">[PLF]</option>
-          <option value="SJBP">[SJBP]</option>
-          <option value="JBP">[JBP]</option>
-          <option value="VIP">[VIP]</option>
-          <option value="WIN">[Win]</option>
-          <option value="PNS">[PNS]</option>
-        </select>
-      </div>
     </div>
-  </div>
-  <div id="vis-grid" class="card" style="padding:0;overflow-x:auto"></div>
+  </div></div>
+  <div id="vis-grid" class="card" style="padding:0;overflow-x:auto;margin-top:10px"></div>
 </div>
-
 <script>
 
 let ALL_BOOKINGS=[], DAILY_CAPS={}, MONTHLY_CAPS={}, _visCache=null;
-async function getVD(){
-  if(!_visCache){const r=await fetch('data/visibility.json');_visCache=await r.json();}
-  return _visCache;
-}
+async function getVD(){if(!_visCache){const r=await fetch('data/visibility.json');_visCache=await r.json();}return _visCache;}
 // L2 category rules by hour × city
 // key: timeslot code → { city: [allowed categories] }
 const HOUR_CAT = {
@@ -675,45 +497,101 @@ const IND_SET=new Set(['WIN1','WIN2','WIN3','WIN4','ALACARTE','ALACARECB']);
 
 const SF={city:'',month:'',prog:'',brand:'',cat:''};
 const HISTORY={stack:[],pos:-1};
+function _snapFilters(){
+  function gv(id){const el=document.getElementById(id);return el?el.value:'';}
+  function gcb(cls){return Array.from(document.querySelectorAll('.'+cls+':checked')).map(el=>el.value);}
+  const activeEl=document.querySelector('.page.on');
+  return {
+    tab: activeEl?activeEl.id.replace('page-',''):'dashboard',
+    dc:gv('dash-city'), dm:gv('dash-month'), dp:gv('dash-prog'),
+    db:gv('dash-brand'), dcat:gcb('dcat-cb'),
+    fs:gv('flt-source'), fp:gcb('bprog-cb'), fm:gv('flt-month'),
+    fc:gv('flt-city'), fqc:gv('flt-qc'), fst:gv('flt-status'),
+    fb:gv('search'), fdf:gv('flt-start-from'), fdt:gv('flt-start-to'),
+    vc:gv('vc'), vm:gv('vm'), vmode:gv('vmode'),
+    vfrom:gv('vfrom'), vto:gv('vto'), vday:gv('vday'),
+    vbrand:gv('vbrand'), vcats:gcb('vcat-cb'), vprogs:gcb('vprog-cb'),
+  };
+}
+function _applySnap(s){
+  function sv(id,val){const el=document.getElementById(id);if(el&&val!==undefined)el.value=val;}
+  sv('dash-city',s.dc); sv('dash-month',s.dm);
+  // restore multi-selects
+  function rMdd(cls,btnId,vals){
+    document.querySelectorAll('.'+cls).forEach(function(el){el.checked=(vals||[]).includes(el.value);});
+    const allCb=document.getElementById(btnId+'-all');
+    if(allCb)allCb.checked=!(vals&&vals.length>0);
+    const lbl=document.getElementById(btnId+'-lbl');
+    if(lbl)lbl.textContent=!vals||vals.length===0?'All':vals.length===1?vals[0]:vals.length+' selected';
+  }
+  rMdd('dprog-cb','dprog-btn',s.dp);
+  rMdd('dcat-cb','dcat-btn',s.dcat);
+  sv('dash-brand',s.db); sv('dash-cat',s.dcat);
+  sv('flt-source',s.fs); rMdd('bprog-cb','bprog-btn',s.fp); sv('flt-month',s.fm);
+  sv('flt-city',s.fc); sv('flt-qc',s.fqc); sv('flt-status',s.fst);
+  sv('search',s.fb); sv('flt-start-from',s.fdf); sv('flt-start-to',s.fdt);
+  sv('vc',s.vc); sv('vm',s.vm); sv('vmode',s.vmode);
+  sv('vfrom',s.vfrom); sv('vto',s.vto); sv('vday',s.vday);
+  sv('vbrand',s.vbrand);
+  // Restore L2 checkboxes
+  document.querySelectorAll('.vcat-cb').forEach(el=>{el.checked=(s.vcats||[]).includes(el.value);});
+  rMdd('vprog-cb','vprog-btn',s.vprogs);
+  const allCb=document.getElementById('vcat-all');
+  if(allCb)allCb.checked=!(s.vcats&&s.vcats.length>0);
+  const lbl=document.getElementById('vcat-label');
+  if(lbl)lbl.textContent=!s.vcats||s.vcats.length===0?'All Categories':s.vcats.length===1?s.vcats[0]:s.vcats.length+' selected';
+}
 function historySave(){
-  const snap=JSON.stringify({bk:ALL_BOOKINGS.map(b=>Object.assign({},b))});
+  const snap=JSON.stringify(_snapFilters());
+  // Deduplicate: don't save if same as last
+  if(HISTORY.stack.length>0&&HISTORY.stack[HISTORY.pos]===snap)return;
   HISTORY.stack=HISTORY.stack.slice(0,HISTORY.pos+1);
   HISTORY.stack.push(snap);
-  if(HISTORY.stack.length>500) HISTORY.stack.shift();
+  if(HISTORY.stack.length>200)HISTORY.stack.shift();
   else HISTORY.pos++;
   updateUndoRedo();
 }
 function historyUndo(){
-  if(HISTORY.pos<=0) return;
+  if(HISTORY.pos<=0)return;
   HISTORY.pos--;
   const s=JSON.parse(HISTORY.stack[HISTORY.pos]);
-  ALL_BOOKINGS=s.bk; refreshActive(); updateUndoRedo();
+  _applySnap(s);
+  // Switch tab if needed
+  const tabBtn=document.querySelector('.nb[onclick*="\'' + s.tab + '\'"]');
+  if(tabBtn)gp(s.tab,tabBtn);
+  else refreshActive();
+  updateUndoRedo();
 }
 function historyRedo(){
-  if(HISTORY.pos>=HISTORY.stack.length-1) return;
+  if(HISTORY.pos>=HISTORY.stack.length-1)return;
   HISTORY.pos++;
   const s=JSON.parse(HISTORY.stack[HISTORY.pos]);
-  ALL_BOOKINGS=s.bk; refreshActive(); updateUndoRedo();
+  _applySnap(s);
+  const tabBtn=document.querySelector('.nb[onclick*="\'' + s.tab + '\'"]');
+  if(tabBtn)gp(s.tab,tabBtn);
+  else refreshActive();
+  updateUndoRedo();
 }
 function updateUndoRedo(){
   const u=document.getElementById('btn-undo'),r=document.getElementById('btn-redo');
-  if(u){u.disabled=HISTORY.pos<=0;u.style.color=HISTORY.pos>0?'var(--acc)':'var(--mut)';}
-  if(r){r.disabled=HISTORY.pos>=HISTORY.stack.length-1;r.style.color=HISTORY.pos<HISTORY.stack.length-1?'var(--acc)':'var(--mut)';}
+  if(u){u.disabled=HISTORY.pos<=0;u.style.opacity=HISTORY.pos>0?'1':'0.4';u.style.borderColor=HISTORY.pos>0?'#f97316':'#d1d5db';u.style.color=HISTORY.pos>0?'#f97316':'#6b7280';}
+  if(r){r.disabled=HISTORY.pos>=HISTORY.stack.length-1;r.style.opacity=HISTORY.pos<HISTORY.stack.length-1?'1':'0.4';r.style.borderColor=HISTORY.pos<HISTORY.stack.length-1?'#f97316':'#d1d5db';r.style.color=HISTORY.pos<HISTORY.stack.length-1?'#f97316':'#6b7280';}
   const lbl=document.getElementById('undo-label');
-  if(lbl) lbl.textContent=HISTORY.stack.length>1?'Step '+(HISTORY.pos+1)+'/'+HISTORY.stack.length:'';
+  if(lbl)lbl.textContent=HISTORY.stack.length>1?'Step '+(HISTORY.pos+1)+'/'+HISTORY.stack.length:'';
 }
 function refreshActive(){
   const pg=document.querySelector('.page.on');if(!pg)return;
   const id=pg.id.replace('page-','');
-  if(id==='dashboard') renderDashboard();
-  else if(id==='bookings') applyFilters(true);
-  else if(id==='visibility') renderVis();
+  if(id==='dashboard')renderDashboard();
+  else if(id==='bookings')applyFilters(true);
+  else if(id==='visibility')renderVis();
 }
 
 let filtered=[], curPage=1, pageSize=50, sortKey='', sortAsc=true;
+let _dashBks=[];  // last dashboard filtered set
 function applyFilters(noHist){
   const src=(document.getElementById('flt-source')||{}).value||'';
-  const prog=(document.getElementById('flt-prog')||{}).value||'';
+  const progs=getMdd('bprog-cb');  // multi-select programme
   const mo=(document.getElementById('flt-month')||{}).value||'';
   const city=(document.getElementById('flt-city')||{}).value||'';
   const qcf=(document.getElementById('flt-qc')||{}).value||'';
@@ -721,16 +599,16 @@ function applyFilters(noHist){
   const brand=((document.getElementById('search')||{}).value||'').toLowerCase();
   const dateFrom=(document.getElementById('flt-start-from')||{}).value||'';
   const dateTo=(document.getElementById('flt-start-to')||{}).value||'';
-  SF.brand=brand; SF.prog=prog; SF.city=city; SF.month=mo;
+  SF.brand=brand;SF.prog=progs.join(',');SF.city=city;SF.month=mo;
   filtered=ALL_BOOKINGS.filter(b=>{
-    if(src&&b.source!==src) return false;
-    if(prog&&b.prog!==prog) return false;
-    if(mo&&!(b.month||'').toLowerCase().startsWith(mo.toLowerCase())) return false;
-    if(city&&!((b.cities||[]).includes(city)||(b.city===city))) return false;
-    if(st&&b.status!==st) return false;
-    if(brand&&!((b.brand||'')+(b.prog_raw||'')+(b.pic||'')).toLowerCase().includes(brand)) return false;
-    if(dateFrom&&b.start&&b.start<dateFrom) return false;
-    if(dateTo&&b.start&&b.start>dateTo) return false;
+    if(src&&b.source!==src)return false;
+    if(progs.length>0&&!progs.includes(b.prog))return false;
+    if(mo&&!(b.month||'').toLowerCase().startsWith(mo.toLowerCase()))return false;
+    if(city&&!((b.cities||[]).includes(city)||(b.city===city)))return false;
+    if(st&&b.status!==st)return false;
+    if(brand&&!((b.brand||'')+(b.prog_raw||'')+(b.pic||'')).toLowerCase().includes(brand))return false;
+    if(dateFrom&&b.start&&b.start<dateFrom)return false;
+    if(dateTo&&b.start&&b.start>dateTo)return false;
     if(qcf){
       let e=0,w=0;const isPLF=PLF_SET.has(b.prog);
       if(b.source==='BD'&&isPLF)w++;if(b.source==='MKT'&&!isPLF)w++;
@@ -738,14 +616,15 @@ function applyFilters(noHist){
       if(['Hometop_1','Hometop_2','Hometop_3'].includes(b.banner)&&BAU_WC.has(b.prog))e++;
       if(['Ongoing','Search'].includes(BM(b.banner))&&b.prog!=='PNS')e++;
       if(b.start&&b.end&&b.start>b.end)e++;
-      if(qcf==='err'&&e===0) return false;
-      if(qcf==='warn'&&(e>0||w===0)) return false;
-      if(qcf==='ok'&&(e>0||w>0)) return false;
+      if(qcf==='err'&&e===0)return false;
+      if(qcf==='warn'&&(e>0||w===0))return false;
+      if(qcf==='ok'&&(e>0||w>0))return false;
     }
     return true;
   });
-  if(sortKey) filtered.sort((a,b)=>{let av=a[sortKey]||'',bv=b[sortKey]||'';return sortAsc?(av>bv?1:-1):(av<bv?1:-1);});
-  curPage=1; renderList();
+  if(sortKey)filtered.sort((a,b)=>{let av=a[sortKey]||'',bv=b[sortKey]||'';return sortAsc?(av>bv?1:-1):(av<bv?1:-1);});
+  curPage=1;renderList();
+  historySave();
 }
 function BM(b){if(!b)return 'Hometop';if(b.startsWith('Hometop'))return 'Hometop';if(b.startsWith('HTC')||b==='HTC'||b==='Home Circle'||b.startsWith('HC '))return 'HTC';if(b.startsWith('Static'))return 'Static';if(b.startsWith('Bottom'))return 'Bottom';if(b.startsWith('Flash')||b==='Flash')return 'Flash';if(b==='Floating')return 'Floating';if(b==='Popup')return 'Popup';if(b==='Ongoing')return 'Ongoing';if(b==='Search'||b==='Search_Banner')return 'Search';if(b==='OngoingOrder')return 'OngoingOrder';return 'Hometop';}function runQC(b){
   const checks=[];const pm=PM[b.prog]||{cat:'PLF'};const isPLF=PLF_SET.has(b.prog);const isIND=IND_SET.has(b.prog);const banner=BM(b.banner);const city=b.city||(b.cities||[])[0]||'HCM';const cityKey=TIER_A.includes(city)?city:'OTH';
@@ -835,49 +714,132 @@ function BM(b){if(!b)return 'Hometop';if(b.startsWith('Hometop'))return 'Hometop
     }
   }
   // HTC consecutive days
-  if(banner==='HTC'&&b.start&&b.end){const s=new Date(b.start+'T00:00:00'),e=new Date(b.end+'T00:00:00');const days=Math.round((e-s)/86400000)+1;if(days>2)checks.push({st:'fail',name:'HTC — Brand Consecutive Limit',det:`Booking spans ${days} days (max 2 consecutive days for same brand in HTC)`});}
-  // Individual ads 3-day limit in Hometop
-  if(banner==='Hometop'&&isIND&&b.start&&b.end){const s=new Date(b.start+'T00:00:00'),e=new Date(b.end+'T00:00:00');const days=Math.round((e-s)/86400000)+1;if(days>3)checks.push({st:'fail',name:'Hometop — Ind. Ads Max 3 Days',det:`Booking runs ${days} consecutive days (max 3 for Individual Ads in Hometop)`});}
+  if((banner==='HTC'||banner==='Hometop')&&b.start&&b.end&&b.brand){
+    // Count distinct dates this brand is booked in same banner type across ALL bookings
+    const sameDates=new Set();
+    ALL_BOOKINGS.filter(function(bk){
+      return bk.brand===b.brand && BM(bk.banner)===banner &&
+        ((bk.cities||[]).some(function(c){return (b.cities||[]).includes(c);}) || bk.city===b.city) &&
+        bk.start && bk.end;
+    }).forEach(function(bk){
+      let c2=bk.start;
+      while(c2<=bk.end){
+        sameDates.add(c2);
+        var p=c2.split('-'),y=+p[0],m=+p[1],d=+p[2]+1;
+        var nd=new Date(y,m-1,d);
+        c2=nd.getFullYear()+'-'+String(nd.getMonth()+1).padStart(2,'0')+'-'+String(nd.getDate()).padStart(2,'0');
+      }
+    });
+    var calDays=sameDates.size;
+    if(banner==='HTC'&&calDays>2)
+      checks.push({st:'fail',name:'HTC — Brand Consecutive Limit',det:'Brand booked '+calDays+' days in HTC this period (max 2 consecutive days)'});
+    if(banner==='Hometop'&&isIND&&calDays>3)
+      checks.push({st:'fail',name:'Hometop — Ind. Ads Max 3 Days',det:'Brand booked '+calDays+' days in Hometop (max 3 for Individual Ads)'});
+  }
   // BAU >3 days/week in Hometop
   if(banner==='Hometop'&&b.prog==='PLF_BAU'&&b.start){const wEnd=new Date(new Date(b.start+'T00:00:00').getTime()+7*86400000).toISOString().split('T')[0];const wBAU=ALL_BOOKINGS.filter(bk=>bk.id!==b.id&&BM(bk.banner)==='Hometop'&&bk.prog==='PLF_BAU'&&((bk.cities||[]).includes(city)||(bk.city===city))&&bk.start&&bk.start>=b.start&&bk.start<=wEnd).length+1;if(wBAU>3)checks.push({st:'warn',name:'Hometop — BAU >3 Days/Week',det:`${wBAU} BAU bookings in ${city} within 7 days of start (max 3/week)`});}
   if(!checks.length)checks.push({st:'pass',name:'All Rules Passed',det:'No violations detected'});
   return{checks,errors:checks.filter(c=>c.st==='fail').length,warns:checks.filter(c=>c.st==='warn').length};
 }
+// ── Generic multi-select dropdown helpers ────────────────────────────────
+function mddToggle(ddId){
+  const dd=document.getElementById(ddId);
+  if(!dd)return;
+  const isOpen=dd.style.display!=='none';
+  // Close all other dropdowns first
+  document.querySelectorAll('[id$="-dd"]').forEach(function(el){el.style.display='none';});
+  dd.style.display=isOpen?'none':'block';
+}
+// mddAll(el) — called from onchange="mddAll(this)"
+function mddAll_OLD(btnId,ddId,cbClass){
+  const allCb=document.getElementById(btnId+'-all');
+  document.querySelectorAll('.'+cbClass).forEach(function(el){el.checked=false;});
+  const lbl=document.getElementById(btnId+'-lbl');
+  if(lbl)lbl.textContent='All';
+  if(allCb)allCb.checked=true;
+  _mddTrigger(btnId);
+}
+
+function mddChange(el){
+  var btnId=el.dataset.btn, cbClass=el.dataset.cls;
+  var selected=Array.from(document.querySelectorAll('.'+cbClass+':checked')).map(function(e){return e.value;});
+  var allCb=document.getElementById(btnId+'-all');
+  if(allCb)allCb.checked=selected.length===0;
+  var lbl=document.getElementById(btnId+'-lbl');
+  if(lbl){
+    if(selected.length===0)lbl.textContent='All';
+    else if(selected.length===1){var cb=document.querySelector('.'+cbClass+'[value="'+selected[0]+'"]');lbl.textContent=cb?cb.parentElement.textContent.trim():selected[0];}
+    else lbl.textContent=selected.length+' selected';
+  }
+  _mddTrigger(btnId);
+}
+function mddAll(el){
+  var btnId=el.dataset.btn, cbClass=el.dataset.cls;
+  document.querySelectorAll('.'+cbClass).forEach(function(e){e.checked=false;});
+  var lbl=document.getElementById(btnId+'-lbl');
+  if(lbl)lbl.textContent='All';
+  el.checked=true;
+  _mddTrigger(btnId);
+}
+
+// mddChange(el) — called from onchange="mddChange(this)"
+function mddChange_OLD(btnId,ddId,cbClass){
+  const selected=Array.from(document.querySelectorAll('.'+cbClass+':checked')).map(function(el){return el.value;});
+  const allCb=document.getElementById(btnId+'-all');
+  if(allCb)allCb.checked=selected.length===0;
+  const lbl=document.getElementById(btnId+'-lbl');
+  if(lbl){
+    if(selected.length===0)lbl.textContent='All';
+    else if(selected.length===1){
+      // Find label text for single selection
+      const cb=document.querySelector('.'+cbClass+'[value="'+selected[0]+'"]');
+      lbl.textContent=cb?cb.parentElement.textContent.trim():selected[0];
+    }
+    else lbl.textContent=selected.length+' selected';
+  }
+  _mddTrigger(btnId);
+}
+function _mddTrigger(btnId){
+  // Map btnId to action
+  if(btnId.startsWith('dprog')||btnId.startsWith('dcat'))renderDashboard();
+  else if(btnId.startsWith('bprog'))applyFilters();
+  else if(btnId.startsWith('vprog')||btnId.startsWith('vcat'))renderVis();
+}
+function getMdd(cbClass){
+  return Array.from(document.querySelectorAll('.'+cbClass+':checked')).map(function(el){return el.value;});
+}
+// Close dropdowns when clicking outside
+document.addEventListener('click',function(e){
+  const dds=document.querySelectorAll('[id$="-dd"]');
+  const btns=document.querySelectorAll('[id$="-btn"]');
+  let inDd=false,inBtn=false;
+  dds.forEach(function(dd){if(dd.contains(e.target))inDd=true;});
+  btns.forEach(function(btn){if(btn.contains(e.target))inBtn=true;});
+  if(!inDd&&!inBtn)dds.forEach(function(dd){dd.style.display='none';});
+});
 
 function detectL2Brand(text){
-  const t=text.toLowerCase();
-  const map=[
-    ['highlands','Cafe'],['starbucks','Cafe'],['coffee house','Cafe'],['phúc long','Cafe'],
-    ['phê la','Cafe'],['cheese coffee','Cafe'],['katinat','Cafe'],['cà phê','Cafe'],
-    ['trà sữa','Trà Sữa'],['tocotoco','Trà Sữa'],['sunday basic','Trà Sữa'],
-    ['sekai','Trà Sữa'],['mixue','Trà Sữa'],['may cha','Trà Sữa'],['gong cha','Trà Sữa'],
-    ['kfc','Gà Rán'],['popeyes','Gà Rán'],['texas chicken','Gà Rán'],["domino",'Pizza'],
-    ['pizza hut','Pizza'],['pizza','Pizza'],["mcdonald",'Burger'],['lotteria','Burger'],
-    ['cơm tấm','Cơm Tấm'],['bún bò','Bún Bò'],['phở','Phở'],
-    ['hanuri','Món Hàn'],['korean','Món Hàn'],['busan','Món Hàn'],['bánh mì','Bánh Mì'],
-  ];
+  const t=(text||'').toLowerCase();
+  const map=[['highlands','Cafe'],['starbucks','Cafe'],['coffee house','Cafe'],['phúc long','Cafe'],['phê la','Cafe'],['cheese coffee','Cafe'],['katinat','Cafe'],['cà phê','Cafe'],['trà sữa','Trà Sữa'],['tocotoco','Trà Sữa'],['sunday basic','Trà Sữa'],['sekai','Trà Sữa'],['mixue','Trà Sữa'],['may cha','Trà Sữa'],['gong cha','Trà Sữa'],['kfc','Gà Rán'],['popeyes','Gà Rán'],['texas chicken','Gà Rán'],["domino",'Pizza'],['pizza hut','Pizza'],['pizza','Pizza'],["mcdonald",'Burger'],['lotteria','Burger'],['cơm tấm','Cơm Tấm'],['bún bò','Bún Bò'],['phở','Phở'],['hanuri','Món Hàn'],['korean','Món Hàn'],['busan','Món Hàn'],['bánh mì','Bánh Mì']];
   for(const [kw,cat] of map){if(t.includes(kw))return cat;}
   return '';
 }
-
 function renderDashboard(){
   const cityF=document.getElementById('dash-city').value;
   const monthF=document.getElementById('dash-month').value;
-  const progF=document.getElementById('dash-prog').value;
+  const progsF=getMdd('dprog-cb');   // multi-select
+  const catsF=getMdd('dcat-cb');     // multi-select
   const brandF=((document.getElementById('dash-brand')||{}).value||'').toLowerCase();
-  const catF=(document.getElementById('dash-cat')||{}).value||'';
-  SF.city=cityF;SF.month=monthF;SF.prog=progF;SF.brand=brandF;SF.cat=catF;
+  SF.city=cityF;SF.month=monthF;SF.prog=progsF.join(',');SF.brand=brandF;SF.cat=catsF.join(',');
   const bks=ALL_BOOKINGS.filter(b=>{
     if(cityF&&!((b.cities||[]).includes(cityF)||(b.city===cityF)))return false;
     if(monthF&&!(b.month||'').toLowerCase().startsWith(monthF.toLowerCase()))return false;
-    if(progF&&b.prog!==progF)return false;
+    if(progsF.length>0&&!progsF.includes(b.prog))return false;
     if(brandF&&!(b.brand||'').toLowerCase().includes(brandF))return false;
-    if(catF){
-      const bL2=detectL2Brand(b.brand||'');
-      if(!bL2.toLowerCase().includes(catF.toLowerCase()))return false;
-    }
+    if(catsF.length>0){const bL2=detectL2Brand(b.brand||'');if(!catsF.some(function(c){return bL2.toLowerCase().includes(c.toLowerCase());}))return false;}
     return true;
   });
+  _dashBks=bks;  // cache for showQCDetail
   const total=bks.length,bd=bks.filter(b=>b.source==='BD').length,mkt=bks.filter(b=>b.source==='MKT').length;
   function qck(b){let e=0,w=0;const isPLF=PLF_SET.has(b.prog);
     if(b.source==='BD'&&isPLF)w++;if(b.source==='MKT'&&!isPLF)w++;
@@ -886,15 +848,14 @@ function renderDashboard(){
     if(['Ongoing','Search'].includes(BM(b.banner))&&b.prog!=='PNS')e++;
     if(b.start&&b.end&&b.start>b.end)e++;
     return{errors:e,warns:w};}
-  const errs=bks.filter(b=>qck(b).errors>0).length;
-  const warns=bks.filter(b=>{const q=qck(b);return q.errors===0&&q.warns>0;}).length;
+  const errs=bks.filter(b=>runQC(b).errors>0).length;
+  const warns=bks.filter(b=>{const q=runQC(b);return q.errors===0&&q.warns>0;}).length;
   document.getElementById('dash-stats').innerHTML=
     '<div class="stat"><div class="stat-lbl">Total Bookings</div><div class="stat-val">'+total.toLocaleString()+'</div></div>'+
     '<div class="stat" style="cursor:pointer" data-qct="bd" onclick="showQCDetail(this.dataset.qct)" title="Click to see BD bookings"><div class="stat-lbl">BD Programs ↗</div><div class="stat-val" style="color:#60a5fa">'+bd.toLocaleString()+'</div></div>'+
     '<div class="stat" style="cursor:pointer" data-qct="mkt" onclick="showQCDetail(this.dataset.qct)" title="Click to see MKT bookings"><div class="stat-lbl">MKT Campaigns ↗</div><div class="stat-val" style="color:#c084fc">'+mkt.toLocaleString()+'</div></div>'+
     '<div class="stat" style="cursor:pointer" data-qct="err" onclick="showQCDetail(this.dataset.qct)" title="Click to drill down"><div class="stat-lbl">QC Errors ↗</div><div class="stat-val" style="color:var(--red)">'+errs+'</div></div>'+
     '<div class="stat" style="cursor:pointer" data-qct="warn" onclick="showQCDetail(this.dataset.qct)" title="Click to drill down"><div class="stat-lbl">QC Warnings ↗</div><div class="stat-val" style="color:var(--ylw)">'+warns+'</div></div>';
-  // By Programme — bars with white labels
   const pc={};bks.forEach(b=>{pc[b.prog]=(pc[b.prog]||0)+1;});
   const sp=Object.entries(pc).sort((a,b)=>b[1]-a[1]).slice(0,14);const mx=sp[0]?.[1]||1;
   document.getElementById('dash-prog-chart').innerHTML=sp.map(([p,n])=>{
@@ -905,7 +866,6 @@ function renderDashboard(){
         '<div style="background:var(--acc);width:'+pct+'%;height:100%;border-radius:4px"></div>'+
         '<span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;font-weight:700;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.9)">'+n+'</span>'+
       '</div></div>';}).join('');
-  // By Month — only active months
   const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const mc={};bks.forEach(b=>{const k=(b.month||'').charAt(0).toUpperCase()+(b.month||'').slice(1,3).toLowerCase();if(k)mc[k]=(mc[k]||0)+1;});
   const activeMo=mo.filter(m=>mc[m]>0);const mxm=Math.max(...Object.values(mc),1);
@@ -917,65 +877,54 @@ function renderDashboard(){
           '<div style="background:#3b82f6;width:'+pct+'%;height:100%;border-radius:4px"></div>'+
           '<span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;font-weight:700;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.9)">'+n+'</span>'+
         '</div></div>';}).join('');
-  // City x Programme
   const cities=cityF?[cityF]:['HCM','HN','DN','HP','CT','OTH'];
   const progs=['SJBP','JBP','SUPERVIP','VIP','WIN1','WIN2','WIN3','WIN4','ALACARECB','ALACARTE','PNS','PLF_CP','PLF_BAU','PLF_MART'];
   let cm='<table><thead><tr><th class="rh">City \\ Programme</th>'+progs.map(p=>'<th><span class="b '+(PM[p]||{cls:'b-plf'}).cls+'">'+(PM[p]||{l:p}).l+'</span></th>').join('')+'<th>Total</th></tr></thead><tbody>';
   cities.forEach(c=>{const cb=bks.filter(b=>(b.cities||[]).includes(c)||(b.city===c));let rt=0;
     cm+='<tr><td class="rh"><span class="b '+(TIER_A.includes(c)?'b-city-a':'b-city-b')+'">'+c+'</span></td>';
-    progs.forEach(p=>{const n=cb.filter(b=>b.prog===p).length;rt+=n;const cl=n===0?'d0':n<5?'dlo':n<20?'dmd':'dhi';cm+='<td class="'+cl+'">'+( n||'')+'</td>';});
+    progs.forEach(p=>{const n=cb.filter(b=>b.prog===p).length;rt+=n;const cl=n===0?'d0':n<5?'dlo':n<20?'dmd':'dhi';cm+='<td class="'+cl+'">'+(n||'')+'</td>';});
     cm+='<td style="font-weight:700;color:var(--acc)">'+rt+'</td></tr>';});
   cm+='</tbody></table>';document.getElementById('dash-city-mx').innerHTML=cm;
-  // Media x Programme
   const banners=['Hometop','HTC','Static','Bottom','Flash','Floating','Popup','Ongoing','Search'];
   const p2=['SJBP','JBP','SUPERVIP','VIP','WIN1','ALACARECB','PNS','PLF_CP','PLF_BAU'];
   let mm='<table><thead><tr><th class="rh">Banner \\ Programme</th>'+p2.map(p=>'<th><span class="b '+(PM[p]||{cls:'b-plf'}).cls+'">'+(PM[p]||{l:p}).l+'</span></th>').join('')+'<th>Total</th></tr></thead><tbody>';
   banners.forEach(bn=>{const bb=bks.filter(b=>BM(b.banner)===bn);let rt=0;
     mm+='<tr><td class="rh" style="font-family:var(--mono);font-size:11px;color:var(--acc)">'+bn+'</td>';
-    p2.forEach(p=>{const n=bb.filter(b=>b.prog===p).length;rt+=n;const cl=n===0?'d0':n<5?'dlo':n<20?'dmd':'dhi';mm+='<td class="'+cl+'">'+( n||'')+'</td>';});
+    p2.forEach(p=>{const n=bb.filter(b=>b.prog===p).length;rt+=n;const cl=n===0?'d0':n<5?'dlo':n<20?'dmd':'dhi';mm+='<td class="'+cl+'">'+(n||'')+'</td>';});
     mm+='<td style="font-weight:700;color:var(--acc)">'+rt+'</td></tr>';});
   mm+='</tbody></table>';document.getElementById('dash-media-mx').innerHTML=mm;
-  // QC summary
   const wt={},wtype={};
   bks.slice(0,500).forEach(b=>{runQC(b).checks.filter(c=>c.st!=='pass').forEach(c=>{wt[c.name]=(wt[c.name]||0)+1;wtype[c.name]=c.st;});});
   document.getElementById('dash-qc').innerHTML=Object.entries(wt).length
     ?Object.entries(wt).sort((a,b)=>b[1]-a[1]).map(([n,c])=>
-        '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;cursor:pointer" data-qcn="'+n.replace(/"/g,"&quot;")+'" onclick="showQCDetail(\'name\',this.dataset.qcn)">'+
+        '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;cursor:pointer" data-qcn="'+n.replace(/"/g,'&quot;')+'" onclick="showQCDetail(\'name\',this.dataset.qcn)">'+
         '<span style="font-size:16px">'+(wtype[n]==='fail'?'❌':'⚠️')+'</span>'+
         '<span style="font-size:12px;flex:1">'+n+'</span>'+
         '<span class="b '+(wtype[n]==='fail'?'b-err':'b-warn')+'">'+c+'</span></div>').join('')
     :'<p style="color:var(--mut);font-size:12px">No QC issues 🎉</p>';
+  historySave();
 }
 function showQCDetail(type,name){
-  // Apply active dashboard filters first
-  const cityF=SF.city, monthF=SF.month, progF=SF.prog, brandF=SF.brand, catF=SF.cat;
-  const baseBks=ALL_BOOKINGS.filter(b=>{
-    if(cityF&&!((b.cities||[]).includes(cityF)||(b.city===cityF)))return false;
-    if(monthF&&!(b.month||'').toLowerCase().startsWith(monthF.toLowerCase()))return false;
-    if(progF&&b.prog!==progF)return false;
-    if(brandF&&!(b.brand||'').toLowerCase().includes(brandF))return false;
-    if(catF){const bL2=detectL2Brand(b.brand||'');if(!bL2.toLowerCase().includes(catF.toLowerCase()))return false;}
-    return true;
-  });
+  // Use exact same filtered set that the dashboard stat cards used
+  const base=_dashBks.length>0?_dashBks:ALL_BOOKINGS;
   let bksToShow;
-  if(type==='err') bksToShow=baseBks.filter(b=>runQC(b).errors>0);
-  else if(type==='warn') bksToShow=baseBks.filter(b=>{const q=runQC(b);return q.errors===0&&q.warns>0;});
-  else if(type==='bd') bksToShow=baseBks.filter(b=>b.source==='BD');
-  else if(type==='mkt') bksToShow=baseBks.filter(b=>b.source==='MKT');
-  else bksToShow=baseBks.filter(b=>runQC(b).checks.some(c=>c.st!=='pass'&&c.name===name));
+  if(type==='err')bksToShow=base.filter(b=>runQC(b).errors>0);
+  else if(type==='warn')bksToShow=base.filter(b=>{const q=runQC(b);return q.errors===0&&q.warns>0;});
+  else if(type==='bd')bksToShow=base.filter(b=>b.source==='BD');
+  else if(type==='mkt')bksToShow=base.filter(b=>b.source==='MKT');
+  else bksToShow=base.filter(b=>runQC(b).checks.some(c=>c.st!=='pass'&&c.name===name));
   const title=type==='err'?'QC Errors':type==='warn'?'QC Warnings':type==='bd'?'BD Programs':type==='mkt'?'MKT Campaigns':'QC: '+name;
   document.getElementById('modal-title').textContent=title;
   document.getElementById('modal-body').innerHTML=
     '<div style="font-size:12px;color:var(--mut);margin-bottom:12px">'+bksToShow.length+' booking(s)</div>'+
     bksToShow.slice(0,100).map(b=>{
-      const qc=runQC(b);
-      const issues=qc.checks.filter(c=>c.st!=='pass'&&(type!=='name'||c.name===name));
+      const qc=runQC(b);const issues=qc.checks.filter(c=>c.st!=='pass'&&(type!=='name'||c.name===name));
       return '<div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px;margin-bottom:8px">'+
-        '<div style="display:flex;gap:8px;align-items:center;margin-bottom:6px">'+
+        '<div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;flex-wrap:wrap">'+
         '<span class="b '+(PM[b.prog]||{cls:'b-plf'}).cls+'">'+(PM[b.prog]||{l:b.prog}).l+'</span>'+
-        '<span style="font-weight:600">'+(b.brand||'—')+'</span>'+
+        '<strong>'+(b.brand||'—')+'</strong>'+
         '<span style="font-family:var(--mono);font-size:10px;color:var(--mut)">'+(b.month||'')+' · '+(b.banner||'')+'</span></div>'+
-        issues.map(i=>'<div style="font-size:11px;color:'+(i.st==='fail'?'var(--red)':'var(--ylw)')+';margin-bottom:3px">'+
+        issues.map(i=>'<div style="font-size:11px;color:'+(i.st==='fail'?'var(--red)':'var(--ylw)')+';margin-bottom:4px;line-height:1.5">'+
           (i.st==='fail'?'❌':'⚠️')+' <strong>'+i.name+'</strong> — '+i.det+'</div>').join('')+
         '</div>';}).join('');
   document.getElementById('modal').classList.add('on');
@@ -986,50 +935,52 @@ function gp(id,btn){
   document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('on');});
   document.getElementById('page-'+id).classList.add('on');
   btn.classList.add('on');
-  if(id==='dashboard') renderDashboard();
-  else if(id==='visibility') renderVis();
-  else if(id==='bookings') applyFilters(true);
+  if(id==='dashboard')renderDashboard();
+  else if(id==='visibility')renderVis();
+  else if(id==='bookings'){applyFilters(true);historySave();}
+  else historySave();
 }
 function sortBy(k){if(sortKey===k)sortAsc=!sortAsc;else{sortKey=k;sortAsc=true;}applyFilters();}
+
 function renderList(){
   const total=filtered.length,start=(curPage-1)*pageSize,page=filtered.slice(start,start+pageSize);
-  // Quick count for header — full runQC only on visible page rows
   const errs=filtered.filter(b=>{const isPLF=PLF_SET.has(b.prog);if(b.source==='BD'&&isPLF)return false;if(b.source==='MKT'&&!isPLF)return false;if(b.banner==='Hometop_0'&&b.prog!=='PLF_NEWUSER')return true;if(['Hometop_1','Hometop_2','Hometop_3'].includes(b.banner)&&BAU_WC.has(b.prog))return true;if(['Ongoing','Search'].includes(BM(b.banner))&&b.prog!=='PNS')return true;if(b.start&&b.end&&b.start>b.end)return true;return false;}).length;
   const warns=filtered.filter(b=>{const isPLF=PLF_SET.has(b.prog);return(b.source==='BD'&&isPLF)||(b.source==='MKT'&&!isPLF);}).length;
-  document.getElementById('total-count').textContent=`(${total.toLocaleString()} — ❌ ${errs} errors  ⚠️ ${warns} warnings)`;
-  document.getElementById('pg-info').textContent=`Page ${curPage}/${Math.ceil(total/pageSize)} — ${start+1}–${Math.min(start+pageSize,total)} of ${total}`;
-  document.getElementById('btn-prev').disabled=curPage<=1;document.getElementById('btn-next').disabled=curPage>=Math.ceil(total/pageSize);
+  document.getElementById('total-count').textContent='('+total.toLocaleString()+' — ❌ '+errs+' errors  ⚠️ '+warns+' warnings)';
+  document.getElementById('pg-info').textContent='Page '+curPage+'/'+Math.ceil(total/pageSize)+' — '+(start+1)+'–'+Math.min(start+pageSize,total)+' of '+total;
+  document.getElementById('btn-prev').disabled=curPage<=1;
+  document.getElementById('btn-next').disabled=curPage>=Math.ceil(total/pageSize);
   document.getElementById('list-tbody').innerHTML=page.map(b=>{
     const pm=PM[b.prog]||{l:b.prog_raw||b.prog,cls:'b-plf'};const qc=runQC(b);
     const rowCls=qc.errors>0?'br-err':qc.warns>0?'br-warn':'';
-    const flags=qc.checks.filter(c=>c.st!=='pass').map(c=>`<span class="flag ${c.st==='fail'?'flag-e':'flag-w'}" title="${c.det}">${c.st==='fail'?'❌':'⚠️'} ${c.name.split('—')[0].trim().substring(0,15)}</span>`).join('');
-    const sb=b.status==='Confirmed'?`<span class="b b-conf">Confirmed</span>`:b.status==='Done'?`<span class="b b-done">Done</span>`:b.status?`<span class="b b-pend">${b.status}</span>`:'<span style="color:var(--mut);font-size:10px">—</span>';
-    const cities=(b.cities||['?']).map(c=>`<span class="b ${TIER_A.includes(c)?'b-city-a':'b-city-b'}">${c}</span>`).join('');
-    // Missing info highlights
+    const flags=qc.checks.filter(c=>c.st!=='pass').map(c=>'<span class="b '+(c.st==='fail'?'b-err':'b-warn')+'" title="'+c.det+'" style="font-size:10px;margin-bottom:2px;display:inline-block">'+(c.st==='fail'?'❌':'⚠️')+' '+c.name.split('—')[0].trim().substring(0,18)+'</span>').join('<br>');
+    const sb=b.status==='Confirmed'?'<span class="b b-conf">Confirmed</span>':b.status==='Done'?'<span class="b b-done">Done</span>':b.status?'<span class="b b-pend">'+b.status+'</span>':'';
+    const cities=(b.cities||['?']).map(c=>'<span class="b '+(TIER_A.includes(c)?'b-city-a':'b-city-b')+'">'+c+'</span>').join('');
     const missingBrand=!b.brand||b.brand==='nan';
     const missingDate=!b.start||!b.end;
     const missingBanner=!b.banner;
-    const missingCities=!b.cities||b.cities.length===0;
-    const hasMissing=missingBrand||missingDate||missingBanner||missingCities;
-    const missingTip=hasMissing?[missingBrand?'Brand':'',missingDate?'Date':'',missingBanner?'Banner':'',missingCities?'City':''].filter(Boolean).join(', ')+' missing':'';
-    const missingBadge=hasMissing?`<span style="background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.3);border-radius:4px;font-size:9px;padding:1px 5px;font-family:var(--mono)" title="${missingTip}">⚠ ${missingTip}</span>`:'';
-    return`<tr class="${rowCls}${hasMissing?' tr-missing':''}">
-      <td style="color:var(--mut);font-family:var(--mono);font-size:10px">${b.id}</td>
-      <td><span class="b ${b.source==='BD'?'b-bd':'b-mkt'}">${b.source}</span></td>
-      <td><span class="b ${pm.cls}">${pm.l}</span></td>
-      <td style="max-width:200px" title="${b.brand||''}">${b.brand?`<span style="font-weight:500">${b.brand}</span>`:`<span style="color:var(--red);font-size:11px">⚠ No brand</span>`}${missingBadge?'<br>'+missingBadge:''}</td>
-      <td style="font-family:var(--mono);font-size:11px">${b.month||'—'}</td>
-      <td style="font-family:var(--mono);font-size:10px;white-space:nowrap">${b.start||'<span style="color:var(--red)">—</span>'}</td>
-      <td style="font-family:var(--mono);font-size:10px;white-space:nowrap">${b.end||'<span style="color:var(--red)">—</span>'}</td>
-      <td style="font-family:var(--mono);font-size:10px;color:var(--mut)">${b.banner||'<span style="color:var(--red)">—</span>'}</td>
-      <td>${cities}</td>
-      <td>${sb}</td>
-      <td style="color:var(--mut);font-size:11px">${b.pic||'—'}</td>
-      <td>${flags||'<span style="color:var(--grn);font-size:11px">✅</span>'}</td>
-      <td><button style="background:var(--surf);border:1px solid var(--bord);border-radius:6px;color:var(--mut);font-size:11px;padding:4px 8px;cursor:pointer;transition:all .15s;white-space:nowrap" onmouseover="this.style.borderColor='var(--acc)';this.style.color='var(--acc)'" onmouseout="this.style.borderColor='var(--bord)';this.style.color='var(--mut)'" onclick="showDetail(${b.id})">👁 View</button></td>
-    </tr>`;
-  }).join('')||'<tr><td colspan="12" class="empty">No bookings match filters</td></tr>';
-}function prevPage(){if(curPage>1){curPage--;renderList();}}function nextPage(){if(curPage*pageSize<filtered.length){curPage++;renderList();}}function showDetail(id){
+    const hasMissing=missingBrand||missingDate||missingBanner;
+    const missingTip=hasMissing?[missingBrand?'Brand':'',missingDate?'Date':'',missingBanner?'Banner':''].filter(Boolean).join(', ')+' missing':'';
+    return '<tr class="'+rowCls+(hasMissing?' tr-missing':'')+'">'+
+      '<td style="color:var(--mut);font-family:var(--mono);font-size:10px">'+b.id+'</td>'+
+      '<td><span class="b '+(b.source==='BD'?'b-bd':'b-mkt')+'">'+b.source+'</span></td>'+
+      '<td><span class="b '+pm.cls+'">'+pm.l+'</span></td>'+
+      '<td style="max-width:200px" title="'+(b.brand||'')+'">'+
+        (b.brand?'<span style="font-weight:500">'+b.brand+'</span>':'<span style="color:var(--red);font-size:11px">⚠ No brand</span>')+
+        (hasMissing?'<br><span style="background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.3);border-radius:4px;font-size:9px;padding:1px 5px;font-family:var(--mono)" title="'+missingTip+'">⚠ '+missingTip+'</span>':'')+
+      '</td>'+
+      '<td style="font-family:var(--mono);font-size:11px">'+(b.month||'—')+'</td>'+
+      '<td style="font-family:var(--mono);font-size:10px;white-space:nowrap">'+(b.start||'<span style="color:var(--red)">—</span>')+'</td>'+
+      '<td style="font-family:var(--mono);font-size:10px;white-space:nowrap">'+(b.end||'<span style="color:var(--red)">—</span>')+'</td>'+
+      '<td style="font-family:var(--mono);font-size:10px;color:var(--mut)">'+(b.banner||'<span style="color:var(--red)">—</span>')+'</td>'+
+      '<td>'+cities+'</td><td>'+sb+'</td>'+
+      '<td style="color:var(--mut);font-size:11px">'+(b.pic||'—')+'</td>'+
+      '<td>'+(flags||'<span style="color:var(--grn);font-size:11px">✅</span>')+'</td>'+
+      '<td><button class="btn btn-s" data-bid="'+b.id+'" style="font-size:11px;padding:4px 10px" onclick="showDetail(+this.dataset.bid)">👁 View</button></td>'+
+      '</tr>';
+  }).join('')||'<tr><td colspan="13" class="empty">No bookings match filters</td></tr>';
+}
+function prevPage(){if(curPage>1){curPage--;renderList();}}function nextPage(){if(curPage*pageSize<filtered.length){curPage++;renderList();}}function showDetail(id){
   const b=ALL_BOOKINGS.find(x=>x.id===id);if(!b)return;
   const pm=PM[b.prog]||{l:b.prog_raw||b.prog,cls:'b-plf'};const qc=runQC(b);
   document.getElementById('modal-title').textContent=b.brand||'Booking Detail';
@@ -1062,7 +1013,7 @@ function renderList(){
   if(mode==='month'){
     const fromEl = document.getElementById('vfrom');
     const toEl   = document.getElementById('vto');
-    if(!fromEl.value || !fromEl.value.startsWith(month)){
+    if(true){
       fromEl.value = month+'-01';
       toEl.value   = month+'-'+String(lastDay).padStart(2,'0');
     }
@@ -1085,8 +1036,8 @@ function renderList(){
   const toEl   = document.getElementById('vto');
   var   from   = fromEl ? fromEl.value : '';
   var   to     = toEl   ? toEl.value   : '';
-  const brandF = (document.getElementById('vbrand')||{}).value||'';
-  const cats   = typeof getVcats==='function'?getVcats():[];
+  const brandF=(document.getElementById('vbrand')||{}).value||'';
+  const cats=typeof getVcats==='function'?getVcats():[];
   const grid   = document.getElementById('vis-grid');
 
   if(!from||!to){
@@ -1110,12 +1061,13 @@ function renderList(){
     cur=y+'-'+String(m).padStart(2,'0')+'-'+String(d).padStart(2,'0');
   }
 
-    function ok(item){
+  function ok(item){
     if(brandF){
       const brands=brandF.split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
-      if(brands.length>0 && !brands.some(br=>item.b.toLowerCase().indexOf(br)>-1)) return false;
+      if(brands.length>0&&!brands.some(br=>item.b.toLowerCase().indexOf(br)>-1))return false;
     }
-    if(cats.length>0 && !cats.some(c=>item.l===c||item.b.toLowerCase().indexOf(c.toLowerCase())>-1)) return false;
+    if(cats.length>0&&!cats.some(c=>item.l===c||item.b.toLowerCase().indexOf(c.toLowerCase())>-1))return false;
+    if(vprogs.length>0&&!vprogs.some(function(vp){return item.p.indexOf(vp)>-1;}))return false;
     return true;
   }
 
@@ -1326,13 +1278,13 @@ function renderList(){
   const dow = new Date(ds+'T00:00:00').toLocaleDateString('vi-VN',{weekday:'long'});
 
   // Filters
-  const brandF = (document.getElementById('vbrand')||{}).value||'';
-  const catF   = (document.getElementById('vcat')||{}).value||'';
+  const brandF=(document.getElementById('vbrand')||{}).value||'';
+  const cats=typeof getVcats==='function'?getVcats():[];
 
   // Filter helper
   function matchItem(item){
     if(brandF && item.b.toLowerCase().indexOf(brandF.toLowerCase())<0) return false;
-    if(catF && item.l !== catF) return false;
+    if(cats.length>0&&!cats.some(c=>item.l===c||item.b.toLowerCase().indexOf(c.toLowerCase())>-1))return false;
     return true;
   }
 
@@ -1466,18 +1418,38 @@ function renderList(){
   document.getElementById('vday').value=ds;
   await renderVis();
 }function exportCSV(){const hdrs=['ID','Source','Programme','Brand','Scheme','Month','Start','End','Banner','Cities','Status','PIC','QC_Errors','QC_Warns','QC_Flags'];const rows=filtered.map(b=>{const qc=runQC(b);const flags=qc.checks.filter(c=>c.st!=='pass').map(c=>c.name).join(' | ');return[b.id,b.source,b.prog,`"${(b.brand||'').replace(/"/g,"'")}"`,`"${(b.scheme||'').replace(/"/g,"'")}"`,b.month,b.start,b.end,b.banner,`"${(b.cities||[]).join(',')}"`,b.status,b.pic,qc.errors,qc.warns,`"${flags}"`].join(',');});const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent([hdrs.join(','),...rows].join('\\n'));a.download='shopeefood_bookings.csv';a.click();}
+function toggleVcatDD(){
+  const dd=document.getElementById('vcat-dd');
+  if(dd)dd.style.display=dd.style.display==='none'?'block':'none';
+}
+function vcatAllChange(cb){
+  document.querySelectorAll('.vcat-cb').forEach(el=>el.checked=false);
+  const lbl=document.getElementById('vcat-label');
+  if(lbl)lbl.textContent='All Categories';
+  renderVis();
+}
+function vcatChange(){
+  const selected=Array.from(document.querySelectorAll('.vcat-cb:checked')).map(el=>el.value);
+  const allCb=document.getElementById('vcat-all');
+  if(allCb)allCb.checked=selected.length===0;
+  const lbl=document.getElementById('vcat-label');
+  if(lbl)lbl.textContent=selected.length===0?'All Categories':selected.length===1?selected[0]:selected.length+' selected';
+  renderVis();
+}
+function getVcats(){
+  return Array.from(document.querySelectorAll('.vcat-cb:checked')).map(el=>el.value);
+}
+// vcat close handled by generic mdd listener
 document.addEventListener('keydown',function(e){
   if((e.ctrlKey||e.metaKey)&&e.key==='z'&&!e.shiftKey){e.preventDefault();historyUndo();}
   if((e.ctrlKey||e.metaKey)&&(e.key==='y'||(e.key==='z'&&e.shiftKey))){e.preventDefault();historyRedo();}
 });
+
 (async function init(){
   const ov=document.getElementById('loading-overlay');
-  if(ov) ov.style.display='flex';
+  if(ov)ov.style.display='flex';
   try{
-    const [bk,caps]=await Promise.all([
-      fetch('data/bookings.json').then(r=>r.json()),
-      fetch('data/caps.json').then(r=>r.json()),
-    ]);
+    const [bk,caps]=await Promise.all([fetch('data/bookings.json').then(r=>r.json()),fetch('data/caps.json').then(r=>r.json())]);
     ALL_BOOKINGS=bk;DAILY_CAPS=caps.daily;MONTHLY_CAPS=caps.monthly;
   }catch(e){if(ov)ov.style.display='none';alert('Could not load data. Run prepare_data.py first.');return;}
   if(ov)ov.style.display='none';
@@ -1488,35 +1460,10 @@ document.addEventListener('keydown',function(e){
   historySave();
   applyFilters(true);
   renderDashboard();
+  getVD();
 })();
 
 
-function toggleVcatDD(){
-  const dd=document.getElementById('vcat-dd');
-  if(dd) dd.style.display=dd.style.display==='none'?'block':'none';
-}
-function vcatAllChange(cb){
-  document.querySelectorAll('.vcat-cb').forEach(el=>el.checked=false);
-  document.getElementById('vcat-label').textContent='All Categories';
-  renderVis();
-}
-function vcatChange(){
-  const selected=Array.from(document.querySelectorAll('.vcat-cb:checked')).map(el=>el.value);
-  const allCb=document.getElementById('vcat-all');
-  if(allCb) allCb.checked=selected.length===0;
-  const lbl=document.getElementById('vcat-label');
-  if(lbl) lbl.textContent=selected.length===0?'All Categories':selected.length===1?selected[0]:selected.length+' selected';
-  renderVis();
-}
-function getVcats(){
-  return Array.from(document.querySelectorAll('.vcat-cb:checked')).map(el=>el.value);
-}
-// Close dropdown when clicking outside
-document.addEventListener('click',function(e){
-  const dd=document.getElementById('vcat-dd');
-  const btn=document.getElementById('vcat-btn');
-  if(dd&&btn&&!dd.contains(e.target)&&!btn.contains(e.target)) dd.style.display='none';
-});
 </script>
 </body>
 </html>
