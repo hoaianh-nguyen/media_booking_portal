@@ -426,6 +426,7 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
       <div class="fg"><label>Month</label><input type="month" id="vm" onchange="renderVis()"/></div>
       <div class="fg" id="vrange-wrap"><label>Date Range</label><div style="display:flex;gap:6px;align-items:center"><input type="date" id="vfrom" onchange="renderVisMonth()"/><span style="color:var(--mut)">→</span><input type="date" id="vto" onchange="renderVisMonth()"/></div></div>
       <div class="fg" id="vday-wrap" style="display:none"><label>Day</label><input type="date" id="vday" onchange="renderVisDay()"/></div>
+      <button class="btn btn-s" onclick="_visCache=null;renderVis()" title="Reload visibility data from server" style="white-space:nowrap">🔄 Refresh</button>
     </div>
     <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-top:10px">
       <div class="fg"><label>Brand Search <span style="color:var(--mut);font-weight:400;text-transform:none;letter-spacing:0">(comma-separated)</span></label>
@@ -455,7 +456,7 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
 <script>
 
 let ALL_BOOKINGS=[], DAILY_CAPS={}, MONTHLY_CAPS={}, _visCache=null;
-async function getVD(){if(!_visCache){const r=await fetch('/api/visibility');_visCache=await r.json();}return _visCache;}
+async function getVD(){if(!_visCache){const r=await fetch('/api/visibility?t='+Date.now());_visCache=await r.json();}return _visCache;}
 // L2 category rules by hour × city
 // key: timeslot code → { city: [allowed categories] }
 const HOUR_CAT = {
@@ -1090,50 +1091,65 @@ function prevPage(){if(curPage>1){curPage--;renderList();}}function nextPage(){i
   }
 
   const SLOTS=[
-    {k:'Search_01-05h',lbl:'Search 01-05h',grp:'Search'},
-    {k:'Search_05-10h',lbl:'Search 05-10h',grp:'Search'},
-    {k:'Search_10-12h',lbl:'Search 10-12h',grp:'Search'},
-    {k:'Search_12-14h',lbl:'Search 12-14h',grp:'Search'},
-    {k:'Search_14-17h',lbl:'Search 14-17h',grp:'Search'},
-    {k:'Search_17-19h',lbl:'Search 17-19h',grp:'Search'},
-    {k:'HTC_1st_0-8h',  lbl:'HC 1st 0-8h',  grp:'Home Circle'},
-    {k:'HTC_1st_8-16h', lbl:'HC 1st 8-16h', grp:'Home Circle'},
-    {k:'HTC_1st_16-24h',lbl:'HC 1st 16-24h',grp:'Home Circle'},
-    {k:'HTC_2nd_0-8h',  lbl:'HC 2nd 0-8h',  grp:'Home Circle'},
-    {k:'HTC_2nd_8-16h', lbl:'HC 2nd 8-16h', grp:'Home Circle'},
-    {k:'HTC_2nd_16-24h',lbl:'HC 2nd 16-24h',grp:'Home Circle'},
-    {k:'Hometop_0', lbl:'HT #0 NU',    grp:'Hometop'},
-    {k:'Hometop_1', lbl:'HT #1',       grp:'Hometop'},
-    {k:'Hometop_2', lbl:'HT #2',       grp:'Hometop'},
-    {k:'Hometop_3', lbl:'HT #3',       grp:'Hometop'},
-    {k:'Hometop_4', lbl:'HT #4',       grp:'Hometop'},
-    {k:'Hometop_5', lbl:'HT #5',       grp:'Hometop'},
-    {k:'Hometop_6', lbl:'HT #6',       grp:'Hometop'},
-    {k:'Hometop_7', lbl:'HT #7',       grp:'Hometop'},
-    {k:'Hometop_8', lbl:'HT #8',       grp:'Hometop'},
-    {k:'Hometop_9', lbl:'HT #9',       grp:'Hometop'},
-    {k:'Hometop_10',lbl:'HT #10',      grp:'Hometop'},
-    {k:'Hometop_11',lbl:'HT #11',      grp:'Hometop'},
-    {k:'Hometop_12',lbl:'HT #12',      grp:'Hometop'},
-    {k:'Hometop_13',lbl:'HT #13 Mart', grp:'Hometop'},
-    {k:'Static_1',lbl:'Static #1',grp:'Static'},
-    {k:'Static_2',lbl:'Static #2',grp:'Static'},
-    {k:'Static_3',lbl:'Static #3',grp:'Static'},
-    {k:'Static_4',lbl:'Static #4',grp:'Static'},
-    {k:'Static_5',lbl:'Static #5',grp:'Static'},
-    {k:'Static_6',lbl:'Static #6',grp:'Static'},
-    {k:'Bottom_1',lbl:'Bottom #1',grp:'Bottom'},
-    {k:'Bottom_2',lbl:'Bottom #2',grp:'Bottom'},
-    {k:'Bottom_3',lbl:'Bottom #3',grp:'Bottom'},
-    {k:'Bottom_4',lbl:'Bottom #4',grp:'Bottom'},
-    {k:'Bottom_5',lbl:'Bottom #5',grp:'Bottom'},
-    {k:'Bottom_6',lbl:'Bottom #6',grp:'Bottom'},
-    {k:'Flash_1',lbl:'Flash #1',grp:'Flash'},
-    {k:'Flash_2',lbl:'Flash #2',grp:'Flash'},
-    {k:'Flash_3',lbl:'Flash #3',grp:'Flash'},
-    {k:'Flash_4',lbl:'Flash #4',grp:'Flash'},
-    {k:'Ongoing',      lbl:'Ongoing',      grp:'Other'},
-    {k:'Search_Banner',lbl:'Search Banner',grp:'Other'},
+    {k:'Search_01-05h',lbl:'Search 01-05h',grp:'Search Placeholder'},
+    {k:'Search_05-10h',lbl:'Search 05-10h',grp:'Search Placeholder'},
+    {k:'Search_10-12h',lbl:'Search 10-12h',grp:'Search Placeholder'},
+    {k:'Search_12-14h',lbl:'Search 12-14h',grp:'Search Placeholder'},
+    {k:'Search_14-17h',lbl:'Search 14-17h',grp:'Search Placeholder'},
+    {k:'Search_17-19h',lbl:'Search 17-19h',grp:'Search Placeholder'},
+    {k:'Search_19-22h',lbl:'Search 19-22h',grp:'Search Placeholder'},
+    {k:'Search_22-01h',lbl:'Search 22-01h',grp:'Search Placeholder'},
+    {k:'Hometop_0',lbl:'HT #0 NU',grp:'Hometop'},{k:'Hometop_1',lbl:'HT #1',grp:'Hometop'},
+    {k:'Hometop_2',lbl:'HT #2',grp:'Hometop'},{k:'Hometop_3',lbl:'HT #3',grp:'Hometop'},
+    {k:'Hometop_4',lbl:'HT #4',grp:'Hometop'},{k:'Hometop_5',lbl:'HT #5',grp:'Hometop'},
+    {k:'Hometop_6',lbl:'HT #6',grp:'Hometop'},{k:'Hometop_7',lbl:'HT #7',grp:'Hometop'},
+    {k:'Hometop_8',lbl:'HT #8',grp:'Hometop'},{k:'Hometop_9',lbl:'HT #9',grp:'Hometop'},
+    {k:'Hometop_10',lbl:'HT #10',grp:'Hometop'},{k:'Hometop_11',lbl:'HT #11',grp:'Hometop'},
+    {k:'Hometop_12',lbl:'HT #12',grp:'Hometop'},{k:'Hometop_13',lbl:'HT #13 Mart',grp:'Hometop'},
+    {k:'Hometop_14',lbl:'HT #14 SPX',grp:'Hometop'},
+    {k:'HTC_1st_0-8h',lbl:'HTC 1st 0-8h',grp:'HTC (Home Circle)'},
+    {k:'HTC_1st_8-16h',lbl:'HTC 1st 8-16h',grp:'HTC (Home Circle)'},
+    {k:'HTC_1st_16-24h',lbl:'HTC 1st 16-24h',grp:'HTC (Home Circle)'},
+    {k:'HTC_2nd_0-8h',lbl:'HTC 2nd 0-8h',grp:'HTC (Home Circle)'},
+    {k:'HTC_2nd_8-16h',lbl:'HTC 2nd 8-16h',grp:'HTC (Home Circle)'},
+    {k:'HTC_2nd_16-24h',lbl:'HTC 2nd 16-24h',grp:'HTC (Home Circle)'},
+    {k:'Coll_1',lbl:'Coll #1',grp:'Collection'},{k:'Coll_2',lbl:'Coll #2',grp:'Collection'},
+    {k:'Coll_3',lbl:'Coll #3',grp:'Collection'},{k:'Coll_4',lbl:'Coll #4',grp:'Collection'},
+    {k:'Coll_5',lbl:'Coll #5',grp:'Collection'},{k:'Coll_6',lbl:'Coll #6',grp:'Collection'},
+    {k:'Coll_7',lbl:'Coll #7',grp:'Collection'},{k:'Coll_8',lbl:'Coll #8',grp:'Collection'},
+    {k:'Coll_9',lbl:'Coll #9',grp:'Collection'},{k:'Coll_10',lbl:'Coll #10',grp:'Collection'},
+    {k:'Coll_11',lbl:'Coll #11',grp:'Collection'},{k:'Coll_12',lbl:'Coll #12',grp:'Collection'},
+    {k:'Coll_13',lbl:'Coll #13',grp:'Collection'},{k:'Coll_14',lbl:'Coll #14',grp:'Collection'},
+    {k:'Coll_15',lbl:'Coll #15',grp:'Collection'},{k:'Coll_16',lbl:'Coll #16',grp:'Collection'},
+    {k:'Flash_1',lbl:'Flash #1',grp:'Flash Sale'},{k:'Flash_2',lbl:'Flash #2',grp:'Flash Sale'},
+    {k:'Flash_3',lbl:'Flash #3',grp:'Flash Sale'},{k:'Flash_4',lbl:'Flash #4',grp:'Flash Sale'},
+    {k:'Rec_1',lbl:'Rec #1',grp:'Recommendation'},{k:'Rec_2',lbl:'Rec #2',grp:'Recommendation'},
+    {k:'Rec_3',lbl:'Rec #3',grp:'Recommendation'},{k:'Rec_4',lbl:'Rec #4',grp:'Recommendation'},
+    {k:'Rec_5',lbl:'Rec #5',grp:'Recommendation'},
+    {k:'Float_00-06_L1',lbl:'Float 00-06 L1',grp:'Floating'},{k:'Float_00-06_L2',lbl:'Float 00-06 L2',grp:'Floating'},
+    {k:'Float_06-10_L1',lbl:'Float 06-10 L1',grp:'Floating'},{k:'Float_06-10_L2',lbl:'Float 06-10 L2',grp:'Floating'},
+    {k:'Float_10-13_L1',lbl:'Float 10-13 L1',grp:'Floating'},{k:'Float_10-13_L2',lbl:'Float 10-13 L2',grp:'Floating'},
+    {k:'Float_13-16_L1',lbl:'Float 13-16 L1',grp:'Floating'},{k:'Float_13-16_L2',lbl:'Float 13-16 L2',grp:'Floating'},
+    {k:'Float_16-19_L1',lbl:'Float 16-19 L1',grp:'Floating'},{k:'Float_16-19_L2',lbl:'Float 16-19 L2',grp:'Floating'},
+    {k:'Float_19-22_L1',lbl:'Float 19-22 L1',grp:'Floating'},{k:'Float_19-22_L2',lbl:'Float 19-22 L2',grp:'Floating'},
+    {k:'Float_22-24_L1',lbl:'Float 22-24 L1',grp:'Floating'},{k:'Float_22-24_L2',lbl:'Float 22-24 L2',grp:'Floating'},
+    {k:'Popup_00-06_L1',lbl:'Popup 00-06 L1',grp:'Popup'},{k:'Popup_00-06_L2',lbl:'Popup 00-06 L2',grp:'Popup'},
+    {k:'Popup_06-10_L1',lbl:'Popup 06-10 L1',grp:'Popup'},{k:'Popup_06-10_L2',lbl:'Popup 06-10 L2',grp:'Popup'},
+    {k:'Popup_10-13_L1',lbl:'Popup 10-13 L1',grp:'Popup'},{k:'Popup_10-13_L2',lbl:'Popup 10-13 L2',grp:'Popup'},
+    {k:'Popup_13-16_L1',lbl:'Popup 13-16 L1',grp:'Popup'},{k:'Popup_13-16_L2',lbl:'Popup 13-16 L2',grp:'Popup'},
+    {k:'Popup_16-19_L1',lbl:'Popup 16-19 L1',grp:'Popup'},{k:'Popup_16-19_L2',lbl:'Popup 16-19 L2',grp:'Popup'},
+    {k:'Popup_19-22_L1',lbl:'Popup 19-22 L1',grp:'Popup'},{k:'Popup_19-22_L2',lbl:'Popup 19-22 L2',grp:'Popup'},
+    {k:'Popup_22-24_L1',lbl:'Popup 22-24 L1',grp:'Popup'},{k:'Popup_22-24_L2',lbl:'Popup 22-24 L2',grp:'Popup'},
+    {k:'Static_1',lbl:'Static #1',grp:'Static'},{k:'Static_2',lbl:'Static #2',grp:'Static'},
+    {k:'Static_3',lbl:'Static #3',grp:'Static'},{k:'Static_4',lbl:'Static #4',grp:'Static'},
+    {k:'Static_5',lbl:'Static #5',grp:'Static'},{k:'Static_6',lbl:'Static #6',grp:'Static'},
+    {k:'Bottom_1',lbl:'Bottom #1',grp:'Bottom'},{k:'Bottom_2',lbl:'Bottom #2',grp:'Bottom'},
+    {k:'Bottom_3',lbl:'Bottom #3',grp:'Bottom'},{k:'Bottom_4',lbl:'Bottom #4',grp:'Bottom'},
+    {k:'Bottom_5',lbl:'Bottom #5',grp:'Bottom'},{k:'Bottom_6',lbl:'Bottom #6',grp:'Bottom'},
+    {k:'Search_Banner',lbl:'Search Banner',grp:'Search Banner'},{k:'Search_Banner2',lbl:'Search Banner 2',grp:'Search Banner'},
+    {k:'CollList_1',lbl:'CL #1',grp:'Collection List'},{k:'CollList_2',lbl:'CL #2',grp:'Collection List'},
+    {k:'CollList_3',lbl:'CL #3',grp:'Collection List'},
+    {k:'Ongoing',lbl:'Ongoing',grp:'Other'},
   ];
 
   const active=SLOTS.filter(function(s){
@@ -1253,7 +1269,7 @@ function prevPage(){if(curPage>1){curPage--;renderList();}}function nextPage(){i
   // Build table — NO table-layout, NO colgroup, width on every cell
   var h='<div style="overflow-x:auto"><table style="border-collapse:collapse"><thead><tr>';
   // Slot header
-  h+='<th style="width:'+SW+'px;min-width:'+SW+'px;background:var(--surf);border:1px solid var(--bord);padding:8px 10px;font-family:var(--mono);font-size:9px;font-weight:700;color:var(--mut);text-transform:uppercase;position:sticky;left:0;z-index:4">SLOT</th>';
+  h+='<th style="width:'+SW+'px;min-width:'+SW+'px;background:var(--surf);border:1px solid var(--bord);padding:8px 10px;font-family:var(--mono);font-size:9px;font-weight:700;color:var(--mut);text-transform:uppercase;position:sticky;left:0;z-index:20;top:0">SLOT</th>';
   // Date headers
   show.forEach(function(d){
     var dt=new Date(d+'T00:00:00'),wd=wds[dt.getDay()],day=dt.getDate();
@@ -1286,6 +1302,7 @@ function prevPage(){if(curPage>1){curPage--;renderList();}}function nextPage(){i
   h+='</tbody></table></div>';
   h+='<div style="padding:8px 14px;font-size:11px;color:var(--mut)">🟦 Brand &nbsp;🟣 Platform &nbsp;·&nbsp; Click any date header or cell → Day detail</div>';
   grid.innerHTML=h;
+
 }async function renderVisDay(){
   const city = document.getElementById('vc').value;
   const ds   = document.getElementById('vday').value;
@@ -1308,14 +1325,19 @@ function prevPage(){if(curPage>1){curPage--;renderList();}}function nextPage(){i
 
   // ── Column groups ───────────────────────────────────────────────────
   const COL_GROUPS = [
-    { label:'🔍 Search Placeholder', cols:['Search_01-05h','Search_05-10h','Search_10-12h','Search_12-14h','Search_14-17h','Search_17-19h','Search_19-22h'], short:['01-05h','05-10h','10-12h','12-14h','14-17h','17-19h','19-22h'] },
-    { label:'⭕ Home Circle — 1st Scroll', cols:['HTC_1st_0-8h','HTC_1st_8-16h','HTC_1st_16-24h'], short:['0-8h','8-16h','16-24h'] },
-    { label:'⭕ Home Circle — 2nd Scroll', cols:['HTC_2nd_0-8h','HTC_2nd_8-16h','HTC_2nd_16-24h'], short:['0-8h','8-16h','16-24h'] },
-    { label:'🏠 Hometop Banner', cols:['Hometop_0','Hometop_1','Hometop_2','Hometop_3','Hometop_4','Hometop_5','Hometop_6','Hometop_7','Hometop_8','Hometop_9','Hometop_10','Hometop_11','Hometop_12','Hometop_13'], short:['#0 NU','#1','#2','#3','#4','#5','#6','#7','#8','#9','#10','#11','#12','#13 Mart'] },
+    { label:'🔍 Search Placeholder', cols:['Search_01-05h','Search_05-10h','Search_10-12h','Search_12-14h','Search_14-17h','Search_17-19h','Search_19-22h','Search_22-01h','Search_Banner','Search_Banner2'], short:['01-05h','05-10h','10-12h','12-14h','14-17h','17-19h','19-22h','22-01h','Banner','Banner 2'] },
+    { label:'⭕ HTC (Home Circle) — 1st Scroll', cols:['HTC_1st_0-8h','HTC_1st_8-16h','HTC_1st_16-24h'], short:['0-8h','8-16h','16-24h'] },
+    { label:'⭕ HTC (Home Circle) — 2nd Scroll', cols:['HTC_2nd_0-8h','HTC_2nd_8-16h','HTC_2nd_16-24h'], short:['0-8h','8-16h','16-24h'] },
+    { label:'⭐ Recommendation', cols:['Rec_1','Rec_2','Rec_3','Rec_4','Rec_5'], short:['#1','#2','#3','#4','#5'] },
+    { label:'🏠 Hometop Banner', cols:['Hometop_0','Hometop_1','Hometop_2','Hometop_3','Hometop_4','Hometop_5','Hometop_6','Hometop_7','Hometop_8','Hometop_9','Hometop_10','Hometop_11','Hometop_12','Hometop_13','Hometop_14'], short:['#0 NU','#1','#2','#3','#4','#5','#6','#7','#8','#9','#10','#11','#12','#13','#14'] },
     { label:'📌 Static Banner', cols:['Static_1','Static_2','Static_3','Static_4','Static_5','Static_6'], short:['#1','#2','#3','#4','#5','#6'] },
-    { label:'⬇ Bottom Banner',  cols:['Bottom_1','Bottom_2','Bottom_3','Bottom_4','Bottom_5','Bottom_6'], short:['#1','#2','#3','#4','#5','#6'] },
-    { label:'⚡ Flash Sale',     cols:['Flash_1','Flash_2','Flash_3','Flash_4'], short:['#1','#2','#3','#4'] },
-    { label:'🔁 Ongoing / Search Banner', cols:['Ongoing','Search_Banner'], short:['Ongoing','Search'] },
+    { label:'📊 Bottom Banner', cols:['Bottom_1','Bottom_2','Bottom_3','Bottom_4','Bottom_5','Bottom_6'], short:['#1','#2','#3','#4','#5','#6'] },
+    { label:'📋 Collection List', cols:['CollList_1','CollList_2','CollList_3'], short:['#1','#2','#3'] },
+    { label:'⚡ Flash Sale', cols:['Flash_1','Flash_2','Flash_3','Flash_4'], short:['#1','#2','#3','#4'] },
+    { label:'🔁 Ongoing', cols:['Ongoing'], short:['Ongoing'] },
+    { label:'🌊 Floating Banner', cols:['Float_00-06_L1','Float_00-06_L2','Float_06-10_L1','Float_06-10_L2','Float_10-13_L1','Float_10-13_L2','Float_13-16_L1','Float_13-16_L2','Float_16-19_L1','Float_16-19_L2','Float_19-22_L1','Float_19-22_L2','Float_22-24_L1','Float_22-24_L2'], short:['00-06 L1','00-06 L2','06-10 L1','06-10 L2','10-13 L1','10-13 L2','13-16 L1','13-16 L2','16-19 L1','16-19 L2','19-22 L1','19-22 L2','22-24 L1','22-24 L2'] },
+    { label:'🎯 Popup Banner', cols:['Popup_00-06_L1','Popup_00-06_L2','Popup_06-10_L1','Popup_06-10_L2','Popup_10-13_L1','Popup_10-13_L2','Popup_13-16_L1','Popup_13-16_L2','Popup_16-19_L1','Popup_16-19_L2','Popup_19-22_L1','Popup_19-22_L2','Popup_22-24_L1','Popup_22-24_L2'], short:['00-06 L1','00-06 L2','06-10 L1','06-10 L2','10-13 L1','10-13 L2','13-16 L1','13-16 L2','16-19 L1','16-19 L2','19-22 L1','19-22 L2','22-24 L1','22-24 L2'] },
+    { label:'📦 Collection', cols:['Coll_1','Coll_2','Coll_3','Coll_4','Coll_5','Coll_6','Coll_7','Coll_8','Coll_9','Coll_10','Coll_11','Coll_12','Coll_13','Coll_14','Coll_15','Coll_16'], short:['#1','#2','#3','#4','#5','#6','#7','#8','#9','#10','#11','#12','#13','#14','#15','#16'] },
   ];
 
   // Only show groups/cols with data matching filter

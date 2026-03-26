@@ -24,11 +24,17 @@ def index():
 
 @app.route('/api/bookings')
 def api_bookings():
-    return jsonify(load('bookings.json'))
+    from flask import make_response
+    resp = make_response(jsonify(load('bookings.json')))
+    resp.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate'
+    return resp
 
 @app.route('/api/visibility')
 def api_visibility():
-    return jsonify(load('visibility.json'))
+    from flask import make_response
+    resp = make_response(jsonify(load('visibility.json')))
+    resp.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate'
+    return resp
 
 @app.route('/api/caps')
 def api_caps():
