@@ -456,7 +456,7 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
 <script>
 
 let ALL_BOOKINGS=[], DAILY_CAPS={}, MONTHLY_CAPS={}, _visCache=null;
-async function getVD(){if(!_visCache){const r=await fetch('/api/visibility?t='+Date.now());_visCache=await r.json();}return _visCache;}
+async function getVD(){if(!_visCache){const r=await fetch('data/visibility.json');_visCache=await r.json();}return _visCache;}
 // L2 category rules by hour × city
 // key: timeslot code → { city: [allowed categories] }
 const HOUR_CAT = {
