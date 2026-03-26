@@ -109,7 +109,8 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
 .spinner{width:44px;height:44px;border:3px solid var(--bord);border-top-color:#f97316;border-radius:50%;animation:spin .8s linear infinite;}
 .loading-txt{font-family:'DM Mono',monospace;font-size:11px;color:var(--mut);letter-spacing:2px;text-transform:uppercase;}
 
-  </style>
+  
+</style>
 </head>
 <body>
 <div id="loading-overlay">
@@ -227,11 +228,11 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
         <div class="fg"><label>Search</label><input class="search-box" type="text" placeholder="Brand, programme, PIC..." id="search" oninput="applyFilters()"/></div>
         <div class="fg"><label>Source</label><select class="flt" id="flt-source" onchange="applyFilters()"><option value="">All Sources</option><option value="BD">BD Programs</option><option value="MKT">MKT</option></select></div>
         <div class="fg" style="position:relative"><label>Programme</label>
-        <div id="bprog-btn" data-dd="bprog-dd" onclick="mddToggle(this.dataset.dd)" style="background:var(--surf);border:1px solid var(--bord);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--txt);cursor:pointer;min-width:150px;display:flex;justify-content:space-between;align-items:center;user-select:none;white-space:nowrap"><span id="bprog-btn-lbl">All Programmes</span><span style="color:var(--mut);margin-left:8px">▾</span></div>
-<div id="bprog-dd" style="display:none;position:absolute;top:100%;left:0;z-index:300;background:var(--card);border:1px solid var(--bord);border-radius:8px;padding:8px;min-width:190px;max-height:280px;overflow-y:auto;box-shadow:0 4px 20px rgba(0,0,0,.5)">
-<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" id="bprog-btn-all" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddAll(this)" checked> All</label>
-<div style="border-top:1px solid var(--bord);margin:4px 0"></div>
-<label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="ALACARECB" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [Alacarte CB]</label>
+          <div id="bprog-btn" data-dd="bprog-dd" onclick="mddToggle(this.dataset.dd)" style="background:var(--surf);border:1px solid var(--bord);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--txt);cursor:pointer;min-width:150px;display:flex;justify-content:space-between;align-items:center;user-select:none;white-space:nowrap"><span id="bprog-btn-lbl">All Programmes</span><span style="color:var(--mut);margin-left:8px">▾</span></div>
+          <div id="bprog-dd" style="display:none;position:absolute;top:100%;left:0;z-index:300;background:var(--card);border:1px solid var(--bord);border-radius:8px;padding:8px;min-width:190px;max-height:280px;overflow-y:auto;box-shadow:0 4px 20px rgba(0,0,0,.5)">
+            <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" id="bprog-btn-all" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddAll(this)" checked> All</label>
+            <div style="border-top:1px solid var(--bord);margin:4px 0"></div>
+            <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="ALACARECB" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [Alacarte CB]</label>
 <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="ALACARTE" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [Alacarte]</label>
 <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="SJBP" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [SJBP]</label>
 <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="JBP" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [JBP]</label>
@@ -249,7 +250,14 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
 <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="PLF_NEWUSER" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [PLF] New User</label>
 <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="PLF_SPXI" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [PLF] SPXI</label>
 <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="bprog-cb" value="PLF_SPL" data-btn="bprog-btn" data-cls="bprog-cb" onchange="mddChange(this)"> [PLF] SPL</label>
-</div>
+
+          </div>
+        </div>
+        <div class="fg"><label>Month</label><select class="flt" id="flt-month" onchange="applyFilters()"><option value="">All Months</option><option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option><option>May</option><option>Jun</option><option>Jul</option><option>Aug</option><option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option></select></div>
+        <div class="fg"><label>City</label><select class="flt" id="flt-city" onchange="applyFilters()"><option value="">All Cities</option><option>HCM</option><option>HN</option><option>DN</option><option>HP</option><option>CT</option><option>OTH</option></select></div>
+        <div class="fg"><label>Date Range</label><div style="display:flex;align-items:center;gap:6px"><input type="date" id="flt-start-from" onchange="applyFilters()" style="width:130px"/><span style="color:var(--mut)">→</span><input type="date" id="flt-start-to" onchange="applyFilters()" style="width:130px"/></div></div>
+        <div class="fg"><label>QC</label><select class="flt" id="flt-qc" onchange="applyFilters()"><option value="">All QC</option><option value="err">❌ Errors</option><option value="warn">⚠️ Warnings</option><option value="ok">✅ Clean</option></select></div>
+        <div class="fg"><label>Status</label><select class="flt" id="flt-status" onchange="applyFilters()"><option value="">All Status</option><option>Confirmed</option><option>Pending</option><option>Done</option></select></div>
         <button class="btn btn-s" onclick="exportCSV()">⬇ CSV</button>
       </div>
     </div>
@@ -715,26 +723,35 @@ function BM(b){if(!b)return 'Hometop';if(b.startsWith('Hometop'))return 'Hometop
   }
   // HTC consecutive days
   if((banner==='HTC'||banner==='Hometop')&&b.start&&b.end&&b.brand){
-    // Count distinct dates this brand is booked in same banner type across ALL bookings
-    const sameDates=new Set();
-    ALL_BOOKINGS.filter(function(bk){
-      return bk.brand===b.brand && BM(bk.banner)===banner &&
-        ((bk.cities||[]).some(function(c){return (b.cities||[]).includes(c);}) || bk.city===b.city) &&
-        bk.start && bk.end;
-    }).forEach(function(bk){
-      let c2=bk.start;
-      while(c2<=bk.end){
-        sameDates.add(c2);
-        var p=c2.split('-'),y=+p[0],m=+p[1],d=+p[2]+1;
-        var nd=new Date(y,m-1,d);
-        c2=nd.getFullYear()+'-'+String(nd.getMonth()+1).padStart(2,'0')+'-'+String(nd.getDate()).padStart(2,'0');
+    var thisDates=[];
+    var c2=b.start;
+    while(c2<=b.end){
+      thisDates.push(c2);
+      var p=c2.split('-'),y=+p[0],m=+p[1],d=+p[2]+1;
+      var nd=new Date(y,m-1,d);
+      c2=nd.getFullYear()+'-'+String(nd.getMonth()+1).padStart(2,'0')+'-'+String(nd.getDate()).padStart(2,'0');
+    }
+    var totalDays=thisDates.length;
+    function hasNConsec(dates,n){
+      if(dates.length<n)return false;
+      var run=1;
+      for(var i=1;i<dates.length;i++){
+        if(new Date(dates[i]).getTime()-new Date(dates[i-1]).getTime()===86400000){run++;if(run>=n)return true;}
+        else run=1;
       }
-    });
-    var calDays=sameDates.size;
-    if(banner==='HTC'&&calDays>2)
-      checks.push({st:'fail',name:'HTC — Brand Consecutive Limit',det:'Brand booked '+calDays+' days in HTC this period (max 2 consecutive days)'});
-    if(banner==='Hometop'&&isIND&&calDays>3)
-      checks.push({st:'fail',name:'Hometop — Ind. Ads Max 3 Days',det:'Brand booked '+calDays+' days in Hometop (max 3 for Individual Ads)'});
+      return false;
+    }
+    if(banner==='HTC'&&totalDays>2)
+      checks.push({st:'fail',name:'HTC — Brand Consecutive Limit',
+        det:'This HTC booking runs '+totalDays+' days ('+b.start+' to '+b.end+'). Max 2 consecutive days per booking.'});
+    if(banner==='Hometop'&&isIND){
+      if(totalDays>3)
+        checks.push({st:'fail',name:'Hometop — Ind. Ads Max 3 Days',
+          det:'This booking runs '+totalDays+' days ('+b.start+' to '+b.end+'). Max 3 days for Individual Ads.'});
+      else if(hasNConsec(thisDates,3))
+        checks.push({st:'fail',name:'Hometop — Ind. Ads No 3 Consecutive Days',
+          det:'Booking has 3+ consecutive days. Must not run 3 days in a row. ('+b.start+' to '+b.end+')'});
+    }
   }
   // BAU >3 days/week in Hometop
   if(banner==='Hometop'&&b.prog==='PLF_BAU'&&b.start){const wEnd=new Date(new Date(b.start+'T00:00:00').getTime()+7*86400000).toISOString().split('T')[0];const wBAU=ALL_BOOKINGS.filter(bk=>bk.id!==b.id&&BM(bk.banner)==='Hometop'&&bk.prog==='PLF_BAU'&&((bk.cities||[]).includes(city)||(bk.city===city))&&bk.start&&bk.start>=b.start&&bk.start<=wEnd).length+1;if(wBAU>3)checks.push({st:'warn',name:'Hometop — BAU >3 Days/Week',det:`${wBAU} BAU bookings in ${city} within 7 days of start (max 3/week)`});}
@@ -1061,6 +1078,7 @@ function prevPage(){if(curPage>1){curPage--;renderList();}}function nextPage(){i
     cur=y+'-'+String(m).padStart(2,'0')+'-'+String(d).padStart(2,'0');
   }
 
+  const vprogs=typeof getMdd==='function'?getMdd('vprog-cb'):[];
   function ok(item){
     if(brandF){
       const brands=brandF.split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
@@ -1130,7 +1148,7 @@ function prevPage(){if(curPage>1){curPage--;renderList();}}function nextPage(){i
     return;
   }
 
-  var show=(brandF||catF)?dates.filter(function(d){
+  var show=(brandF||cats.length>0)?dates.filter(function(d){
     return active.some(function(s){
       var a=(vd[d]||{})[city]; a=a&&a[s.k];
       return Array.isArray(a)&&a.some(ok);
