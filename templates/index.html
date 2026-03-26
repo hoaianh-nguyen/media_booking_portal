@@ -5,94 +5,93 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>ShopeeFood Media Ops</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
-  <style>:root{
-  --bg:#f1f5f9;
-  --surf:#f8fafc;
-  --card:#ffffff;
-  --bord:#e2e8f0;
-  --bord2:#cbd5e1;
-  --acc:#f97316;
-  --grn:#16a34a;
-  --red:#dc2626;
-  --ylw:#ca8a04;
-  --cyan:#0891b2;
-  --txt:#0f172a;
-  --mut:#64748b;
-  --mono:'DM Mono',monospace;
-  --sans:'Inter',sans-serif;
-  --dis:'Syne',sans-serif;
-}
+  <style>
+.page{display:none;padding:18px 20px;max-width:1500px;margin:0 auto;}.page.on{display:block;}
+#btn-undo,#btn-redo{background:var(--surf);border:1px solid var(--bord);border-radius:6px;color:var(--mut);font-size:12px;padding:4px 10px;cursor:pointer;transition:all .15s;}
+#btn-undo:hover:not(:disabled),#btn-redo:hover:not(:disabled){color:var(--txt);border-color:var(--acc);}
+#btn-undo:disabled,#btn-redo:disabled{opacity:.3;cursor:not-allowed;}
+
+.page{display:none;padding:18px 20px;max-width:1500px;margin:0 auto;}.page.on{display:block;}
+:root{--bg:#0c0e15;--surf:#12151f;--card:#181c28;--bord:#222736;--acc:#f97316;--grn:#22c55e;--red:#ef4444;--ylw:#eab308;--cyan:#06b6d4;--txt:#e8eaf0;--mut:#6b7280;--mono:'DM Mono',monospace;--sans:'Inter',sans-serif;--dis:'Syne',sans-serif;}
 body{background:var(--bg);color:var(--txt);font-family:var(--sans);font-size:13px;line-height:1.6;}
-.hdr{background:#fff;border-bottom:1px solid var(--bord);padding:0 18px;display:flex;align-items:center;gap:18px;height:50px;position:sticky;top:0;z-index:100;box-shadow:0 1px 3px rgba(0,0,0,.06);}
+.hdr{background:var(--surf);border-bottom:1px solid var(--bord);padding:0 18px;display:flex;align-items:center;gap:18px;height:50px;position:sticky;top:0;z-index:100;}
 .logo{font-family:var(--dis);font-size:14px;font-weight:800;color:var(--acc);white-space:nowrap;}
 .logo span{color:var(--txt);}
-.nb{background:none;border:1px solid transparent;color:var(--mut);font-family:var(--sans);font-size:12px;font-weight:500;padding:5px 10px;border-radius:6px;cursor:pointer;transition:all .15s;}
-.nb:hover{color:var(--txt);background:var(--surf);border-color:var(--bord);}
-.nb.on{color:var(--acc);background:#fff7ed;border-color:#fed7aa;}
-.pg-title{font-family:var(--dis);font-size:19px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;color:var(--txt);}
+.nb{background:none;border:1px solid transparent;color:var(--mut);font-family:var(--sans);font-size:12px;font-weight:500;padding:5px 10px;border-radius:6px;cursor:pointer;transition:all .2s;}
+.nb:hover{color:var(--txt);background:var(--card);border-color:var(--bord);}
+.nb.on{color:var(--acc);background:rgba(249,115,22,.12);border-color:rgba(249,115,22,.25);}
+.pg-title{font-family:var(--dis);font-size:19px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
 .pg-title::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--acc);flex-shrink:0;}
 .sub-lbl{font-family:var(--mono);font-size:10px;color:var(--acc);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--bord);}
-.card{background:var(--card);border:1px solid var(--bord);border-radius:10px;padding:16px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
-.stat{background:var(--card);border:1px solid var(--bord);border-radius:8px;padding:12px 16px;min-width:130px;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.card{background:var(--card);border:1px solid var(--bord);border-radius:10px;padding:16px;margin-bottom:14px;}
+.stat{background:var(--card);border:1px solid var(--bord);border-radius:8px;padding:12px 16px;min-width:130px;}
 .stat-lbl{font-family:var(--mono);font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
-.stat-val{font-family:var(--dis);font-size:22px;font-weight:800;color:var(--txt);}
+.stat-val{font-family:var(--dis);font-size:22px;font-weight:800;}
 .stat-sub{font-size:11px;color:var(--mut);margin-top:2px;}
-.search-box{background:var(--surf);border:1px solid var(--bord);border-radius:6px;color:var(--txt);font-family:var(--sans);font-size:12px;padding:7px 12px;outline:none;width:230px;}
-.search-box:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(249,115,22,.1);}
-select.flt{background:var(--surf);border:1px solid var(--bord);border-radius:6px;color:var(--txt);font-family:var(--sans);font-size:12px;padding:7px 10px;outline:none;cursor:pointer;}
-select.flt option{background:#fff;}
+.search-box{background:var(--surf);border:1px solid var(--bord);border-radius:6px;color:var(--txt);font-family:var(--sans);font-size:12px;padding:7px 12px;outline:none;width:230px;} .search-box:focus{border-color:var(--acc);}
+select.flt{background:var(--surf);border:1px solid var(--bord);border-radius:6px;color:var(--txt);font-family:var(--sans);font-size:12px;padding:7px 10px;outline:none;cursor:pointer;} select.flt option{background:var(--card);}
 .tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--bord);max-height:68vh;overflow-y:auto;}
-thead{position:sticky;top:0;z-index:10;}
-thead tr{background:var(--surf);}
-th{font-family:var(--mono);font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:1px;padding:9px 12px;text-align:left;border-bottom:1px solid var(--bord);white-space:nowrap;cursor:pointer;user-select:none;}
-th:hover{color:var(--txt);}
-td{padding:8px 12px;border-bottom:1px solid #f8fafc;color:var(--txt);vertical-align:top;}
-tr:hover td{background:#fafafa;}
-.btn{background:#fff;border:1px solid var(--bord);border-radius:6px;color:var(--txt);font-family:var(--sans);font-size:12px;font-weight:500;padding:6px 14px;cursor:pointer;transition:all .15s;}
-.btn:hover{background:var(--surf);border-color:var(--bord2);}
-.btn-p{background:var(--acc);border:1px solid var(--acc);color:#fff;}
-.btn-p:hover{background:#ea6c0a;}
+thead{position:sticky;top:0;z-index:10;} thead tr{background:var(--surf);}
+th{font-family:var(--mono);font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:1px;padding:9px 12px;text-align:left;border-bottom:1px solid var(--bord);white-space:nowrap;cursor:pointer;user-select:none;} th:hover{color:var(--txt);}
+td{padding:8px 12px;border-bottom:1px solid var(--bord);color:var(--txt);vertical-align:top;}
+tr:hover td{background:rgba(255,255,255,.02);}
+.btn{background:var(--surf);border:1px solid var(--bord);border-radius:6px;color:var(--txt);font-family:var(--sans);font-size:12px;font-weight:500;padding:6px 14px;cursor:pointer;transition:all .15s;} .btn:hover{border-color:var(--acc);color:var(--acc);}
+.btn-p{background:var(--acc);border:1px solid var(--acc);color:#fff;} .btn-p:hover{background:#ea6c0a;color:#fff;}
 .btn-s{background:var(--surf);border:1px solid var(--bord);color:var(--mut);font-size:11px;padding:5px 10px;}
 .fg{display:flex;flex-direction:column;gap:4px;}
 .fg label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;letter-spacing:1px;}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:14px;}
 .stat-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;}
-input[type=text],input[type=date],input[type=month],select{background:var(--surf);border:1px solid var(--bord);border-radius:6px;color:var(--txt);font-family:var(--sans);font-size:12px;padding:7px 10px;outline:none;transition:border .15s;}
-input[type=text]:focus,input[type=date]:focus,input[type=month]:focus,select:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(249,115,22,.1);}
-select option{background:#fff;color:var(--txt);}
+input[type=text],input[type=date],input[type=month],select{background:var(--surf);border:1px solid var(--bord);border-radius:6px;color:var(--txt);font-family:var(--sans);font-size:12px;padding:7px 10px;outline:none;}
+input[type=text]:focus,input[type=date]:focus,input[type=month]:focus,select:focus{border-color:var(--acc);}
+select option{background:var(--card);}
 label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;display:block;}
 .b{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;margin-right:3px;}
-.b-plf{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;}
-.b-vip{background:#fffbeb;color:#92400e;border:1px solid #fde68a;}
-.b-svip{background:#fdf4ff;color:#6b21a8;border:1px solid #e9d5ff;}
-.b-sjbp{background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe;}
-.b-jbp{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0;}
-.b-win{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;}
-.b-pns{background:#faf5ff;color:#6b21a8;border:1px solid #ddd6fe;}
-.b-ala{background:#f0f9ff;color:#075985;border:1px solid #bae6fd;}
-.qc-err{background:#fef2f2;border:1px solid #fecaca;border-radius:6px;padding:6px 10px;font-size:11px;color:#991b1b;margin-bottom:4px;}
-.qc-warn{background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:6px 10px;font-size:11px;color:#92400e;margin-bottom:4px;}
+.b-plf{background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.25);}
+.b-vip{background:rgba(251,191,36,.15);color:#fbbf24;border:1px solid rgba(251,191,36,.25);}
+.b-svip{background:rgba(168,85,247,.15);color:#c084fc;border:1px solid rgba(168,85,247,.25);}
+.b-sjbp{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.25);}
+.b-jbp{background:rgba(20,184,166,.15);color:#2dd4bf;border:1px solid rgba(20,184,166,.25);}
+.b-win{background:rgba(249,115,22,.15);color:#fb923c;border:1px solid rgba(249,115,22,.25);}
+.b-pns{background:rgba(139,92,246,.15);color:#a78bfa;border:1px solid rgba(139,92,246,.25);}
+.b-ala{background:rgba(6,182,212,.15);color:#22d3ee;border:1px solid rgba(6,182,212,.25);}
+.qc-err{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);border-radius:6px;padding:6px 10px;font-size:11px;color:#f87171;margin-bottom:4px;}
+.qc-warn{background:rgba(234,179,8,.12);border:1px solid rgba(234,179,8,.3);border-radius:6px;padding:6px 10px;font-size:11px;color:#fbbf24;margin-bottom:4px;}
 .empty{text-align:center;padding:48px;color:var(--mut);font-family:var(--mono);font-size:12px;letter-spacing:1px;}
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(15,23,42,.4);z-index:200;align-items:center;justify-content:center;}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;}
 .modal-bg.on{display:flex;}
-.modal{background:#fff;border:1px solid var(--bord);border-radius:14px;padding:24px;max-width:640px;width:90%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+.modal{background:var(--card);border:1px solid var(--bord);border-radius:14px;padding:24px;max-width:640px;width:90%;max-height:85vh;overflow-y:auto;}
 .ht th,.ht td{padding:7px 10px;}
 .ht th{font-size:11px;}
 .dm th,.dm td{padding:6px 10px;font-size:11px;}
 .vt th,.vt td{border:1px solid var(--bord);padding:5px 8px;text-align:left;font-size:11px;}
-.pg-title~.card .b-plf{background:#f0fdf4;color:#166534;}
 ::-webkit-scrollbar{width:6px;height:6px;}
 ::-webkit-scrollbar-track{background:var(--surf);}
-::-webkit-scrollbar-thumb{background:var(--bord2);border-radius:3px;}
-::-webkit-scrollbar-thumb:hover{background:#94a3b8;}
+::-webkit-scrollbar-thumb{background:var(--bord);border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:#374151;}
 @keyframes spin{to{transform:rotate(360deg)}}
-#loading-overlay{display:none;position:fixed;inset:0;background:rgba(248,250,252,.92);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
-.spinner{width:44px;height:44px;border:3px solid #e2e8f0;border-top-color:#f97316;border-radius:50%;animation:spin .8s linear infinite;}
-.loading-txt{font-family:'DM Mono',monospace;font-size:11px;color:#64748b;letter-spacing:2px;text-transform:uppercase;}
+#loading-overlay{display:none;position:fixed;inset:0;background:rgba(12,14,21,.92);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+.spinner{width:44px;height:44px;border:3px solid var(--bord);border-top-color:#f97316;border-radius:50%;animation:spin .8s linear infinite;}
+.loading-txt{font-family:'DM Mono',monospace;font-size:11px;color:var(--mut);letter-spacing:2px;text-transform:uppercase;}
+
+  
+.tr-missing td{background:rgba(239,68,68,.04)!important;}
+.tr-missing:hover td{background:rgba(239,68,68,.08)!important;}
+.b-bd{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.25);}
+.b-mkt{background:rgba(168,85,247,.15);color:#c084fc;border:1px solid rgba(168,85,247,.25);}
+.b-conf{background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.25);}
+.b-done{background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.25);}
+.b-pend{background:rgba(234,179,8,.15);color:#fbbf24;border:1px solid rgba(234,179,8,.25);}
+.b-warn{background:rgba(234,179,8,.15);color:#fbbf24;border:1px solid rgba(234,179,8,.25);}
+.b-err{background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.25);}
+.b-ok{background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.25);}
+.b-city-a{background:rgba(249,115,22,.15);color:#fb923c;border:1px solid rgba(249,115,22,.25);}
+.b-city-b{background:rgba(100,116,139,.15);color:#94a3b8;border:1px solid rgba(100,116,139,.25);}
+.br-err td{border-left:3px solid var(--red)!important;}
+.br-warn td{border-left:3px solid var(--ylw)!important;}
 </style>
 </head>
 <body>
-
 <div id="loading-overlay">
   <div class="spinner"></div>
   <div class="loading-txt">Loading data...</div>
@@ -108,103 +107,168 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
     <button class="nb" onclick="gp('visibility',this)">🗓 Visibility</button>
   </nav>
 </header>
-
+<div id="undo-bar" style="position:sticky;top:50px;z-index:90;background:var(--bg);border-bottom:1px solid var(--bord);padding:6px 20px;display:flex;align-items:center;gap:8px">
+  <button id="btn-undo" onclick="historyUndo()" disabled title="Undo (Cmd+Z)" style="background:var(--surf);border:1px solid var(--bord);border-radius:6px;color:var(--mut);font-size:12px;font-weight:600;padding:5px 14px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px">↩ Undo</button>
+  <button id="btn-redo" onclick="historyRedo()" disabled title="Redo (Cmd+Shift+Z)" style="background:var(--surf);border:1px solid var(--bord);border-radius:6px;color:var(--mut);font-size:12px;font-weight:600;padding:5px 14px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px">↪ Redo</button>
+  <span id="undo-label" style="font-family:var(--mono);font-size:10px;color:var(--mut)"></span>
+</div>
 <div class="modal-bg" id="modal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
-    <div class="modal-hdr"><span id="modal-title">Booking Detail</span><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-hdr">
+      <span id="modal-title">Booking Detail</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
     <div id="modal-body"></div>
   </div>
 </div>
 
-<!-- DASHBOARD -->
 <div id="page-dashboard" class="page on">
   <div class="pg-title">Dashboard</div>
-  <div class="toolbar" style="margin-bottom:18px;">
-    <select class="flt" id="dash-city" onchange="renderDashboard()">
-      <option value="">All Cities</option>
-      <option>HCM</option><option>HN</option><option>DN</option>
-      <option>HP</option><option>CT</option><option>OTH</option>
-    </select>
-    <select class="flt" id="dash-month" onchange="renderDashboard()">
-      <option value="">All Months</option>
-      <option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option>
-      <option>May</option><option>Jun</option><option>Jul</option><option>Aug</option>
-      <option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option>
-    </select>
+  <div style="position:sticky;top:50px;z-index:50;background:var(--bg);padding-bottom:10px">
+    <div class="card" style="margin-bottom:0;padding:12px 16px">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+        <div class="fg"><label>City</label>
+          <select class="flt" id="dash-city" onchange="renderDashboard()">
+            <option value="">All Cities</option>
+            <option>HCM</option><option>HN</option><option>DN</option>
+            <option>HP</option><option>CT</option><option>OTH</option>
+          </select></div>
+        <div class="fg"><label>Month</label>
+          <select class="flt" id="dash-month" onchange="renderDashboard()">
+            <option value="">All Months</option>
+            <option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option>
+            <option>May</option><option>Jun</option><option>Jul</option><option>Aug</option>
+            <option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option>
+          </select></div>
+        <div class="fg"><label>Programme</label>
+          <select class="flt" id="dash-prog" onchange="renderDashboard()">
+            <option value="">All Programmes</option>
+            <option value="ALACARECB">[Alacarte CB]</option><option value="ALACARTE">[Alacarte]</option>
+            <option value="SJBP">[SJBP]</option><option value="JBP">[JBP]</option>
+            <option value="SUPERVIP">[SuperVIP]</option><option value="VIP">[VIP]</option>
+            <option value="WIN1">[Win 1]</option><option value="WIN2">[Win 2]</option>
+            <option value="WIN3">[Win 3]</option><option value="WIN4">[Win 4]</option>
+            <option value="PNS">[PNS]</option><option value="PLF_CP">[PLF] CP</option>
+            <option value="PLF_BAU">[PLF] BAU</option><option value="PLF_WC">[PLF] WC</option>
+            <option value="PLF_MART">[Mart]</option><option value="PLF_NEWUSER">[PLF] New User</option>
+          </select></div>
+        <div class="fg"><label>Brand</label>
+          <input type="text" id="dash-brand" class="search-box" placeholder="e.g. KFC..." style="width:140px" oninput="renderDashboard()"/></div>
+        <div class="fg"><label>L2 Category</label>
+          <select class="flt" id="dash-cat" onchange="renderDashboard()">
+            <option value="">All Categories</option>
+            <option>Cafe</option><option>Trà Sữa</option><option>Gà Rán</option>
+            <option>Pizza</option><option>Burger</option><option>Cơm Tấm</option><option>Món Hàn</option>
+          </select></div>
+      </div>
+    </div>
   </div>
-  <div class="stat-row" id="dash-stats"></div>
-  <div class="g2">
-    <div class="card"><div class="sub-lbl">By Programme</div><div id="dash-prog"></div></div>
+  <div class="stat-row" id="dash-stats" style="margin-top:14px"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+    <div class="card"><div class="sub-lbl">By Programme</div><div id="dash-prog-chart"></div></div>
     <div class="card"><div class="sub-lbl">By Month</div><div id="dash-mo"></div></div>
   </div>
-  <div class="card"><div class="sub-lbl">City x Programme Matrix</div><div class="dm" id="dash-city-mx"></div></div>
-  <div class="card"><div class="sub-lbl">Media Type x Programme Matrix</div><div class="dm" id="dash-media-mx"></div></div>
-  <div class="card"><div class="sub-lbl">QC Issues</div><div id="dash-qc"></div></div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="sub-lbl">City × Programme Matrix</div>
+    <div class="tbl-wrap" id="dash-city-mx"></div>
+  </div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="sub-lbl">Media Type × Programme Matrix</div>
+    <div class="tbl-wrap" id="dash-media-mx"></div>
+  </div>
+  <div class="card">
+    <div class="sub-lbl">QC Issues — click any row to drill down</div>
+    <div id="dash-qc"></div>
+  </div>
 </div>
-
-<!-- ALL BOOKINGS -->
 <div id="page-bookings" class="page">
   <div class="pg-title">All Bookings <span id="total-count" style="font-family:var(--mono);font-size:13px;color:var(--mut);font-weight:400;margin-left:8px;"></span></div>
-  <div class="toolbar">
-    <input class="search-box" type="text" placeholder="🔍 Search brand, programme, PIC..." id="search" oninput="applyFilters()"/>
-    <select class="flt" id="flt-source" onchange="applyFilters()"><option value="">All Sources</option><option value="BD">BD Programs</option><option value="MKT">MKT</option></select>
-    <select class="flt" id="flt-prog" onchange="applyFilters()">
-      <option value="">All Programmes</option>
-      <option value="ALACARECB">[Alacarte CB]</option><option value="ALACARTE">[Alacarte]</option>
-      <option value="SJBP">[SJBP]</option><option value="JBP">[JBP]</option>
-      <option value="SUPERVIP">[SuperVIP]</option><option value="VIP">[VIP]</option>
-      <option value="WIN1">[Win 1]</option><option value="WIN2">[Win 2]</option>
-      <option value="WIN3">[Win 3]</option><option value="WIN4">[Win 4]</option>
-      <option value="PNS">[PNS]</option><option value="PLF_CP">[PLF CP]</option>
-      <option value="PLF_BAU">[PLF BAU]</option><option value="PLF_MART">[Mart]</option>
+  <div style="position:sticky;top:50px;z-index:50;background:var(--bg);padding-bottom:10px">
+    <div class="card" style="margin-bottom:0;padding:12px 16px">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end">
+        <div class="fg"><label>Search</label>
+          <input class="search-box" type="text" placeholder="Brand, programme, PIC..." id="search" oninput="applyFilters()"/></div>
+        <div class="fg"><label>Source</label>
+          <select class="flt" id="flt-source" onchange="applyFilters()">
+            <option value="">All Sources</option>
+            <option value="BD">BD Programs</option><option value="MKT">MKT</option>
+          </select></div>
+        <div class="fg"><label>Programme</label>
+          <select class="flt" id="flt-prog" onchange="applyFilters()">
+            <option value="">All Programmes</option>
+            <option value="ALACARECB">[Alacarte CB]</option><option value="ALACARTE">[Alacarte]</option>
+            <option value="SJBP">[SJBP]</option><option value="JBP">[JBP]</option>
+            <option value="SUPERVIP">[SuperVIP]</option><option value="VIP">[VIP]</option>
+            <option value="WIN1">[Win 1]</option><option value="WIN2">[Win 2]</option>
+            <option value="WIN3">[Win 3]</option><option value="WIN4">[Win 4]</option>
+            <option value="PNS">[PNS]</option><option value="PLF_CP">[PLF] CP</option>
+            <option value="PLF_BAU">[PLF] BAU</option><option value="PLF_WC">[PLF] WC</option>
+            <option value="PLF_MART">[Mart]</option>
+          </select></div>
+        <div class="fg"><label>Month</label>
+          <select class="flt" id="flt-month" onchange="applyFilters()">
+            <option value="">All Months</option>
+            <option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option>
+            <option>May</option><option>Jun</option><option>Jul</option><option>Aug</option>
+            <option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option>
+          </select></div>
+        <div class="fg"><label>City</label>
+          <select class="flt" id="flt-city" onchange="applyFilters()">
+            <option value="">All Cities</option>
+            <option>HCM</option><option>HN</option><option>DN</option>
+            <option>HP</option><option>CT</option><option>OTH</option>
+          </select></div>
+        <div class="fg"><label>Date Range</label>
+          <div style="display:flex;align-items:center;gap:6px">
+            <input type="date" id="flt-start-from" onchange="applyFilters()" style="width:130px" title="From date"/>
+            <span style="color:var(--mut);font-size:12px">→</span>
+            <input type="date" id="flt-start-to" onchange="applyFilters()" style="width:130px" title="To date"/>
+          </div></div>
+        <div class="fg"><label>QC</label>
+          <select class="flt" id="flt-qc" onchange="applyFilters()">
+            <option value="">All QC</option>
+            <option value="err">❌ Errors</option>
+            <option value="warn">⚠️ Warnings</option>
+            <option value="ok">✅ Clean</option>
+          </select></div>
+        <div class="fg"><label>Status</label>
+          <select class="flt" id="flt-status" onchange="applyFilters()">
+            <option value="">All Status</option>
+            <option>Confirmed</option><option>Pending</option><option>Done</option>
+          </select></div>
+        <button class="btn btn-s" onclick="exportCSV()">⬇ CSV</button>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;margin:10px 0 8px">
+    <button class="btn btn-s" id="btn-prev" onclick="prevPage()">◀ Prev</button>
+    <button class="btn btn-s" id="btn-next" onclick="nextPage()">Next ▶</button>
+    <span id="pg-info" style="font-size:12px;color:var(--mut)"></span>
+    <select class="flt" style="width:70px;padding:4px 6px;margin-left:auto" onchange="pageSize=+this.value;curPage=1;renderList()">
+      <option value="50">50 rows</option><option value="100">100</option><option value="200">200</option>
     </select>
-    <select class="flt" id="flt-month" onchange="applyFilters()">
-      <option value="">All Months</option>
-      <option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option>
-      <option>May</option><option>Jun</option><option>Jul</option><option>Aug</option>
-      <option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option>
-    </select>
-    <select class="flt" id="flt-city" onchange="applyFilters()">
-      <option value="">All Cities</option>
-      <option>HCM</option><option>HN</option><option>DN</option>
-      <option>HP</option><option>CT</option><option>OTH</option>
-    </select>
-    <select class="flt" id="flt-qc" onchange="applyFilters()">
-      <option value="">All QC</option>
-      <option value="error">❌ Errors</option>
-      <option value="warn">⚠️ Warnings</option>
-      <option value="ok">✅ Clean</option>
-    </select>
-    <select class="flt" id="flt-status" onchange="applyFilters()">
-      <option value="">All Status</option>
-      <option value="Confirmed">Confirmed</option><option value="Done">Done</option>
-    </select>
-    <button class="btn btn-s" style="font-size:11px;padding:5px 10px" onclick="exportCSV()">⬇ CSV</button>
   </div>
   <div class="tbl-wrap">
     <table>
       <thead><tr>
-        <th onclick="sortBy('id')">#</th><th>Src</th><th onclick="sortBy('prog')">Programme</th>
-        <th onclick="sortBy('brand')">Brand / Campaign</th><th onclick="sortBy('month')">Month</th>
-        <th>Timeline</th><th>Banner</th><th>Cities</th>
-        <th onclick="sortBy('status')">Status</th><th onclick="sortBy('pic')">PIC</th>
-        <th>QC Flags</th><th></th>
+        <th onclick="sortBy('id')">#</th>
+        <th onclick="sortBy('source')">Src</th>
+        <th onclick="sortBy('prog')">Programme</th>
+        <th onclick="sortBy('brand')">Brand / Campaign</th>
+        <th onclick="sortBy('month')">Month</th>
+        <th onclick="sortBy('start')">Start Date</th>
+        <th onclick="sortBy('end')">End Date</th>
+        <th onclick="sortBy('banner')">Banner</th>
+        <th>Cities</th>
+        <th onclick="sortBy('status')">Status</th>
+        <th onclick="sortBy('pic')">PIC</th>
+        <th>QC Flags</th>
+        <th></th>
       </tr></thead>
       <tbody id="list-tbody"></tbody>
     </table>
   </div>
-  <div class="pg-bar">
-    <button class="pg-btn" id="btn-prev" onclick="prevPage()">◀ Prev</button>
-    <span id="pg-info" style="font-size:12px;"></span>
-    <button class="pg-btn" id="btn-next" onclick="nextPage()">Next ▶</button>
-    <span style="margin-left:8px;font-size:11px;color:var(--mut)">Rows:</span>
-    <select class="flt" style="width:70px;padding:3px 6px;font-size:11px" onchange="pageSize=+this.value;curPage=1;renderList()">
-      <option value="50">50</option><option value="100">100</option><option value="200">200</option>
-    </select>
-  </div>
 </div>
-
-<!-- NEW BOOKING -->
 <div id="page-new-booking" class="page">
   <div class="pg-title">New Booking & QC Check</div>
   <div style="display:grid;grid-template-columns:1fr 400px;gap:18px;align-items:start;">
@@ -248,134 +312,242 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
 
 <!-- PLAYBOOK -->
 <div id="page-playbook" class="page">
-  <div class="pg-title">Playbook — All Rules</div>
+  <div class="pg-title">Playbook</div>
 
-  <!-- OVERALL -->
-  <div class="rs">
-    <div class="rs-hdr">🌐 Overall Rules</div>
-    <div class="rs-body">
-      <div class="g2">
-        <div>
-          <div class="ri info"><div class="ri-ico">🗺</div><div><div class="ri-name">City Tier → Visibility Sheet</div><div class="ri-desc"><span class="b b-city-a">HCM</span><span class="b b-city-a">HN</span><span class="b b-city-a">DN</span> → <strong>Visibility 3B</strong><br>All other cities → <strong>Visibility OTH</strong></div></div></div>
-          <div class="ri info"><div class="ri-ico">📦</div><div><div class="ri-name">Booking Tab by Programme Type</div><div class="ri-desc">Brand progs ([SJBP][JBP][VIP][Win][Alacarte][PNS]) → <strong>BD Programs</strong><br>Platform progs ([PLF][Mart]) → <strong>MKT|Campaign</strong></div></div></div>
-          <div class="ri info"><div class="ri-ico">🏷</div><div><div class="ri-name">Programme Priority Order</div><div class="ri-desc"><span class="b b-sjbp">[SJBP]</span>&gt;<span class="b b-jbp">[JBP]</span>&gt;<span class="b b-svip">[SuperVIP]</span>&gt;<span class="b b-vip">[VIP]</span>&gt;<span class="b b-win">[Win 1-4]</span>&gt;<span class="b b-ala">[Alacarte]</span>&gt;<span class="b b-pns">[PNS]</span></div></div></div>
-        </div>
-        <div>
-          <div class="ri hard"><div class="ri-ico">🚫</div><div><div class="ri-name">Block Days — No BD Bookings</div><div class="ri-desc"><span class="b b-err">Double Day</span> (1.1, 2.2...) &nbsp; <span class="b b-err">Midmonth (15th)</span> &nbsp; <span class="b b-err">SPF Day</span> &nbsp; <span class="b b-err">Thematic</span></div></div></div>
-          <div class="ri soft"><div class="ri-ico">📊</div><div><div class="ri-name">Monthly Slot Caps Apply Per City</div><div class="ri-desc">Each banner type has a monthly quota per city. See daily cap table below for values. Exceeding monthly cap = hard block.</div></div></div>
-          <div class="ri soft"><div class="ri-ico">🕐</div><div><div class="ri-name">Hour Rules Apply to HTC Slot Selection</div><div class="ri-desc">Category shown in HTC should match the recommended L2 category for that time window and city. See Hour Rules section.</div></div></div>
-        </div>
+  <!-- ① OVERALL RULES -->
+  <div class="card" style="margin-bottom:14px;border-left:3px solid var(--acc)">
+    <div class="sub-lbl">Overall Rules</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:10px">
+      <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:12px">
+        <div style="font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px">City Tiers</div>
+        <div style="font-size:12px;line-height:1.9"><span class="b b-city-a">HCM</span><span class="b b-city-a">HN</span><span class="b b-city-a">DN</span> → Visibility 3B<br>Other cities → Visibility OTH</div>
+      </div>
+      <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:12px">
+        <div style="font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px">Block Days</div>
+        <div style="font-size:12px;line-height:1.9">Double Day · 15th · SPF Day · Thematic<br>Only <span class="b b-plf">[PLF]</span> on block days</div>
+      </div>
+      <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:12px">
+        <div style="font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px">Exclusive Slots</div>
+        <div style="font-size:12px;line-height:1.9"><strong>Ongoing/Search</strong> → <span class="b b-pns">[PNS]</span> only<br><strong>Hometop #0</strong> → New User only<br><strong>Hometop #1-3</strong> → BAU/WC blocked</div>
+      </div>
+      <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:12px">
+        <div style="font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px">HTC / Home Circle</div>
+        <div style="font-size:12px;line-height:1.9">Max <strong>2 consecutive days</strong>/brand<br>3 blocks: 0-8h · 8-16h · 16-24h</div>
+      </div>
+      <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:12px">
+        <div style="font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px">Source Rules</div>
+        <div style="font-size:12px;line-height:1.9">BD → Brand programmes only<br>MKT/Campaign → PLF programmes only</div>
+      </div>
+      <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:12px">
+        <div style="font-size:11px;font-weight:700;color:var(--acc);margin-bottom:6px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px">Ind. Ads / Alacarte</div>
+        <div style="font-size:12px;line-height:1.9">Hometop: max <strong>3 consecutive days</strong><br>Flash Sale: ✅ · HTC: ✅</div>
       </div>
     </div>
   </div>
 
-  <!-- DAILY CAPS + SPECIFIC RULES -->
-  <div class="rs">
-    <div class="rs-hdr">📊 Daily Cap + Rules by Media Type</div>
-    <div class="rs-body">
-      <p style="font-size:12px;color:var(--mut);margin-bottom:12px;">Max bookings per day per banner. <span style="color:var(--red);font-weight:600;">Hard block</span> if exceeded.</p>
-      <div style="overflow-x:auto;">
-        <div class="cg" style="grid-template-columns:150px repeat(7,1fr) 80px;">
-          <div class="cc cc-hdr cc-lbl">Banner</div>
-          <div class="cc cc-hdr">Campaign/BAU</div><div class="cc cc-hdr">SJBP</div><div class="cc cc-hdr">JBP</div>
-          <div class="cc cc-hdr">VIP/SVIP</div><div class="cc cc-hdr">Ind. Ads</div><div class="cc cc-hdr">PNS</div><div class="cc cc-hdr">Mart</div>
-          <div class="cc cc-hdr" style="color:var(--acc)">TOTAL/day</div>
-          <div class="cc cc-lbl">🏠 Hometop</div><div class="cc">3</div><div class="cc">2</div><div class="cc">2</div><div class="cc">1</div><div class="cc">6</div><div class="cc">1</div><div class="cc">1</div><div class="cc cc-tot">14</div>
-          <div class="cc cc-lbl">⭕ HTC</div><div class="cc">3</div><div class="cc">2</div><div class="cc">2</div><div class="cc">1</div><div class="cc">3</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-tot">3/slot</div>
-          <div class="cc cc-lbl">📌 Static</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc">2</div><div class="cc">4</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-tot">6</div>
-          <div class="cc cc-lbl">⬇ Bottom</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc">2</div><div class="cc">4</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-tot">6</div>
-          <div class="cc cc-lbl">⚡ Flash Sale</div><div class="cc cc-0">—</div><div class="cc">4</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc">4</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-tot">4</div>
-          <div class="cc cc-lbl">🔲 Floating</div><div class="cc">2</div><div class="cc">1</div><div class="cc">1</div><div class="cc">1</div><div class="cc">4</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-tot">7</div>
-          <div class="cc cc-lbl">🔔 Pop Up</div><div class="cc">2</div><div class="cc">2</div><div class="cc">2</div><div class="cc">1</div><div class="cc">3</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-tot">7</div>
-          <div class="cc cc-lbl">🔁 Ongoing</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc">PNS</div><div class="cc cc-0">—</div><div class="cc cc-tot">1</div>
-          <div class="cc cc-lbl">🔍 Search</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc cc-0">—</div><div class="cc">PNS</div><div class="cc cc-0">—</div><div class="cc cc-tot">1</div>
-        </div>
-      </div>
-      <div style="margin-top:16px;" class="g2">
-        <div>
-          <div class="sub-lbl" style="margin-top:4px">Monthly Caps (per city)</div>
-          <div style="overflow-x:auto;border-radius:8px;border:1px solid var(--bord);">
-            <table><thead><tr><th>Asset</th><th>HCM</th><th>HN</th><th>DN</th><th>OTH</th></tr></thead>
-            <tbody>
-              <tr><td>HTC (per time block)</td><td>90</td><td>90</td><td>90</td><td>90</td></tr>
-              <tr><td>Hometop #1-2</td><td>60</td><td>60</td><td>60</td><td>60</td></tr>
-              <tr><td>Hometop #3-6</td><td>30</td><td>30</td><td>30</td><td>30</td></tr>
-              <tr><td>Hometop #7-12</td><td>90</td><td>90</td><td>90</td><td>90</td></tr>
-              <tr><td>Static #1-3 / Bottom</td><td>90</td><td>90</td><td>90</td><td>90</td></tr>
-              <tr><td>Flash Sale</td><td>120</td><td>120</td><td>120</td><td>120</td></tr>
-              <tr><td>Floating (7 slots)</td><td>210</td><td>210</td><td>210</td><td>210</td></tr>
-              <tr><td>Pop Up (6 slots)</td><td>180</td><td>180</td><td>180</td><td>180</td></tr>
-              <tr><td>Ongoing / Search</td><td>30</td><td>30</td><td>30</td><td>30</td></tr>
-            </tbody></table>
+  <!-- ② DAILY & MONTHLY QUOTA BY MEDIA TYPE -->
+  <div class="card" style="margin-bottom:14px">
+    <div class="sub-lbl">Daily & Monthly Quota — By Media Type</div>
+    <div style="overflow-x:auto;margin-top:10px">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:700px">
+        <thead>
+          <tr style="background:var(--surf)">
+            <th style="text-align:left;padding:9px 12px;border:1px solid var(--bord);font-family:var(--mono);font-size:10px;color:var(--mut);white-space:nowrap">Media Type</th>
+            <th style="padding:9px 12px;border:1px solid var(--bord);font-family:var(--mono);font-size:10px;color:var(--mut);text-align:center">Daily Slots</th>
+            <th style="padding:9px 12px;border:1px solid var(--bord);font-family:var(--mono);font-size:10px;color:var(--mut);text-align:center">Monthly Cap</th>
+            <th style="padding:9px 12px;border:1px solid var(--bord);font-family:var(--mono);font-size:10px;color:var(--mut)">Who Can Book</th>
+            <th style="padding:9px 12px;border:1px solid var(--bord);font-family:var(--mono);font-size:10px;color:var(--mut)">BD (Brand) Rules</th>
+            <th style="padding:9px 12px;border:1px solid var(--bord);font-family:var(--mono);font-size:10px;color:var(--mut)">MKT (Campaign) Rules</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">Hometop #0</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">1</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">30</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord)"><span class="b b-plf">[PLF] New User</span> only</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px;color:var(--mut)">Not available</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px;color:var(--mut)">New User onboarding only</td>
+          </tr>
+          <tr style="background:rgba(255,255,255,.015)">
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">Hometop #1–2</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">2</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono);color:var(--ylw)">60/slot</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord)">All except BAU/WC</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">SJBP, JBP, VIP, Win, Alacarte — max 3 days/wk</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">PLF CP, PLF SPXI — ❌ BAU/WC blocked</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">Hometop #3–6</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">4</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono);color:var(--ylw)">30/slot</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord)">All programmes</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">All brand programmes OK</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">BAU: max 3 days/week per city</td>
+          </tr>
+          <tr style="background:rgba(255,255,255,.015)">
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">Hometop #7–13</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">7</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono);color:var(--ylw)">90/slot</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord)">All programmes</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">All brand programmes OK</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">BAU: max 3 days/week per city</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">HTC (Home Circle)</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">3/slot</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono);color:var(--ylw)">90</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord)">All programmes</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">Max 2 consecutive days/brand</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">Max 2 consecutive days/brand</td>
+          </tr>
+          <tr style="background:rgba(255,255,255,.015)">
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">Static</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">6</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">—</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord)">All programmes</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">SJBP, JBP, VIP, Alacarte, Win</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">PLF CP, BAU, SPXI</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">Bottom</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">6</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">—</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord)">All programmes</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">All brand programmes</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">All platform programmes</td>
+          </tr>
+          <tr style="background:rgba(255,255,255,.015)">
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">Flash Sale</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">4</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono);color:var(--ylw)">120</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord)"><span class="b b-sjbp">[SJBP]</span> Ind. Ads</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">SJBP, Win 1-4, Alacarte, Alacarte CB</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px;color:var(--mut)">PLF not applicable</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">Floating</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">7</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono);color:var(--ylw)">210</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord)">All programmes</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">All brand programmes</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">All platform programmes</td>
+          </tr>
+          <tr style="background:rgba(255,255,255,.015)">
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">Popup</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">7</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono);color:var(--ylw)">180</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord)">All programmes</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">All brand programmes</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px">All platform programmes</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-weight:700;color:var(--acc);font-family:var(--mono)">Ongoing / Search</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">1</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);text-align:center;font-family:var(--mono)">—</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord)"><span class="b b-pns">[PNS]</span> only</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px;color:var(--mut)">N/A — PNS exclusive</td>
+            <td style="padding:8px 12px;border:1px solid var(--bord);font-size:11px;color:var(--mut)">N/A — PNS exclusive</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ③ PER-PROGRAMME QUOTA (BD vs MKT) -->
+  <div class="card" style="margin-bottom:14px">
+    <div class="sub-lbl">Quota by Programme</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px">
+
+      <!-- BD side -->
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:#60a5fa;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;padding:6px 10px;background:rgba(59,130,246,.1);border-radius:6px">BD Programs</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-sjbp">[SJBP]</span><span style="font-size:12px;font-weight:600">Super JBP</span></div>
+            <div style="font-size:11px;color:var(--mut);line-height:1.8">All media · Flash Sale ✅ · No daily limit<br>Monthly: standard caps per slot</div>
+          </div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-jbp">[JBP]</span><span style="font-size:12px;font-weight:600">JBP</span></div>
+            <div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop #1+ · HTC · Static · Bottom<br>Monthly: standard caps per slot</div>
+          </div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-svip">[SuperVIP]</span><span class="b b-vip">[VIP]</span></div>
+            <div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop · HTC · Floating · Popup<br>Monthly: standard caps per slot</div>
+          </div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-win">[Win 1–4]</span><span style="font-size:12px;font-weight:600">Individual Ads</span></div>
+            <div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop max <strong style="color:var(--txt)">3 consecutive days</strong><br>Flash Sale ✅ · HTC ✅</div>
+          </div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-ala">[Alacarte]</span><span class="b b-ala">[Alacarte CB]</span></div>
+            <div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop max <strong style="color:var(--txt)">3 consecutive days</strong><br>All media · Flash Sale ✅</div>
+          </div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-pns">[PNS]</span><span style="font-size:12px;font-weight:600">PNS</span></div>
+            <div style="font-size:11px;color:var(--mut);line-height:1.8"><strong style="color:var(--acc)">Ongoing & Search only</strong> · 1/day<br>No other media types</div>
           </div>
         </div>
-        <div>
-          <div class="sub-lbl" style="margin-top:4px">Specific Rules per Banner</div>
-          <div class="ri hard" style="margin-bottom:8px"><div class="ri-ico">🏠</div><div><div class="ri-name">Hometop — WC/BAU Blocked from Slot #1-3</div><div class="ri-desc">PLF BAU, WC, Mass Ads must use slot #4 or higher. Slots 1-3 are for SJBP/JBP/VIP.</div></div></div>
-          <div class="ri hard" style="margin-bottom:8px"><div class="ri-ico">🏠</div><div><div class="ri-name">Hometop #0 — New User Only</div><div class="ri-desc">Hometop Banner 0 is exclusively for [PLF] New User programme.</div></div></div>
-          <div class="ri soft" style="margin-bottom:8px"><div class="ri-ico">🏠</div><div><div class="ri-name">Hometop — BAU Max 3 Days/Collection/Week</div><div class="ri-desc">Same BAU collection max 3 days per week in Hometop.</div></div></div>
-          <div class="ri soft" style="margin-bottom:8px"><div class="ri-ico">🏠</div><div><div class="ri-name">Hometop — Adjacent Slots Cannot Share Category</div><div class="ri-desc">Adjacent Hometop slots (#1/#2, #2/#3...) same day must have different L2 food categories.</div></div></div>
-          <div class="ri soft" style="margin-bottom:8px"><div class="ri-ico">🏠</div><div><div class="ri-name">Hometop — Individual Ads Max 3 Consecutive Days</div><div class="ri-desc">[Win 1-4] and [Alacarte] in Hometop cannot run more than 3 consecutive days.</div></div></div>
-          <div class="ri soft" style="margin-bottom:8px"><div class="ri-ico">⭕</div><div><div class="ri-name">HTC — Same Brand Max 2 Consecutive Days</div><div class="ri-desc">A brand cannot occupy HTC for more than 2 consecutive days in a row.</div></div></div>
-          <div class="ri soft" style="margin-bottom:8px"><div class="ri-ico">⭕</div><div><div class="ri-name">HTC — Coffee/Trà Sữa No Morning Weekend</div><div class="ri-desc">Coffee & Trà Sữa brands cannot book HTC 0-8h or 8-16h slots on Saturday or Sunday.</div></div></div>
-          <div class="ri hard" style="margin-bottom:0"><div class="ri-ico">🔍</div><div><div class="ri-name">Ongoing / Search Banner — PNS Only</div><div class="ri-desc">These banner types are exclusively for [PNS] programme. No other programmes allowed.</div></div></div>
+      </div>
+
+      <!-- MKT side -->
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:#c084fc;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;padding:6px 10px;background:rgba(168,85,247,.1);border-radius:6px">MKT / Campaign</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-plf">[PLF] BAU</span></div>
+            <div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop <strong style="color:var(--txt)">#4+ only</strong> (not #1–3)<br>Max <strong style="color:var(--txt)">3 days/week</strong> per city · HTC ✅<br>Monthly: #3-6 = 30 · #7+ = 90</div>
+          </div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-plf">[PLF] WC</span></div>
+            <div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop <strong style="color:var(--txt)">#4+ only</strong> (not #1–3)<br>Weekly campaign format · HTC ✅<br>Monthly: same as BAU</div>
+          </div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-plf">[PLF] CP</span></div>
+            <div style="font-size:11px;color:var(--mut);line-height:1.8">All Hometop slots · All media<br>Can book on Block/SPF days ✅<br>Monthly: #1-2 = 60 · #3-6 = 30</div>
+          </div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-plf">[PLF] SPXI</span><span class="b b-plf">[PLF] SPL</span></div>
+            <div style="font-size:11px;color:var(--mut);line-height:1.8">Hometop #1+ · HTC · Static · Bottom<br>Monthly: standard caps</div>
+          </div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-plf">[PLF] New User</span></div>
+            <div style="font-size:11px;color:var(--mut);line-height:1.8"><strong style="color:var(--acc)">Hometop #0 only</strong><br>Monthly cap: <strong style="color:var(--txt)">30</strong> · Onboarding flow</div>
+          </div>
+          <div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span class="b b-plf">[Mart]</span></div>
+            <div style="font-size:11px;color:var(--mut);line-height:1.8">All slots · Mart-specific campaigns<br>Block days: allowed ✅</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- HOUR RULES -->
-  <div class="rs">
-    <div class="rs-hdr">🕐 Rules by Hour of Day — Recommended L2 Categories</div>
-    <div class="rs-body">
-      <p style="font-size:12px;color:var(--mut);margin-bottom:12px;">Category featured in HTC and Hometop should match the time window. Mismatches are flagged as <span style="color:var(--ylw);font-weight:600;">soft warning</span>.</p>
-      <div style="overflow-x:auto;">
-        <table class="ht">
-          <thead><tr><th>Hour Range</th><th>Period</th><th>HCM — Recommended</th><th>HN — Recommended</th><th>DN + OTH</th></tr></thead>
-          <tbody>
-            <tr><td class="hc">0h – 5h</td><td class="lc">🌙 Late Night</td><td>Cú đêm / Fast food / Cháo / Xôi</td><td>Cú đêm / Bún mì / Xôi / Bánh mì</td><td>Cú đêm / Đồ ăn khuya</td></tr>
-            <tr><td class="hc">5h – 10h</td><td class="lc">🌅 Morning</td><td>Cafe / Bánh mì / Bún phở sáng</td><td>Cafe / Xôi / Bánh mì / Bún cháo</td><td>Bánh mì / Cafe / Bún Mì</td></tr>
-            <tr><td class="hc">10h – 13h</td><td class="lc">☀️ Lunch</td><td>Cơm / Bún Mì / Gà rán / Món Hàn</td><td>Cơm / Bún Mì / Các món cuốn</td><td>Cơm / Gà rán / Bún Mì</td></tr>
-            <tr><td class="hc">13h – 16h</td><td class="lc">🧋 Afternoon</td><td>Trà sữa / Cafe / Ăn vặt / Xiên que</td><td>Cafe / Trà sữa / Bánh tráng / Ăn vặt</td><td>Cafe / Trà sữa / Ăn vặt</td></tr>
-            <tr><td class="hc">16h – 20h</td><td class="lc">🍽 Dinner</td><td>Cơm tấm / Bún Mì / Món Hàn / Món Âu</td><td>Cơm bún mì / Món Hàn / Gà Rán / Pizza</td><td>Cơm / Bún Mì / Gà rán / Pizza</td></tr>
-            <tr><td class="hc">20h – 24h</td><td class="lc">🌃 Late Eve</td><td>Cơm tấm / Hủ tiếu / Trà Sữa / Xiên Que</td><td>Xôi / Phở / Mì / Chè / Trà Sữa</td><td>Chè / Bánh tráng / Trà Sữa / Nem chua</td></tr>
-          </tbody>
-        </table>
-      </div>
+  <!-- ④ L2 CATEGORY × HOUR -->
+  <div class="card">
+    <div class="sub-lbl">L2 Category × Hour Rules</div>
+    <div style="overflow-x:auto;margin-top:10px">
+      <table style="width:100%;border-collapse:collapse;font-size:11px;min-width:500px">
+        <thead>
+          <tr style="background:var(--surf)">
+            <th style="text-align:left;padding:8px 12px;border:1px solid var(--bord);font-family:var(--mono);font-size:10px;color:var(--mut)">Hour</th>
+            <th style="padding:8px 12px;border:1px solid var(--bord);font-family:var(--mono);font-size:10px;color:var(--grn)">✅ Recommended (HCM)</th>
+            <th style="padding:8px 12px;border:1px solid var(--bord);font-family:var(--mono);font-size:10px;color:var(--red)">❌ Blocked (HCM)</th>
+            <th style="padding:8px 12px;border:1px solid var(--bord);font-family:var(--mono);font-size:10px;color:var(--mut)">HN / OTH notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:7px 12px;border:1px solid var(--bord);font-family:var(--mono);color:var(--acc);font-weight:700;white-space:nowrap">0–5h</td><td style="padding:7px 12px;border:1px solid var(--bord)">Cháo, Xôi, Fast Food, Bún Mì, Ăn khuya</td><td style="padding:7px 12px;border:1px solid var(--bord);color:var(--mut)">—</td><td style="padding:7px 12px;border:1px solid var(--bord);font-size:10px;color:var(--mut)">Same</td></tr>
+          <tr style="background:rgba(255,255,255,.015)"><td style="padding:7px 12px;border:1px solid var(--bord);font-family:var(--mono);color:var(--acc);font-weight:700;white-space:nowrap">5–10h</td><td style="padding:7px 12px;border:1px solid var(--bord)">Cafe, Bánh mì, Bún phở, Xôi, Breakfast</td><td style="padding:7px 12px;border:1px solid var(--bord);color:#f87171">Trà sữa, Cơm, Pizza, Ăn vặt</td><td style="padding:7px 12px;border:1px solid var(--bord);font-size:10px;color:var(--mut)">HN: no Bánh tráng</td></tr>
+          <tr><td style="padding:7px 12px;border:1px solid var(--bord);font-family:var(--mono);color:var(--acc);font-weight:700;white-space:nowrap">10–13h</td><td style="padding:7px 12px;border:1px solid var(--bord)">Cơm, Bún Mì, Gà rán, Món Hàn, Lunch</td><td style="padding:7px 12px;border:1px solid var(--bord);color:#f87171">Trà sữa, Cafe, Ăn vặt, Bánh tráng</td><td style="padding:7px 12px;border:1px solid var(--bord);font-size:10px;color:var(--mut)">HN: add Món cuốn</td></tr>
+          <tr style="background:rgba(255,255,255,.015)"><td style="padding:7px 12px;border:1px solid var(--bord);font-family:var(--mono);color:var(--acc);font-weight:700;white-space:nowrap">13–16h</td><td style="padding:7px 12px;border:1px solid var(--bord)">Trà sữa, Cafe, Ăn vặt, Tráng miệng</td><td style="padding:7px 12px;border:1px solid var(--bord);color:#f87171">Cơm, Bún Mì, Gà rán, Pizza</td><td style="padding:7px 12px;border:1px solid var(--bord);font-size:10px;color:var(--mut)">HN: add Bánh tráng</td></tr>
+          <tr><td style="padding:7px 12px;border:1px solid var(--bord);font-family:var(--mono);color:var(--acc);font-weight:700;white-space:nowrap">16–24h</td><td style="padding:7px 12px;border:1px solid var(--bord)">Cơm tấm, Bún Mì, Món Hàn, Pizza, Trà sữa, Dinner</td><td style="padding:7px 12px;border:1px solid var(--bord);color:#f87171">Cafe, Bánh mì, Xôi, Cháo</td><td style="padding:7px 12px;border:1px solid var(--bord);font-size:10px;color:var(--mut)">HN: add Chè, Phở</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <!-- DAY OF MONTH -->
-  <div class="rs">
-    <div class="rs-hdr">📅 Rules by Day of Month</div>
-    <div class="rs-body">
-      <div class="g2">
-        <div>
-          <div class="ri hard" style="margin-bottom:8px"><div class="ri-ico">🚫</div><div><div class="ri-name">Double Day — Full Platform Block</div><div class="ri-desc">1/1, 2/2, 3/3... 12/12. All slots reserved for platform campaign. No standard BD brand bookings.</div></div></div>
-          <div class="ri hard"><div class="ri-ico">🚫</div><div><div class="ri-name">15th Midmonth — Block Day</div><div class="ri-desc">15th of every month is reserved for SPF campaigns. No BD brand bookings on this date.</div></div></div>
-        </div>
-        <div>
-          <div class="ri soft" style="margin-bottom:8px"><div class="ri-ico">⚠️</div><div><div class="ri-name">SPF Day — Platform Priority</div><div class="ri-desc">ShopeeFood event days — check with ops lead. Brand slots may be significantly reduced.</div></div></div>
-          <div class="ri soft"><div class="ri-ico">⚠️</div><div><div class="ri-name">Thematic Campaign Dates</div><div class="ri-desc">During Tết, Sale Seasons, Back to School etc. — brand booking slots are reduced and may require campaign alignment. Confirm with ops before booking.</div></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CITIES -->
-  <div class="rs">
-    <div class="rs-hdr">🗺 City Reference</div>
-    <div class="rs-body">
-      <div class="g3">
-        <div><div class="sub-lbl">Tier A — Visibility 3B</div><span class="pill pill-a">HCM</span><span class="pill pill-a">HN</span><span class="pill pill-a">DN</span></div>
-        <div><div class="sub-lbl">Tier 2 — T2 (6 cities)</div><span class="pill pill-b">HP</span><span class="pill pill-b">CT</span><span class="pill pill-b">BD</span><span class="pill pill-b">BH</span><span class="pill pill-b">Hue</span><span class="pill pill-b">VT</span></div>
-        <div><div class="sub-lbl">Tier 3 / OTH (30+ cities)</div><span style="font-size:11px;color:var(--mut)">An Giang, Bac Ninh, Binh Dinh, Dak Lak, Khanh Hoa, Lam Dong, Nghe An, Quang Nam, Quang Ninh, Thai Nguyen, Thanh Hoa, Tien Giang, Hai Duong, Nam Dinh, Dong Thap, Kien Giang, Phu Yen, Bac Lieu, Ben Tre, Ca Mau, Hau Giang, Soc Trang, Tra Vinh, Vinh Long, Binh Phuoc, Gia Lai, Ninh Thuan, Tay Ninh + new batches</span></div>
-      </div>
-    </div>
-  </div>
 </div>
-
-<!-- VISIBILITY -->
 <div id="page-visibility" class="page">
   <div class="pg-title">Visibility Calendar</div>
   <div class="card" style="margin-bottom:14px">
@@ -407,16 +579,39 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
       </div>
     </div>
     <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-top:10px">
-      <div class="fg"><label>Brand Search</label>
-        <input type="text" id="vbrand" placeholder="e.g. Highlands, KFC..."
-          oninput="renderVis()" onkeydown="if(event.key==='Enter') renderVis()"/>
+      <div class="fg"><label>Brand Search <span style="color:var(--mut);font-weight:400">(comma-separated)</span></label>
+        <input type="text" id="vbrand" placeholder="e.g. Highlands, KFC, Pizza..."
+          oninput="renderVis()" onkeydown="if(event.key==='Enter') renderVis()" style="min-width:260px"/>
       </div>
-      <div class="fg"><label>L2 Category</label>
-        <select id="vcat" onchange="renderVis()">
-          <option value="">All Categories</option>
-          <option>Cafe</option><option>Trà Sữa</option><option>Gà Rán</option>
-          <option>Pizza</option><option>Burger</option><option>Cơm Tấm</option>
-          <option>Món Hàn</option><option>Phở</option><option>Bánh Mì</option>
+      <div class="fg" style="position:relative">
+        <label>L2 Category</label>
+        <div id="vcat-btn" onclick="toggleVcatDD()" style="background:var(--surf);border:1px solid var(--bord);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--txt);cursor:pointer;min-width:160px;display:flex;justify-content:space-between;align-items:center;user-select:none">
+          <span id="vcat-label">All Categories</span><span style="color:var(--mut)">▾</span>
+        </div>
+        <div id="vcat-dd" style="display:none;position:absolute;top:100%;left:0;z-index:200;background:var(--card);border:1px solid var(--bord);border-radius:8px;padding:8px;min-width:180px;box-shadow:0 4px 20px rgba(0,0,0,.5)">
+          <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" id="vcat-all" onchange="vcatAllChange(this)" checked> All Categories</label>
+          <div style="border-top:1px solid var(--bord);margin:4px 0"></div>
+          <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="vcat-cb" value="Cafe" onchange="vcatChange()"> Cafe</label>
+          <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="vcat-cb" value="Trà Sữa" onchange="vcatChange()"> Trà Sữa</label>
+          <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="vcat-cb" value="Gà Rán" onchange="vcatChange()"> Gà Rán</label>
+          <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="vcat-cb" value="Pizza" onchange="vcatChange()"> Pizza</label>
+          <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="vcat-cb" value="Burger" onchange="vcatChange()"> Burger</label>
+          <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="vcat-cb" value="Cơm Tấm" onchange="vcatChange()"> Cơm Tấm</label>
+          <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="vcat-cb" value="Món Hàn" onchange="vcatChange()"> Món Hàn</label>
+          <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="vcat-cb" value="Phở" onchange="vcatChange()"> Phở</label>
+          <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="vcat-cb" value="Bánh Mì" onchange="vcatChange()"> Bánh Mì</label>
+          <label style="display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;font-size:12px;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:400"><input type="checkbox" class="vcat-cb" value="Cơm" onchange="vcatChange()"> Cơm</label>
+        </div>
+      </div>
+      <div class="fg"><label>Programme</label>
+        <select id="vprog" onchange="renderVis()">
+          <option value="">All Programmes</option>
+          <option value="PLF">[PLF]</option>
+          <option value="SJBP">[SJBP]</option>
+          <option value="JBP">[JBP]</option>
+          <option value="VIP">[VIP]</option>
+          <option value="WIN">[Win]</option>
+          <option value="PNS">[PNS]</option>
         </select>
       </div>
     </div>
@@ -425,13 +620,12 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
 </div>
 
 <script>
-// Data fetched from Flask API
+
 let ALL_BOOKINGS=[], DAILY_CAPS={}, MONTHLY_CAPS={}, _visCache=null;
 async function getVD(){
   if(!_visCache){const r=await fetch('/api/visibility');_visCache=await r.json();}
   return _visCache;
 }
-
 // L2 category rules by hour × city
 // key: timeslot code → { city: [allowed categories] }
 const HOUR_CAT = {
@@ -478,9 +672,82 @@ const TIER_A=['HCM','HN','DN'];
 const PLF_SET=new Set(['PLF_BAU','PLF_WC','PLF_CP','PLF_MASSADS','PLF_MART','PLF_SPXI','PLF_SPL','PLF_NEWUSER','PLF_ONBOARD']);
 const BAU_WC=new Set(['PLF_BAU','PLF_WC','PLF_MASSADS']);
 const IND_SET=new Set(['WIN1','WIN2','WIN3','WIN4','ALACARTE','ALACARECB']);
-function BM(b){if(!b)return 'Hometop';if(b.startsWith('Hometop'))return 'Hometop';if(b.startsWith('HTC')||b==='HTC')return 'HTC';if(b.startsWith('Static'))return 'Static';if(b.startsWith('Bottom'))return 'Bottom';if(b.startsWith('Flash')||b==='Flash')return 'Flash';if(b==='Floating')return 'Floating';if(b==='Popup')return 'Popup';if(b==='Ongoing')return 'Ongoing';if(b==='Search'||b==='Search_Banner')return 'Search';if(b==='OngoingOrder')return 'OngoingOrder';return 'Hometop';}
 
-function runQC(b){
+const SF={city:'',month:'',prog:'',brand:'',cat:''};
+const HISTORY={stack:[],pos:-1};
+function historySave(){
+  const snap=JSON.stringify({bk:ALL_BOOKINGS.map(b=>Object.assign({},b))});
+  HISTORY.stack=HISTORY.stack.slice(0,HISTORY.pos+1);
+  HISTORY.stack.push(snap);
+  if(HISTORY.stack.length>500) HISTORY.stack.shift();
+  else HISTORY.pos++;
+  updateUndoRedo();
+}
+function historyUndo(){
+  if(HISTORY.pos<=0) return;
+  HISTORY.pos--;
+  const s=JSON.parse(HISTORY.stack[HISTORY.pos]);
+  ALL_BOOKINGS=s.bk; refreshActive(); updateUndoRedo();
+}
+function historyRedo(){
+  if(HISTORY.pos>=HISTORY.stack.length-1) return;
+  HISTORY.pos++;
+  const s=JSON.parse(HISTORY.stack[HISTORY.pos]);
+  ALL_BOOKINGS=s.bk; refreshActive(); updateUndoRedo();
+}
+function updateUndoRedo(){
+  const u=document.getElementById('btn-undo'),r=document.getElementById('btn-redo');
+  if(u){u.disabled=HISTORY.pos<=0;u.style.color=HISTORY.pos>0?'var(--acc)':'var(--mut)';}
+  if(r){r.disabled=HISTORY.pos>=HISTORY.stack.length-1;r.style.color=HISTORY.pos<HISTORY.stack.length-1?'var(--acc)':'var(--mut)';}
+  const lbl=document.getElementById('undo-label');
+  if(lbl) lbl.textContent=HISTORY.stack.length>1?'Step '+(HISTORY.pos+1)+'/'+HISTORY.stack.length:'';
+}
+function refreshActive(){
+  const pg=document.querySelector('.page.on');if(!pg)return;
+  const id=pg.id.replace('page-','');
+  if(id==='dashboard') renderDashboard();
+  else if(id==='bookings') applyFilters(true);
+  else if(id==='visibility') renderVis();
+}
+
+let filtered=[], curPage=1, pageSize=50, sortKey='', sortAsc=true;
+function applyFilters(noHist){
+  const src=(document.getElementById('flt-source')||{}).value||'';
+  const prog=(document.getElementById('flt-prog')||{}).value||'';
+  const mo=(document.getElementById('flt-month')||{}).value||'';
+  const city=(document.getElementById('flt-city')||{}).value||'';
+  const qcf=(document.getElementById('flt-qc')||{}).value||'';
+  const st=(document.getElementById('flt-status')||{}).value||'';
+  const brand=((document.getElementById('search')||{}).value||'').toLowerCase();
+  const dateFrom=(document.getElementById('flt-start-from')||{}).value||'';
+  const dateTo=(document.getElementById('flt-start-to')||{}).value||'';
+  SF.brand=brand; SF.prog=prog; SF.city=city; SF.month=mo;
+  filtered=ALL_BOOKINGS.filter(b=>{
+    if(src&&b.source!==src) return false;
+    if(prog&&b.prog!==prog) return false;
+    if(mo&&!(b.month||'').toLowerCase().startsWith(mo.toLowerCase())) return false;
+    if(city&&!((b.cities||[]).includes(city)||(b.city===city))) return false;
+    if(st&&b.status!==st) return false;
+    if(brand&&!((b.brand||'')+(b.prog_raw||'')+(b.pic||'')).toLowerCase().includes(brand)) return false;
+    if(dateFrom&&b.start&&b.start<dateFrom) return false;
+    if(dateTo&&b.start&&b.start>dateTo) return false;
+    if(qcf){
+      let e=0,w=0;const isPLF=PLF_SET.has(b.prog);
+      if(b.source==='BD'&&isPLF)w++;if(b.source==='MKT'&&!isPLF)w++;
+      if(b.banner==='Hometop_0'&&b.prog!=='PLF_NEWUSER')e++;
+      if(['Hometop_1','Hometop_2','Hometop_3'].includes(b.banner)&&BAU_WC.has(b.prog))e++;
+      if(['Ongoing','Search'].includes(BM(b.banner))&&b.prog!=='PNS')e++;
+      if(b.start&&b.end&&b.start>b.end)e++;
+      if(qcf==='err'&&e===0) return false;
+      if(qcf==='warn'&&(e>0||w===0)) return false;
+      if(qcf==='ok'&&(e>0||w>0)) return false;
+    }
+    return true;
+  });
+  if(sortKey) filtered.sort((a,b)=>{let av=a[sortKey]||'',bv=b[sortKey]||'';return sortAsc?(av>bv?1:-1):(av<bv?1:-1);});
+  curPage=1; renderList();
+}
+function BM(b){if(!b)return 'Hometop';if(b.startsWith('Hometop'))return 'Hometop';if(b.startsWith('HTC')||b==='HTC'||b==='Home Circle'||b.startsWith('HC '))return 'HTC';if(b.startsWith('Static'))return 'Static';if(b.startsWith('Bottom'))return 'Bottom';if(b.startsWith('Flash')||b==='Flash')return 'Flash';if(b==='Floating')return 'Floating';if(b==='Popup')return 'Popup';if(b==='Ongoing')return 'Ongoing';if(b==='Search'||b==='Search_Banner')return 'Search';if(b==='OngoingOrder')return 'OngoingOrder';return 'Hometop';}function runQC(b){
   const checks=[];const pm=PM[b.prog]||{cat:'PLF'};const isPLF=PLF_SET.has(b.prog);const isIND=IND_SET.has(b.prog);const banner=BM(b.banner);const city=b.city||(b.cities||[])[0]||'HCM';const cityKey=TIER_A.includes(city)?city:'OTH';
   if(b.start&&b.end&&b.start>b.end)checks.push({st:'fail',name:'Date Invalid',det:'End date before start date'});
   if(b.source==='BD'&&isPLF)checks.push({st:'warn',name:'Source Mismatch',det:'PLF programme should go to MKT|Campaign tab'});
@@ -577,14 +844,151 @@ function runQC(b){
   return{checks,errors:checks.filter(c=>c.st==='fail').length,warns:checks.filter(c=>c.st==='warn').length};
 }
 
+function detectL2Brand(text){
+  const t=text.toLowerCase();
+  const map=[
+    ['highlands','Cafe'],['starbucks','Cafe'],['coffee house','Cafe'],['phúc long','Cafe'],
+    ['phê la','Cafe'],['cheese coffee','Cafe'],['katinat','Cafe'],['cà phê','Cafe'],
+    ['trà sữa','Trà Sữa'],['tocotoco','Trà Sữa'],['sunday basic','Trà Sữa'],
+    ['sekai','Trà Sữa'],['mixue','Trà Sữa'],['may cha','Trà Sữa'],['gong cha','Trà Sữa'],
+    ['kfc','Gà Rán'],['popeyes','Gà Rán'],['texas chicken','Gà Rán'],["domino",'Pizza'],
+    ['pizza hut','Pizza'],['pizza','Pizza'],["mcdonald",'Burger'],['lotteria','Burger'],
+    ['cơm tấm','Cơm Tấm'],['bún bò','Bún Bò'],['phở','Phở'],
+    ['hanuri','Món Hàn'],['korean','Món Hàn'],['busan','Món Hàn'],['bánh mì','Bánh Mì'],
+  ];
+  for(const [kw,cat] of map){if(t.includes(kw))return cat;}
+  return '';
+}
+
+function renderDashboard(){
+  const cityF=document.getElementById('dash-city').value;
+  const monthF=document.getElementById('dash-month').value;
+  const progF=document.getElementById('dash-prog').value;
+  const brandF=((document.getElementById('dash-brand')||{}).value||'').toLowerCase();
+  const catF=(document.getElementById('dash-cat')||{}).value||'';
+  SF.city=cityF;SF.month=monthF;SF.prog=progF;SF.brand=brandF;SF.cat=catF;
+  const bks=ALL_BOOKINGS.filter(b=>{
+    if(cityF&&!((b.cities||[]).includes(cityF)||(b.city===cityF)))return false;
+    if(monthF&&!(b.month||'').toLowerCase().startsWith(monthF.toLowerCase()))return false;
+    if(progF&&b.prog!==progF)return false;
+    if(brandF&&!(b.brand||'').toLowerCase().includes(brandF))return false;
+    if(catF){
+      const bL2=detectL2Brand(b.brand||'');
+      if(!bL2.toLowerCase().includes(catF.toLowerCase()))return false;
+    }
+    return true;
+  });
+  const total=bks.length,bd=bks.filter(b=>b.source==='BD').length,mkt=bks.filter(b=>b.source==='MKT').length;
+  function qck(b){let e=0,w=0;const isPLF=PLF_SET.has(b.prog);
+    if(b.source==='BD'&&isPLF)w++;if(b.source==='MKT'&&!isPLF)w++;
+    if(b.banner==='Hometop_0'&&b.prog!=='PLF_NEWUSER')e++;
+    if(['Hometop_1','Hometop_2','Hometop_3'].includes(b.banner)&&BAU_WC.has(b.prog))e++;
+    if(['Ongoing','Search'].includes(BM(b.banner))&&b.prog!=='PNS')e++;
+    if(b.start&&b.end&&b.start>b.end)e++;
+    return{errors:e,warns:w};}
+  const errs=bks.filter(b=>qck(b).errors>0).length;
+  const warns=bks.filter(b=>{const q=qck(b);return q.errors===0&&q.warns>0;}).length;
+  document.getElementById('dash-stats').innerHTML=
+    '<div class="stat"><div class="stat-lbl">Total Bookings</div><div class="stat-val">'+total.toLocaleString()+'</div></div>'+
+    '<div class="stat" style="cursor:pointer" data-qct="bd" onclick="showQCDetail(this.dataset.qct)" title="Click to see BD bookings"><div class="stat-lbl">BD Programs ↗</div><div class="stat-val" style="color:#60a5fa">'+bd.toLocaleString()+'</div></div>'+
+    '<div class="stat" style="cursor:pointer" data-qct="mkt" onclick="showQCDetail(this.dataset.qct)" title="Click to see MKT bookings"><div class="stat-lbl">MKT Campaigns ↗</div><div class="stat-val" style="color:#c084fc">'+mkt.toLocaleString()+'</div></div>'+
+    '<div class="stat" style="cursor:pointer" data-qct="err" onclick="showQCDetail(this.dataset.qct)" title="Click to drill down"><div class="stat-lbl">QC Errors ↗</div><div class="stat-val" style="color:var(--red)">'+errs+'</div></div>'+
+    '<div class="stat" style="cursor:pointer" data-qct="warn" onclick="showQCDetail(this.dataset.qct)" title="Click to drill down"><div class="stat-lbl">QC Warnings ↗</div><div class="stat-val" style="color:var(--ylw)">'+warns+'</div></div>';
+  // By Programme — bars with white labels
+  const pc={};bks.forEach(b=>{pc[b.prog]=(pc[b.prog]||0)+1;});
+  const sp=Object.entries(pc).sort((a,b)=>b[1]-a[1]).slice(0,14);const mx=sp[0]?.[1]||1;
+  document.getElementById('dash-prog-chart').innerHTML=sp.map(([p,n])=>{
+    const pm=PM[p]||{l:p,cls:'b-plf'};const pct=Math.round(n/mx*100);
+    return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">'+
+      '<span class="b '+pm.cls+'" style="min-width:100px;text-align:center">'+pm.l+'</span>'+
+      '<div style="flex:1;background:var(--bord);border-radius:4px;height:20px;position:relative;overflow:hidden">'+
+        '<div style="background:var(--acc);width:'+pct+'%;height:100%;border-radius:4px"></div>'+
+        '<span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;font-weight:700;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.9)">'+n+'</span>'+
+      '</div></div>';}).join('');
+  // By Month — only active months
+  const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const mc={};bks.forEach(b=>{const k=(b.month||'').charAt(0).toUpperCase()+(b.month||'').slice(1,3).toLowerCase();if(k)mc[k]=(mc[k]||0)+1;});
+  const activeMo=mo.filter(m=>mc[m]>0);const mxm=Math.max(...Object.values(mc),1);
+  document.getElementById('dash-mo').innerHTML=activeMo.length===0?'<div style="color:var(--mut);font-size:12px">No data</div>':
+    activeMo.map(m=>{const n=mc[m]||0;const pct=Math.round(n/mxm*100);
+      return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">'+
+        '<span style="font-family:var(--mono);font-size:11px;color:var(--mut);min-width:30px">'+m+'</span>'+
+        '<div style="flex:1;background:var(--bord);border-radius:4px;height:20px;position:relative;overflow:hidden">'+
+          '<div style="background:#3b82f6;width:'+pct+'%;height:100%;border-radius:4px"></div>'+
+          '<span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;font-weight:700;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.9)">'+n+'</span>'+
+        '</div></div>';}).join('');
+  // City x Programme
+  const cities=cityF?[cityF]:['HCM','HN','DN','HP','CT','OTH'];
+  const progs=['SJBP','JBP','SUPERVIP','VIP','WIN1','WIN2','WIN3','WIN4','ALACARECB','ALACARTE','PNS','PLF_CP','PLF_BAU','PLF_MART'];
+  let cm='<table><thead><tr><th class="rh">City \\ Programme</th>'+progs.map(p=>'<th><span class="b '+(PM[p]||{cls:'b-plf'}).cls+'">'+(PM[p]||{l:p}).l+'</span></th>').join('')+'<th>Total</th></tr></thead><tbody>';
+  cities.forEach(c=>{const cb=bks.filter(b=>(b.cities||[]).includes(c)||(b.city===c));let rt=0;
+    cm+='<tr><td class="rh"><span class="b '+(TIER_A.includes(c)?'b-city-a':'b-city-b')+'">'+c+'</span></td>';
+    progs.forEach(p=>{const n=cb.filter(b=>b.prog===p).length;rt+=n;const cl=n===0?'d0':n<5?'dlo':n<20?'dmd':'dhi';cm+='<td class="'+cl+'">'+( n||'')+'</td>';});
+    cm+='<td style="font-weight:700;color:var(--acc)">'+rt+'</td></tr>';});
+  cm+='</tbody></table>';document.getElementById('dash-city-mx').innerHTML=cm;
+  // Media x Programme
+  const banners=['Hometop','HTC','Static','Bottom','Flash','Floating','Popup','Ongoing','Search'];
+  const p2=['SJBP','JBP','SUPERVIP','VIP','WIN1','ALACARECB','PNS','PLF_CP','PLF_BAU'];
+  let mm='<table><thead><tr><th class="rh">Banner \\ Programme</th>'+p2.map(p=>'<th><span class="b '+(PM[p]||{cls:'b-plf'}).cls+'">'+(PM[p]||{l:p}).l+'</span></th>').join('')+'<th>Total</th></tr></thead><tbody>';
+  banners.forEach(bn=>{const bb=bks.filter(b=>BM(b.banner)===bn);let rt=0;
+    mm+='<tr><td class="rh" style="font-family:var(--mono);font-size:11px;color:var(--acc)">'+bn+'</td>';
+    p2.forEach(p=>{const n=bb.filter(b=>b.prog===p).length;rt+=n;const cl=n===0?'d0':n<5?'dlo':n<20?'dmd':'dhi';mm+='<td class="'+cl+'">'+( n||'')+'</td>';});
+    mm+='<td style="font-weight:700;color:var(--acc)">'+rt+'</td></tr>';});
+  mm+='</tbody></table>';document.getElementById('dash-media-mx').innerHTML=mm;
+  // QC summary
+  const wt={},wtype={};
+  bks.slice(0,500).forEach(b=>{runQC(b).checks.filter(c=>c.st!=='pass').forEach(c=>{wt[c.name]=(wt[c.name]||0)+1;wtype[c.name]=c.st;});});
+  document.getElementById('dash-qc').innerHTML=Object.entries(wt).length
+    ?Object.entries(wt).sort((a,b)=>b[1]-a[1]).map(([n,c])=>
+        '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;cursor:pointer" data-qcn="'+n.replace(/"/g,"&quot;")+'" onclick="showQCDetail(\'name\',this.dataset.qcn)">'+
+        '<span style="font-size:16px">'+(wtype[n]==='fail'?'❌':'⚠️')+'</span>'+
+        '<span style="font-size:12px;flex:1">'+n+'</span>'+
+        '<span class="b '+(wtype[n]==='fail'?'b-err':'b-warn')+'">'+c+'</span></div>').join('')
+    :'<p style="color:var(--mut);font-size:12px">No QC issues 🎉</p>';
+}
+function showQCDetail(type,name){
+  // Apply active dashboard filters first
+  const cityF=SF.city, monthF=SF.month, progF=SF.prog, brandF=SF.brand, catF=SF.cat;
+  const baseBks=ALL_BOOKINGS.filter(b=>{
+    if(cityF&&!((b.cities||[]).includes(cityF)||(b.city===cityF)))return false;
+    if(monthF&&!(b.month||'').toLowerCase().startsWith(monthF.toLowerCase()))return false;
+    if(progF&&b.prog!==progF)return false;
+    if(brandF&&!(b.brand||'').toLowerCase().includes(brandF))return false;
+    if(catF){const bL2=detectL2Brand(b.brand||'');if(!bL2.toLowerCase().includes(catF.toLowerCase()))return false;}
+    return true;
+  });
+  let bksToShow;
+  if(type==='err') bksToShow=baseBks.filter(b=>runQC(b).errors>0);
+  else if(type==='warn') bksToShow=baseBks.filter(b=>{const q=runQC(b);return q.errors===0&&q.warns>0;});
+  else if(type==='bd') bksToShow=baseBks.filter(b=>b.source==='BD');
+  else if(type==='mkt') bksToShow=baseBks.filter(b=>b.source==='MKT');
+  else bksToShow=baseBks.filter(b=>runQC(b).checks.some(c=>c.st!=='pass'&&c.name===name));
+  const title=type==='err'?'QC Errors':type==='warn'?'QC Warnings':type==='bd'?'BD Programs':type==='mkt'?'MKT Campaigns':'QC: '+name;
+  document.getElementById('modal-title').textContent=title;
+  document.getElementById('modal-body').innerHTML=
+    '<div style="font-size:12px;color:var(--mut);margin-bottom:12px">'+bksToShow.length+' booking(s)</div>'+
+    bksToShow.slice(0,100).map(b=>{
+      const qc=runQC(b);
+      const issues=qc.checks.filter(c=>c.st!=='pass'&&(type!=='name'||c.name===name));
+      return '<div style="background:var(--surf);border:1px solid var(--bord);border-radius:8px;padding:10px 12px;margin-bottom:8px">'+
+        '<div style="display:flex;gap:8px;align-items:center;margin-bottom:6px">'+
+        '<span class="b '+(PM[b.prog]||{cls:'b-plf'}).cls+'">'+(PM[b.prog]||{l:b.prog}).l+'</span>'+
+        '<span style="font-weight:600">'+(b.brand||'—')+'</span>'+
+        '<span style="font-family:var(--mono);font-size:10px;color:var(--mut)">'+(b.month||'')+' · '+(b.banner||'')+'</span></div>'+
+        issues.map(i=>'<div style="font-size:11px;color:'+(i.st==='fail'?'var(--red)':'var(--ylw)')+';margin-bottom:3px">'+
+          (i.st==='fail'?'❌':'⚠️')+' <strong>'+i.name+'</strong> — '+i.det+'</div>').join('')+
+        '</div>';}).join('');
+  document.getElementById('modal').classList.add('on');
+}
+
 function gp(id,btn){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on');});
   document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('on');});
   document.getElementById('page-'+id).classList.add('on');
   btn.classList.add('on');
   if(id==='dashboard') renderDashboard();
-  if(id==='visibility') renderVis();
-  if(id==='bookings') applyFilters();
+  else if(id==='visibility') renderVis();
+  else if(id==='bookings') applyFilters(true);
 }
 function sortBy(k){if(sortKey===k)sortAsc=!sortAsc;else{sortKey=k;sortAsc=true;}applyFilters();}
 function renderList(){
@@ -599,16 +1003,33 @@ function renderList(){
     const pm=PM[b.prog]||{l:b.prog_raw||b.prog,cls:'b-plf'};const qc=runQC(b);
     const rowCls=qc.errors>0?'br-err':qc.warns>0?'br-warn':'';
     const flags=qc.checks.filter(c=>c.st!=='pass').map(c=>`<span class="flag ${c.st==='fail'?'flag-e':'flag-w'}" title="${c.det}">${c.st==='fail'?'❌':'⚠️'} ${c.name.split('—')[0].trim().substring(0,15)}</span>`).join('');
-    const sb=b.status==='Confirmed'?`<span class="b b-conf">Confirmed</span>`:b.status==='Done'?`<span class="b b-done">Done</span>`:b.status?`<span class="b b-pend">${b.status}</span>`:'';
+    const sb=b.status==='Confirmed'?`<span class="b b-conf">Confirmed</span>`:b.status==='Done'?`<span class="b b-done">Done</span>`:b.status?`<span class="b b-pend">${b.status}</span>`:'<span style="color:var(--mut);font-size:10px">—</span>';
     const cities=(b.cities||['?']).map(c=>`<span class="b ${TIER_A.includes(c)?'b-city-a':'b-city-b'}">${c}</span>`).join('');
-    const tl=(b.start&&b.end&&b.start!==b.end)?`${b.start}<br><span style="color:var(--mut)">${b.end}</span>`:b.start||'—';
-    return`<tr class="${rowCls}"><td style="color:var(--mut);font-family:var(--mono);font-size:10px">${b.id}</td><td><span class="b ${b.source==='BD'?'b-bd':'b-mkt'}">${b.source}</span></td><td><span class="b ${pm.cls}">${pm.l}</span></td><td style="max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500" title="${b.brand}">${b.brand||'—'}</td><td style="font-family:var(--mono);font-size:11px">${b.month||'—'}</td><td style="font-family:var(--mono);font-size:10px;white-space:nowrap">${tl}</td><td style="font-family:var(--mono);font-size:10px;color:var(--mut)">${b.banner||'—'}</td><td>${cities}</td><td>${sb}</td><td style="color:var(--mut);font-size:11px">${b.pic||'—'}</td><td>${flags||'<span style="color:var(--grn);font-size:11px">✅</span>'}</td><td><button class="btn btn-s" style="padding:3px 8px;font-size:10px" onclick="showDetail(${b.id})">👁</button></td></tr>`;
+    // Missing info highlights
+    const missingBrand=!b.brand||b.brand==='nan';
+    const missingDate=!b.start||!b.end;
+    const missingBanner=!b.banner;
+    const missingCities=!b.cities||b.cities.length===0;
+    const hasMissing=missingBrand||missingDate||missingBanner||missingCities;
+    const missingTip=hasMissing?[missingBrand?'Brand':'',missingDate?'Date':'',missingBanner?'Banner':'',missingCities?'City':''].filter(Boolean).join(', ')+' missing':'';
+    const missingBadge=hasMissing?`<span style="background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.3);border-radius:4px;font-size:9px;padding:1px 5px;font-family:var(--mono)" title="${missingTip}">⚠ ${missingTip}</span>`:'';
+    return`<tr class="${rowCls}${hasMissing?' tr-missing':''}">
+      <td style="color:var(--mut);font-family:var(--mono);font-size:10px">${b.id}</td>
+      <td><span class="b ${b.source==='BD'?'b-bd':'b-mkt'}">${b.source}</span></td>
+      <td><span class="b ${pm.cls}">${pm.l}</span></td>
+      <td style="max-width:200px" title="${b.brand||''}">${b.brand?`<span style="font-weight:500">${b.brand}</span>`:`<span style="color:var(--red);font-size:11px">⚠ No brand</span>`}${missingBadge?'<br>'+missingBadge:''}</td>
+      <td style="font-family:var(--mono);font-size:11px">${b.month||'—'}</td>
+      <td style="font-family:var(--mono);font-size:10px;white-space:nowrap">${b.start||'<span style="color:var(--red)">—</span>'}</td>
+      <td style="font-family:var(--mono);font-size:10px;white-space:nowrap">${b.end||'<span style="color:var(--red)">—</span>'}</td>
+      <td style="font-family:var(--mono);font-size:10px;color:var(--mut)">${b.banner||'<span style="color:var(--red)">—</span>'}</td>
+      <td>${cities}</td>
+      <td>${sb}</td>
+      <td style="color:var(--mut);font-size:11px">${b.pic||'—'}</td>
+      <td>${flags||'<span style="color:var(--grn);font-size:11px">✅</span>'}</td>
+      <td><button style="background:var(--surf);border:1px solid var(--bord);border-radius:6px;color:var(--mut);font-size:11px;padding:4px 8px;cursor:pointer;transition:all .15s;white-space:nowrap" onmouseover="this.style.borderColor='var(--acc)';this.style.color='var(--acc)'" onmouseout="this.style.borderColor='var(--bord)';this.style.color='var(--mut)'" onclick="showDetail(${b.id})">👁 View</button></td>
+    </tr>`;
   }).join('')||'<tr><td colspan="12" class="empty">No bookings match filters</td></tr>';
-}
-function prevPage(){if(curPage>1){curPage--;renderList();}}
-function nextPage(){if(curPage*pageSize<filtered.length){curPage++;renderList();}}
-
-function showDetail(id){
+}function prevPage(){if(curPage>1){curPage--;renderList();}}function nextPage(){if(curPage*pageSize<filtered.length){curPage++;renderList();}}function showDetail(id){
   const b=ALL_BOOKINGS.find(x=>x.id===id);if(!b)return;
   const pm=PM[b.prog]||{l:b.prog_raw||b.prog,cls:'b-plf'};const qc=runQC(b);
   document.getElementById('modal-title').textContent=b.brand||'Booking Detail';
@@ -627,67 +1048,7 @@ function showDetail(id){
     <div style="font-family:var(--mono);font-size:10px;color:var(--acc);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">QC Results — ${qc.errors} errors, ${qc.warns} warnings</div>
     ${qc.checks.map(c=>`<div class="rc ${c.st}"><div class="rc-ico">${c.st==='pass'?'✅':c.st==='warn'?'⚠️':'❌'}</div><div><div class="rc-name">${c.name}</div><div class="rc-det">${c.det}</div></div></div>`).join('')}`;
   document.getElementById('modal').classList.add('on');
-}
-function closeModal(){document.getElementById('modal').classList.remove('on');}
-
-function renderDashboard(){
-  const cityF=document.getElementById('dash-city').value,monthF=document.getElementById('dash-month').value;
-  const bks=ALL_BOOKINGS.filter(b=>{
-    if(cityF&&!((b.cities||[]).includes(cityF)||(b.city===cityF)))return false;
-    if(monthF&&!(b.month||'').toLowerCase().startsWith(monthF.toLowerCase()))return false;
-    return true;
-  });
-  const total=bks.length,bd=bks.filter(b=>b.source==='BD').length,mkt=bks.filter(b=>b.source==='MKT').length;
-  // Lightweight QC for dashboard counts — skip expensive cap checks (O(n²))
-  function quickCheck(b){
-    let e=0,w=0;
-    const isPLF=PLF_SET.has(b.prog);
-    if(b.source==='BD'&&isPLF)w++;
-    if(b.source==='MKT'&&!isPLF)w++;
-    if(b.banner==='Hometop_0'&&b.prog!=='PLF_NEWUSER')e++;
-    if(['Hometop_1','Hometop_2','Hometop_3'].includes(b.banner)&&BAU_WC.has(b.prog))e++;
-    if(['Ongoing','Search'].includes(BM(b.banner))&&b.prog!=='PNS')e++;
-    if(b.start&&b.end&&b.start>b.end)e++;
-    return{errors:e,warns:w};
-  }
-  const errs=bks.filter(b=>quickCheck(b).errors>0).length,warns=bks.filter(b=>{const q=quickCheck(b);return q.errors===0&&q.warns>0;}).length;
-  document.getElementById('dash-stats').innerHTML=`
-    <div class="stat"><div class="stat-lbl">Total Bookings</div><div class="stat-val">${total.toLocaleString()}</div><div class="stat-sub">${cityF||'All Cities'} · ${monthF||'All Months'}</div></div>
-    <div class="stat"><div class="stat-lbl">BD Programs</div><div class="stat-val" style="color:#60a5fa">${bd.toLocaleString()}</div></div>
-    <div class="stat"><div class="stat-lbl">MKT Campaigns</div><div class="stat-val" style="color:#c084fc">${mkt.toLocaleString()}</div></div>
-    <div class="stat"><div class="stat-lbl">QC Errors</div><div class="stat-val" style="color:var(--red)">${errs}</div></div>
-    <div class="stat"><div class="stat-lbl">QC Warnings</div><div class="stat-val" style="color:var(--ylw)">${warns}</div></div>`;
-  const pc={};bks.forEach(b=>{pc[b.prog]=(pc[b.prog]||0)+1;});
-  const sp=Object.entries(pc).sort((a,b)=>b[1]-a[1]).slice(0,14);const mx=sp[0]?.[1]||1;
-  document.getElementById('dash-prog').innerHTML=sp.map(([p,n])=>{const pm=PM[p]||{l:p,cls:'b-plf'};return`<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="b ${pm.cls}" style="min-width:100px;justify-content:center">${pm.l}</span><div style="flex:1;background:var(--bord);border-radius:3px;height:6px"><div style="background:var(--acc);width:${Math.round(n/mx*100)}%;height:100%;border-radius:3px"></div></div><span style="font-family:var(--mono);font-size:11px;color:var(--mut);min-width:32px;text-align:right">${n}</span></div>`;}).join('');
-  const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const mc={};bks.forEach(b=>{const m=(b.month||'');const k=m.charAt(0).toUpperCase()+m.slice(1,3).toLowerCase();mc[k]=(mc[k]||0)+1;});
-  const mxm=Math.max(...Object.values(mc),1);
-  document.getElementById('dash-mo').innerHTML=mo.map(m=>{const n=mc[m]||0;return`<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-family:var(--mono);font-size:11px;color:var(--mut);min-width:30px">${m}</span><div style="flex:1;background:var(--bord);border-radius:3px;height:6px"><div style="background:#3b82f6;width:${Math.round(n/mxm*100)}%;height:100%;border-radius:3px"></div></div><span style="font-family:var(--mono);font-size:11px;color:var(--mut);min-width:30px;text-align:right">${n}</span></div>`;}).join('');
-  // City x Programme matrix
-  const cities=cityF?[cityF]:['HCM','HN','DN','HP','CT','OTH'];
-  const progs=['SJBP','JBP','SUPERVIP','VIP','WIN1','WIN2','WIN3','WIN4','ALACARECB','ALACARTE','PNS','PLF_CP','PLF_BAU','PLF_MART'];
-  let cm=`<table><thead><tr><th class="rh">City \\ Programme</th>${progs.map(p=>`<th><span class="b ${(PM[p]||{cls:'b-plf'}).cls}">${(PM[p]||{l:p}).l}</span></th>`).join('')}<th>Total</th></tr></thead><tbody>`;
-  cities.forEach(c=>{const cb=bks.filter(b=>(b.cities||[]).includes(c)||(b.city===c));let rt=0;cm+=`<tr><td class="rh"><span class="b ${TIER_A.includes(c)?'b-city-a':'b-city-b'}">${c}</span></td>`;progs.forEach(p=>{const n=cb.filter(b=>b.prog===p).length;rt+=n;const cl=n===0?'d0':n<5?'dlo':n<20?'dmd':'dhi';cm+=`<td class="${cl}">${n||''}</td>`;});cm+=`<td style="font-weight:700;color:var(--acc)">${rt}</td></tr>`;});
-  cm+=`</tbody></table>`;document.getElementById('dash-city-mx').innerHTML=cm;
-  // Media x Programme matrix
-  const banners=['Hometop','HTC','Static','Bottom','Flash','Floating','Popup','Ongoing','Search'];
-  const p2=['SJBP','JBP','SUPERVIP','VIP','WIN1','ALACARECB','PNS','PLF_CP','PLF_BAU'];
-  let mm=`<table><thead><tr><th class="rh">Banner \\ Programme</th>${p2.map(p=>`<th><span class="b ${(PM[p]||{cls:'b-plf'}).cls}">${(PM[p]||{l:p}).l}</span></th>`).join('')}<th>Total</th></tr></thead><tbody>`;
-  banners.forEach(bn=>{const bb=bks.filter(b=>BM(b.banner)===bn);let rt=0;mm+=`<tr><td class="rh" style="font-family:var(--mono);font-size:11px;color:var(--acc)">${bn}</td>`;p2.forEach(p=>{const n=bb.filter(b=>b.prog===p).length;rt+=n;const cl=n===0?'d0':n<5?'dlo':n<20?'dmd':'dhi';mm+=`<td class="${cl}">${n||''}</td>`;});mm+=`<td style="font-weight:700;color:var(--acc)">${rt}</td></tr>`;});
-  mm+=`</tbody></table>`;document.getElementById('dash-media-mx').innerHTML=mm;
-  // QC issues: sample first 300 bookings to avoid freezing
-  const qcSample=bks.slice(0,300);
-  const wt={};qcSample.forEach(b=>{runQC(b).checks.filter(c=>c.st!=='pass').forEach(c=>{wt[c.name]=(wt[c.name]||0)+1;});});
-  document.getElementById('dash-qc').innerHTML=Object.entries(wt).length?Object.entries(wt).sort((a,b)=>b[1]-a[1]).map(([n,c])=>`<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:12px;flex:1">${n}</span><span class="b b-warn">${c}</span></div>`).join(''):'<p style="color:var(--mut);font-size:12px">No QC issues 🎉</p>';
-}
-
-function liveQC(){const b={source:document.getElementById('f_source').value,prog:document.getElementById('f_prog').value,banner:document.getElementById('f_banner').value,start:document.getElementById('f_start').value,end:document.getElementById('f_end').value,city:document.getElementById('f_city').value,cities:[document.getElementById('f_city').value],month:'New',id:-1,timeslot:document.getElementById('f_timeslot').value,brand:document.getElementById('f_brand').value,cat:document.getElementById('f_cat').value};const qc=runQC(b);const badge=document.getElementById('qc-badge');badge.textContent=qc.errors>0?`❌ ${qc.errors} error(s)`:qc.warns>0?`⚠️ ${qc.warns} warning(s)`:'✅ Pass';badge.className='b '+(qc.errors>0?'b-err':qc.warns>0?'b-warn':'b-ok');document.getElementById('qc-body').innerHTML=qc.checks.map(c=>`<div class="rc ${c.st}"><div class="rc-ico">${c.st==='pass'?'✅':c.st==='warn'?'⚠️':'❌'}</div><div><div class="rc-name">${c.name}</div><div class="rc-det">${c.det}</div></div></div>`).join('');}
-function addBooking(){const b={id:Date.now(),source:document.getElementById('f_source').value,prog:document.getElementById('f_prog').value,prog_raw:document.getElementById('f_prog').options[document.getElementById('f_prog').selectedIndex].text,brand:document.getElementById('f_brand').value,scheme:'',banner:document.getElementById('f_banner').value,start:document.getElementById('f_start').value,end:document.getElementById('f_end').value,cities:[document.getElementById('f_city').value],city:document.getElementById('f_city').value,month:'New',status:'Pending',pic:'',detail:'',timeslot:document.getElementById('f_timeslot').value,cat:document.getElementById('f_cat').value};ALL_BOOKINGS.unshift(b);liveQC();alert(`Booking added! View in All Bookings tab.`);}
-function clearForm(){['f_brand'].forEach(id=>document.getElementById(id).value='');document.getElementById('qc-body').innerHTML='<div class="empty">Fill form to run QC</div>';document.getElementById('qc-badge').textContent='—';document.getElementById('qc-badge').className='b';}
-
-
-async function renderVis(){
+}function closeModal(){document.getElementById('modal').classList.remove('on');}function liveQC(){const b={source:document.getElementById('f_source').value,prog:document.getElementById('f_prog').value,banner:document.getElementById('f_banner').value,start:document.getElementById('f_start').value,end:document.getElementById('f_end').value,city:document.getElementById('f_city').value,cities:[document.getElementById('f_city').value],month:'New',id:-1,timeslot:document.getElementById('f_timeslot').value,brand:document.getElementById('f_brand').value,cat:document.getElementById('f_cat').value};const qc=runQC(b);const badge=document.getElementById('qc-badge');badge.textContent=qc.errors>0?`❌ ${qc.errors} error(s)`:qc.warns>0?`⚠️ ${qc.warns} warning(s)`:'✅ Pass';badge.className='b '+(qc.errors>0?'b-err':qc.warns>0?'b-warn':'b-ok');document.getElementById('qc-body').innerHTML=qc.checks.map(c=>`<div class="rc ${c.st}"><div class="rc-ico">${c.st==='pass'?'✅':c.st==='warn'?'⚠️':'❌'}</div><div><div class="rc-name">${c.name}</div><div class="rc-det">${c.det}</div></div></div>`).join('');}function addBooking(){const b={id:Date.now(),source:document.getElementById('f_source').value,prog:document.getElementById('f_prog').value,prog_raw:document.getElementById('f_prog').options[document.getElementById('f_prog').selectedIndex].text,brand:document.getElementById('f_brand').value,scheme:'',banner:document.getElementById('f_banner').value,start:document.getElementById('f_start').value,end:document.getElementById('f_end').value,cities:[document.getElementById('f_city').value],city:document.getElementById('f_city').value,month:'New',status:'Pending',pic:'',detail:'',timeslot:document.getElementById('f_timeslot').value,cat:document.getElementById('f_cat').value};ALL_BOOKINGS.unshift(b);liveQC();alert(`Booking added! View in All Bookings tab.`);}function clearForm(){['f_brand'].forEach(id=>document.getElementById(id).value='');document.getElementById('qc-body').innerHTML='<div class="empty">Fill form to run QC</div>';document.getElementById('qc-badge').textContent='—';document.getElementById('qc-badge').className='b';}async function renderVis(){
   const mode = document.getElementById('vmode').value;
   const vmEl = document.getElementById('vm');
   if(!vmEl.value) vmEl.value = new Date().toISOString().substring(0,7);
@@ -718,16 +1079,14 @@ async function renderVis(){
     }
     await renderVisDay();
   }
-}
-
-async function renderVisMonth(){
+}async function renderVisMonth(){
   const city   = document.getElementById('vc').value;
   const fromEl = document.getElementById('vfrom');
   const toEl   = document.getElementById('vto');
   var   from   = fromEl ? fromEl.value : '';
   var   to     = toEl   ? toEl.value   : '';
   const brandF = (document.getElementById('vbrand')||{}).value||'';
-  const catF   = (document.getElementById('vcat')||{}).value||'';
+  const cats   = typeof getVcats==='function'?getVcats():[];
   const grid   = document.getElementById('vis-grid');
 
   if(!from||!to){
@@ -740,12 +1099,23 @@ async function renderVisMonth(){
 
   const vd=await getVD();
   const dates=[];
-  var d0=new Date(from+'T00:00:00'), d1=new Date(to+'T00:00:00');
-  while(d0<=d1){ dates.push(d0.toISOString().split('T')[0]); d0.setDate(d0.getDate()+1); }
+  // String-based loop — avoids timezone Date comparison bugs
+  var cur=from;
+  while(cur<=to){
+    dates.push(cur);
+    var parts=cur.split('-'), y=+parts[0], m=+parts[1], d=+parts[2];
+    d++;
+    var daysInMonth=new Date(y, m, 0).getDate();
+    if(d>daysInMonth){ d=1; m++; if(m>12){ m=1; y++; } }
+    cur=y+'-'+String(m).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+  }
 
-  function ok(item){
-    if(brandF&&item.b.toLowerCase().indexOf(brandF.toLowerCase())<0) return false;
-    if(catF&&item.l!==catF) return false;
+    function ok(item){
+    if(brandF){
+      const brands=brandF.split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
+      if(brands.length>0 && !brands.some(br=>item.b.toLowerCase().indexOf(br)>-1)) return false;
+    }
+    if(cats.length>0 && !cats.some(c=>item.l===c||item.b.toLowerCase().indexOf(c.toLowerCase())>-1)) return false;
     return true;
   }
 
@@ -860,13 +1230,13 @@ async function renderVisMonth(){
       var isPlf     = p0.indexOf('[plf')>-1||p0.indexOf('[mart')>-1;
 
       var bg, border, labelC;
-      if(isBlock)    { bg='#f1f5f9'; border='#cbd5e1';  labelC='#64748b'; }
-      else if(isSPF) { bg='#fef2f2'; border='#fca5a5';  labelC='#dc2626'; }
-      else if(isFlash){ bg='#fefce8'; border='#fde047'; labelC='#a16207'; }
-      else if(isThematic){ bg='#f0fdfa'; border='#5eead4'; labelC='#0f766e'; }
-      else if(isMidMonth){ bg='#faf5ff'; border='#d8b4fe'; labelC='#7c3aed'; }
-      else if(isPlf) { bg='#faf5ff'; border='#ddd6fe';  labelC='#6d28d9'; }
-      else           { bg='#eff6ff'; border='#bfdbfe';  labelC='#1d4ed8'; }
+      if(isBlock)    { bg='rgba(100,116,139,.15)'; border='rgba(100,116,139,.4)';  labelC='#94a3b8'; }
+      else if(isSPF) { bg='rgba(239,68,68,.15)';   border='rgba(239,68,68,.4)';    labelC='#f87171'; }
+      else if(isFlash){ bg='rgba(234,179,8,.15)';  border='rgba(234,179,8,.4)';    labelC='#facc15'; }
+      else if(isThematic){ bg='rgba(20,184,166,.15)'; border='rgba(20,184,166,.4)'; labelC='#2dd4bf'; }
+      else if(isMidMonth){ bg='rgba(168,85,247,.18)'; border='rgba(168,85,247,.3)'; labelC='#c084fc'; }
+      else if(isPlf) { bg='rgba(168,85,247,.14)';  border='rgba(168,85,247,.25)';  labelC='#c084fc'; }
+      else           { bg='rgba(59,130,246,.14)';   border='rgba(59,130,246,.25)';  labelC='#60a5fa'; }
 
       // ── Extract time from t field or brand text prefix ───────────────
       var timeStr=x.t||'';
@@ -917,10 +1287,10 @@ async function renderVisMonth(){
   // Date headers
   show.forEach(function(d){
     var dt=new Date(d+'T00:00:00'),wd=wds[dt.getDay()],day=dt.getDate();
-    var we=wd==='Sa'||wd==='Su'; var webg=we?'#fff7ed':'#f8fafc';
+    var we=wd==='Sa'||wd==='Su'; var webg=we?'rgba(249,115,22,.08)':'var(--surf)';
     var hasDat=active.some(function(s){var a=(vd[d]||{})[city];a=a&&a[s.k];return Array.isArray(a)&&a.some(ok);});
-    var hbg=hasDat?'#fff':'#f8fafc';
-    h+='<th data-d="'+d+'" onclick="jumpToDay(this.dataset.d)" style="width:'+DW+'px;min-width:'+DW+'px;background:'+webg+';border:1px solid #e2e8f0;padding:6px 4px;font-family:var(--mono);font-size:9px;color:'+(we?'#ea580c':'#64748b')+';text-align:center;cursor:pointer">'+
+    var hbg=hasDat?'var(--card)':'var(--surf)';
+    h+='<th data-d="'+d+'" onclick="jumpToDay(this.dataset.d)" style="width:'+DW+'px;min-width:'+DW+'px;background:'+webg+';border:1px solid var(--bord);padding:6px 4px;font-family:var(--mono);font-size:9px;color:'+(we?'var(--acc)':'var(--mut)')+';text-align:center;cursor:pointer">'+
       '<div style="font-size:14px;font-weight:700;color:'+(we?'var(--acc)':'var(--txt)')+'">'+day+'</div>'+
       '<div>'+wd+'</div></th>';
   });
@@ -929,7 +1299,7 @@ async function renderVisMonth(){
   var lg='';
   active.forEach(function(s){
     if(s.grp!==lg){
-      h+='<tr><td colspan="'+(show.length+1)+'" style="background:#fff7ed;border:1px solid #fed7aa;padding:4px 12px;font-family:var(--mono);font-size:9px;font-weight:700;color:#c2410c;text-transform:uppercase;letter-spacing:1.5px">'+s.grp+'</td></tr>';
+      h+='<tr><td colspan="'+(show.length+1)+'" style="background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.2);padding:4px 12px;font-family:var(--mono);font-size:9px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:1.5px">'+s.grp+'</td></tr>';
       lg=s.grp;
     }
     h+='<tr>';
@@ -937,8 +1307,8 @@ async function renderVisMonth(){
     show.forEach(function(d){
       var a=(vd[d]||{})[city]; a=a&&a[s.k]; var items=Array.isArray(a)?a.filter(ok):[];
       var isP=items.some(function(x){return x.p.indexOf('[PLF')>-1||x.p.indexOf('[Mart')>-1;});
-      var bc=items.length?(isP?'#ddd6fe':'#bfdbfe'):'#e2e8f0';
-      var bg=items.length?(isP?'#faf5ff':'#eff6ff'):'';
+      var bc=items.length?(isP?'rgba(168,85,247,.3)':'rgba(59,130,246,.3)'):'var(--bord)';
+      var bg=items.length?(isP?'rgba(168,85,247,.04)':'rgba(59,130,246,.04)'):'';
       h+='<td data-d="'+d+'" onclick="jumpToDay(this.dataset.d)" style="width:'+DW+'px;min-width:'+DW+'px;border:1px solid '+bc+';padding:6px 7px;vertical-align:top;background:'+bg+';cursor:pointer">'+cell(items)+'</td>';
     });
     h+='</tr>';
@@ -946,16 +1316,7 @@ async function renderVisMonth(){
   h+='</tbody></table></div>';
   h+='<div style="padding:8px 14px;font-size:11px;color:var(--mut)">🟦 Brand &nbsp;🟣 Platform &nbsp;·&nbsp; Click any date header or cell → Day detail</div>';
   grid.innerHTML=h;
-}
-
-
-async function jumpToDay(ds){
-  document.getElementById('vmode').value='day';
-  document.getElementById('vday').value=ds;
-  await renderVis();
-}
-
-async function renderVisDay(){
+}async function renderVisDay(){
   const city = document.getElementById('vc').value;
   const ds   = document.getElementById('vday').value;
   if(!ds){ document.getElementById('vis-grid').innerHTML='<div class="empty">Select a date</div></div>'; return; }
@@ -1100,11 +1461,15 @@ async function renderVisDay(){
 
   if(!allItems.length) html += '<div class="empty">No data for '+ds+' in '+city+(brandF?' matching "'+brandF+'"':'')+'</div>';
   document.getElementById('vis-grid').innerHTML=html;
-}
-
-function exportCSV(){const hdrs=['ID','Source','Programme','Brand','Scheme','Month','Start','End','Banner','Cities','Status','PIC','QC_Errors','QC_Warns','QC_Flags'];const rows=filtered.map(b=>{const qc=runQC(b);const flags=qc.checks.filter(c=>c.st!=='pass').map(c=>c.name).join(' | ');return[b.id,b.source,b.prog,`"${(b.brand||'').replace(/"/g,"'")}"`,`"${(b.scheme||'').replace(/"/g,"'")}"`,b.month,b.start,b.end,b.banner,`"${(b.cities||[]).join(',')}"`,b.status,b.pic,qc.errors,qc.warns,`"${flags}"`].join(',');});const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent([hdrs.join(','),...rows].join('\\n'));a.download='shopeefood_bookings.csv';a.click();}
-
-// Defer all init until after first paint — prevents blank page on large datasets
+}async function jumpToDay(ds){
+  document.getElementById('vmode').value='day';
+  document.getElementById('vday').value=ds;
+  await renderVis();
+}function exportCSV(){const hdrs=['ID','Source','Programme','Brand','Scheme','Month','Start','End','Banner','Cities','Status','PIC','QC_Errors','QC_Warns','QC_Flags'];const rows=filtered.map(b=>{const qc=runQC(b);const flags=qc.checks.filter(c=>c.st!=='pass').map(c=>c.name).join(' | ');return[b.id,b.source,b.prog,`"${(b.brand||'').replace(/"/g,"'")}"`,`"${(b.scheme||'').replace(/"/g,"'")}"`,b.month,b.start,b.end,b.banner,`"${(b.cities||[]).join(',')}"`,b.status,b.pic,qc.errors,qc.warns,`"${flags}"`].join(',');});const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent([hdrs.join(','),...rows].join('\\n'));a.download='shopeefood_bookings.csv';a.click();}
+document.addEventListener('keydown',function(e){
+  if((e.ctrlKey||e.metaKey)&&e.key==='z'&&!e.shiftKey){e.preventDefault();historyUndo();}
+  if((e.ctrlKey||e.metaKey)&&(e.key==='y'||(e.key==='z'&&e.shiftKey))){e.preventDefault();historyRedo();}
+});
 (async function init(){
   const ov=document.getElementById('loading-overlay');
   if(ov) ov.style.display='flex';
@@ -1113,20 +1478,45 @@ function exportCSV(){const hdrs=['ID','Source','Programme','Brand','Scheme','Mon
       fetch('/api/bookings').then(r=>r.json()),
       fetch('/api/caps').then(r=>r.json()),
     ]);
-    ALL_BOOKINGS=bk; DAILY_CAPS=caps.daily; MONTHLY_CAPS=caps.monthly;
-  }catch(e){
-    if(ov) ov.style.display='none';
-    alert('Could not load data. Run prepare_data.py first.');
-    return;
-  }
-  if(ov) ov.style.display='none';
+    ALL_BOOKINGS=bk;DAILY_CAPS=caps.daily;MONTHLY_CAPS=caps.monthly;
+  }catch(e){if(ov)ov.style.display='none';alert('Could not load data. Run prepare_data.py first.');return;}
+  if(ov)ov.style.display='none';
   const t=new Date().toISOString().split('T')[0];
   document.getElementById('f_start').value=t;
   document.getElementById('f_end').value=t;
   document.getElementById('vm').value=t.substring(0,7);
-  applyFilters();
+  historySave();
+  applyFilters(true);
   renderDashboard();
 })();
+
+
+function toggleVcatDD(){
+  const dd=document.getElementById('vcat-dd');
+  if(dd) dd.style.display=dd.style.display==='none'?'block':'none';
+}
+function vcatAllChange(cb){
+  document.querySelectorAll('.vcat-cb').forEach(el=>el.checked=false);
+  document.getElementById('vcat-label').textContent='All Categories';
+  renderVis();
+}
+function vcatChange(){
+  const selected=Array.from(document.querySelectorAll('.vcat-cb:checked')).map(el=>el.value);
+  const allCb=document.getElementById('vcat-all');
+  if(allCb) allCb.checked=selected.length===0;
+  const lbl=document.getElementById('vcat-label');
+  if(lbl) lbl.textContent=selected.length===0?'All Categories':selected.length===1?selected[0]:selected.length+' selected';
+  renderVis();
+}
+function getVcats(){
+  return Array.from(document.querySelectorAll('.vcat-cb:checked')).map(el=>el.value);
+}
+// Close dropdown when clicking outside
+document.addEventListener('click',function(e){
+  const dd=document.getElementById('vcat-dd');
+  const btn=document.getElementById('vcat-btn');
+  if(dd&&btn&&!dd.contains(e.target)&&!btn.contains(e.target)) dd.style.display='none';
+});
 </script>
 </body>
 </html>

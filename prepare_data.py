@@ -147,6 +147,8 @@ def extract_visibility(xl):
         ('01:00 - 05:00','Search_01-05h'), ('05:00 - 10:00','Search_05-10h'),
         ('10:00 - 12:00','Search_10-12h'), ('12:00 - 14:00','Search_12-14h'),
         ('14:00 - 17:00','Search_14-17h'), ('17:00 - 19:00','Search_17-19h'),
+        ('19:00 - 22:00','Search_19-22h'),
+        ('22:00 - 01:00','Search_22-01h'),
         ('1st Scroll 0-8h','HTC_1st_0-8h'),('1st Scroll 8-16h','HTC_1st_8-16h'),
         ('1st Scroll 16-24h','HTC_1st_16-24h'),('2nd Scroll 0-8h','HTC_2nd_0-8h'),
         ('2nd Scroll 8-16h','HTC_2nd_8-16h'),('2nd Scroll 16-24h','HTC_2nd_16-24h'),
