@@ -5,7 +5,14 @@ Run this once to extract Excel data into JSON files.
 """
 
 import pandas as pd
-import json, re, os
+import json, re, os, unicodedata
+
+def nfc(obj):
+    """Recursively NFC-normalize all strings in a JSON-serialisable object."""
+    if isinstance(obj, str): return unicodedata.normalize('NFC', obj)
+    if isinstance(obj, list): return [nfc(i) for i in obj]
+    if isinstance(obj, dict): return {nfc(k): nfc(v) for k, v in obj.items()}
+    return obj
 
 EXCEL_FILE = "In-app Automatic Flow.xlsx"
 if not os.path.exists(EXCEL_FILE):
@@ -443,11 +450,11 @@ if __name__ == '__main__':
             'ss':  b.get('status',''), 'pic': b.get('pic',''),
             'bn':  b['banner'],  'ts': normalise_timeslot(b.get('timeslot',''), b.get('source','')),
         }
-    slimmed = [slim_booking(b) for b in bookings]
+    slimmed = nfc([slim_booking(b) for b in bookings])
     with open('data/bookings.json',   'w', encoding='utf-8') as f:
         json.dump(slimmed, f, ensure_ascii=False, separators=(',',':'))
     with open('data/visibility.json', 'w', encoding='utf-8') as f:
-        json.dump(vis, f, ensure_ascii=False, separators=(',',':'))
+        json.dump(nfc(vis), f, ensure_ascii=False, separators=(',',':'))
     with open('data/caps.json',       'w', encoding='utf-8') as f:
         json.dump(CAPS, f, ensure_ascii=False, separators=(',',':'))
 

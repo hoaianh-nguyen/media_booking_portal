@@ -1874,24 +1874,45 @@ function fg(bk){
   if(b.indexOf('coll list')>-1||b.indexOf('colllist')>-1)return 'colllist';
   if(b.indexOf('coll')>-1)return 'coll';return null;
 }
-function pngFor(png,date,bk,item){
-  if(!png||!item)return null;
-  var dt=new Date(date+'T00:00:00');
-  var d=String(dt.getDate()),m=String(dt.getMonth()+1);
-  var tryDates=[d+'.'+m,('0'+d).slice(-2)+'.'+m,date];
-  var grp=fg(bk),folders=grp?FMAP[grp]:[bk];
-  var prog=(item.p||'').trim(),visB=(item.b||'').trim().toLowerCase();
-  for(var di=0;di<tryDates.length;di++){
-    var fd=png[tryDates[di]];if(!fd)continue;
-    for(var fi=0;fi<folders.length;fi++){
-      var urls=fd[folders[fi]];if(!urls||!urls.length)continue;
-      for(var ui=0;ui<urls.length;ui++){try{if(decodeURIComponent(urls[ui].split('/').pop()).replace(/\.[^.]+$/,'')=== prog)return[urls[ui]];}catch(e){}}
-      if(prog.length>3){for(var ui=0;ui<urls.length;ui++){try{if(decodeURIComponent(urls[ui].split('/').pop()).toLowerCase().indexOf(prog.toLowerCase())>-1)return[urls[ui]];}catch(e){}}}
-      if(visB.length>3){
-        var words=visB.split(/[\s_\-,]+/).filter(function(w){return w.length>3;});
-        for(var ui=0;ui<urls.length;ui++){try{var fn=decodeURIComponent(urls[ui].split('/').pop()).toLowerCase();if(words.filter(function(w){return fn.indexOf(w)>-1;}).length>=Math.min(2,words.length))return[urls[ui]];}catch(e){}}
+function _norm(s){return s.normalize('NFC').replace(/[''`]/g,"'").replace(/'/g,'').replace(/[_\-]+/g,' ').toLowerCase().trim();}
+function _tryFolders(fd,folders,prog,visB){
+  var progN=_norm(prog);
+  for(var fi=0;fi<folders.length;fi++){
+    var urls=fd[folders[fi]];if(!urls||!urls.length)continue;
+    // 1. Exact prog match (normalised)
+    for(var ui=0;ui<urls.length;ui++){try{var fn=decodeURIComponent(urls[ui].split('/').pop());if(_norm(fn.replace(/\.[^.]+$/,''))===progN)return[urls[ui]];}catch(e){}}
+    // 2. Prog contained in filename
+    if(prog.length>3){for(var ui=0;ui<urls.length;ui++){try{var fn=_norm(decodeURIComponent(urls[ui].split('/').pop()));if(fn.indexOf(progN)>-1)return[urls[ui]];}catch(e){}}}
+    // 3. Word-based match on brand label
+    if(visB.length>3){
+      var words=_norm(visB).split(/\s+/).filter(function(w){return w.length>3;});
+      if(words.length){var need=Math.min(2,words.length);
+        for(var ui=0;ui<urls.length;ui++){try{var fn=_norm(decodeURIComponent(urls[ui].split('/').pop()));
+          if(words.filter(function(w){return fn.indexOf(w)>-1;}).length>=need)return[urls[ui]];}catch(e){}}
       }
     }
+  }
+  return null;
+}
+function pngFor(png,date,bk,item){
+  if(!png||!item)return null;
+  var prog=(item.p||'').trim(),visB=(item.b||'').trim();
+  if(!prog&&!visB)return null;
+  var dt=new Date(date+'T00:00:00');
+  var d=String(dt.getDate()),m=String(dt.getMonth()+1);
+  var exactDates=[d+'.'+m,('0'+d).slice(-2)+'.'+m,date];
+  var grp=fg(bk),folders=grp?FMAP[grp]:[bk];
+  // Try exact date first
+  for(var di=0;di<exactDates.length;di++){
+    var fd=png[exactDates[di]];if(!fd)continue;
+    var r=_tryFolders(fd,folders,prog,visB);if(r)return r;break;
+  }
+  // Fallback: search all other date folders (same banner type)
+  var allDates=Object.keys(png);
+  for(var di=0;di<allDates.length;di++){
+    if(exactDates.indexOf(allDates[di])>-1)continue;
+    var fd=png[allDates[di]];if(!fd)continue;
+    var r=_tryFolders(fd,folders,prog,visB);if(r)return r;
   }
   return null;
 }
