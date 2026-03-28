@@ -55,9 +55,55 @@ def banner(a, b=''):
                    ('static','Static'),('bottom','Bottom'),('flash','Flash'),
                    ('float','Floating'),('pop','Popup'),
                    ('ongoing order','OngoingOrder'),('ongoing','Ongoing'),
-                   ('search','Search')]:
+                   ('search','Search'),('collection list','CollList'),
+                   ('flash sale','Flash'),('recommendation','Rec'),
+                   ('collection','Collection')]:
         if kw in t: return bn
+    # MKT time-range slots (e.g. "0-5H", "5-10H") → Search Placeholder
+    import re as _re
+    if _re.search(r'^\d', t.strip()):
+        return 'Search'
     return 'Hometop'
+
+
+
+def normalise_timeslot(text, source=''):
+    """Map any timeslot text to a standard 5-bucket time label."""
+    t = str(text or '').lower().strip()
+    
+    # Vietnamese keywords (MKT and BD descriptions)
+    if any(x in t for x in ['sáng','sang','bữa sáng','ăn sáng','bua sang']):
+        return '0-10h'
+    if any(x in t for x in ['trưa','trua','bữa trưa','ăn trưa','bua trua']):
+        return '10-13h'
+    if any(x in t for x in ['xế','bữa xế','ăn xế','bua xe']):
+        return '13-16h'
+    if any(x in t for x in ['tối','toi','bữa tối','ăn tối','buổi tối','bua toi']):
+        return '16-21h'
+    if any(x in t for x in ['đêm','dem','ăn đêm','khuya','ban đêm']):
+        return '21-24h'
+    
+    # Extract hour range from patterns: (16H-19H), (14h-17h), 0-8h, 8-16h, 16-24h
+    m = re.search(r'(\d{1,2})h?\s*[-–]\s*(\d{1,2})h', t)
+    if m:
+        start_h = int(m.group(1))
+        # Map start hour to bucket
+        if 0 <= start_h < 10:   return '0-10h'
+        if 10 <= start_h < 13:  return '10-13h'
+        if 13 <= start_h < 16:  return '13-16h'
+        if 16 <= start_h < 21:  return '16-21h'
+        if start_h >= 21:        return '21-24h'
+    
+    # HTC slot keys: 0-8h, 8-16h, 16-24h
+    if '0-8h' in t or '0h-8h' in t:     return '0-10h'
+    if '8-16h' in t or '8h-16h' in t:    return '10-13h'  # approximate
+    if '16-24h' in t or '16h-24h' in t:  return '16-21h'
+    
+    return ''
+
+def mkt_timeslot(text):
+    """Detect time slot from MKT booking name."""
+    return normalise_timeslot(text, 'MKT')
 
 def guess_month(s):
     for mo in ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']:
@@ -155,6 +201,7 @@ def extract_bookings(xl):
             m = re.search(r'(\d{4}-\d{2}-\d{2})', end_raw)
             if m: end = m.group(1)
         slot = clean(r[1])
+        mkt_ts = normalise_timeslot(deal, 'MKT')
         rows.append({
             'id': uid, 'source': 'MKT', 'month': guess_month(deal),
             'prog': prog(deal), 'prog_raw': '',
@@ -162,7 +209,7 @@ def extract_bookings(xl):
             'start': '2026-01-01', 'end': end or '2026-12-31',
             'cities': ['HCM','HN','DN'], 'city': 'HCM',
             'status': clean(r[0])[:20], 'pic': '',
-            'banner': banner(slot), 'timeslot': slot[:40], 'cat': '',
+            'banner': banner(slot), 'timeslot': mkt_ts, 'cat': '',
         })
         uid += 1
 
@@ -394,7 +441,7 @@ if __name__ == '__main__':
             'st':  b.get('start',''), 'en': b.get('end',''),
             'cs':  b.get('cities',[]), 'city': b.get('city',''),
             'ss':  b.get('status',''), 'pic': b.get('pic',''),
-            'bn':  b['banner'],
+            'bn':  b['banner'],  'ts': normalise_timeslot(b.get('timeslot',''), b.get('source','')),
         }
     slimmed = [slim_booking(b) for b in bookings]
     with open('data/bookings.json',   'w', encoding='utf-8') as f:
