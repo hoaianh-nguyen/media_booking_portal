@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>All Repos — Consolidated View</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--bg:#0c0e15;--surf:#12151f;--card:#181c28;--bord:#222736;--acc:#f97316;--txt:#e8eaf0;--mut:#6b7280;--mono:'DM Mono',monospace;--sans:'Inter',sans-serif;--dis:'Syne',sans-serif;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font-family:var(--sans);}
+    .hdr{background:var(--surf);border-bottom:1px solid var(--bord);padding:0 20px;display:flex;align-items:center;gap:20px;height:50px;}
+    .logo{font-family:var(--dis);font-size:14px;font-weight:800;color:var(--acc);white-space:nowrap;}
+    .logo span{color:var(--txt);}
+    .tabs{display:flex;gap:6px;margin-left:16px;}
+    .tab{background:none;border:1px solid transparent;color:var(--mut);font-family:var(--sans);font-size:12px;font-weight:500;padding:6px 14px;border-radius:6px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;}
+    .tab:hover{color:var(--txt);background:var(--card);border-color:var(--bord);}
+    .tab.on{color:var(--acc);background:rgba(249,115,22,.12);border-color:rgba(249,115,22,.25);}
+    .tab .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+    .dot-media{background:#f97316;}
+    .dot-workflow{background:#22c55e;}
+    .dot-party{background:#a855f7;}
+    .frame-wrap{height:calc(100vh - 50px);position:relative;}
+    .frame-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none;background:var(--bg);}
+    .frame-wrap iframe.hidden{display:none;}
+    .open-ext{margin-left:auto;background:var(--surf);border:1px solid var(--bord);border-radius:6px;color:var(--mut);font-family:var(--sans);font-size:11px;padding:5px 12px;cursor:pointer;transition:all .15s;text-decoration:none;}
+    .open-ext:hover{border-color:var(--acc);color:var(--acc);}
+    .placeholder{display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:12px;color:var(--mut);font-family:var(--mono);font-size:12px;}
+    .placeholder .spinner{width:32px;height:32px;border:3px solid var(--bord);border-top-color:var(--acc);border-radius:50%;animation:spin .8s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+  </style>
+</head>
+<body>
+  <header class="hdr">
+    <div class="logo">MY <span>REPOS</span></div>
+    <div class="tabs">
+      <button class="tab on" onclick="switchTab('media',this)">
+        <span class="dot dot-media"></span> Media Booking Portal
+      </button>
+      <button class="tab" onclick="switchTab('workflow',this)">
+        <span class="dot dot-workflow"></span> Workflow Test
+      </button>
+      <button class="tab" onclick="switchTab('party',this)">
+        <span class="dot dot-party"></span> Year-End Party 2025
+      </button>
+    </div>
+    <a id="ext-link" class="open-ext" href="#" target="_blank" title="Open in new tab">Open in new tab &#x2197;</a>
+  </header>
+
+  <div class="frame-wrap" id="frame-wrap">
+    <!-- iframes are created on first click to avoid loading all at once -->
+  </div>
+
+  <script>
+    const REPOS = {
+      media:    'https://hoaianh-nguyen.github.io/media_booking_portal/',
+      workflow: 'https://hoaianh-nguyen.github.io/workflow-test/',
+      party:    'https://hoaianh-nguyen.github.io/year-end-party-2025/'
+    };
+
+    const wrap = document.getElementById('frame-wrap');
+    const extLink = document.getElementById('ext-link');
+    const frames = {};
+    let active = null;
+
+    function switchTab(key, btn) {
+      // Update tab buttons
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+      btn.classList.add('on');
+
+      // Hide all iframes
+      Object.values(frames).forEach(f => f.classList.add('hidden'));
+
+      // Create iframe on first visit (lazy load)
+      if (!frames[key]) {
+        const iframe = document.createElement('iframe');
+        iframe.src = REPOS[key];
+        iframe.setAttribute('loading', 'lazy');
+        iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-popups allow-forms');
+        wrap.appendChild(iframe);
+        frames[key] = iframe;
+      }
+
+      // Show selected iframe
+      frames[key].classList.remove('hidden');
+      active = key;
+
+      // Update external link
+      extLink.href = REPOS[key];
+    }
+
+    // Load the first tab on startup
+    switchTab('media', document.querySelector('.tab'));
+  </script>
+</body>
+</html>

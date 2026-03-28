@@ -33,6 +33,10 @@ def gzip_json(data_bytes):
 def index():
     return render_template('index.html')
 
+@app.route('/portal')
+def portal():
+    return render_template('portal.html')
+
 @app.route('/api/bookings')
 def api_bookings():
     return gzip_json(load_raw('bookings.json'))
