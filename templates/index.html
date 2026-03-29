@@ -109,10 +109,46 @@ label{font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;l
 .spinner{width:44px;height:44px;border:3px solid var(--bord);border-top-color:#f97316;border-radius:50%;animation:spin .8s linear infinite;}
 .loading-txt{font-family:'DM Mono',monospace;font-size:11px;color:var(--mut);letter-spacing:2px;text-transform:uppercase;}
 
-  
+
+/* LOGIN */
+#login-overlay{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;}
+.login-box{background:var(--card);border:1px solid var(--bord);border-radius:12px;padding:32px 28px;width:320px;box-shadow:0 25px 60px rgba(0,0,0,.5);}
+.login-logo{display:flex;align-items:center;gap:10px;margin-bottom:24px;}
+.login-logo-icon{width:36px;height:36px;background:linear-gradient(135deg,#f97316,#ef4444);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.login-logo-text{font-size:15px;font-weight:700;font-family:var(--dis);}.login-logo-text span{color:var(--acc);}
+.login-field{margin-bottom:14px;}
+.login-field label{display:block;font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px;font-weight:600;}
+.login-field input{width:100%;background:var(--bg);border:1px solid var(--bord);border-radius:7px;padding:9px 12px;color:var(--txt);font-family:var(--sans);font-size:13px;outline:none;transition:border-color .2s;}
+.login-field input:focus{border-color:var(--acc);}
+.login-btn{width:100%;background:var(--acc);color:#fff;border:none;border-radius:7px;padding:10px;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;transition:opacity .2s;margin-top:6px;}
+.login-btn:hover{opacity:.85;}
+.login-err{color:var(--red);font-size:11px;margin-top:8px;text-align:center;min-height:14px;}
 </style>
 </head>
 <body>
+
+<div id="login-overlay">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="login-logo-icon">📊</div>
+      <div class="login-logo-text"><span>Media</span> QC</div>
+    </div>
+    <div class="login-field">
+      <label>Username</label>
+      <input id="li-u" type="text" placeholder="Enter username" autocomplete="username">
+    </div>
+    <div class="login-field">
+      <label>Password</label>
+      <input id="li-p" type="password" placeholder="Enter password" autocomplete="current-password">
+    </div>
+    <button class="login-btn" onclick="_loginSubmit()">Sign In</button>
+    <div class="login-err" id="li-err"></div>
+    <div style="text-align:center;margin-top:14px;">
+      <a id="forgot-link" href="#" onclick="_forgotPw(event)" style="color:var(--mut);font-size:11px;text-decoration:none;border-bottom:1px dashed var(--bord);padding-bottom:1px;cursor:pointer;transition:color .15s;">Forgot password?</a>
+    </div>
+  </div>
+</div>
+
 <div id="loading-overlay">
   <div class="spinner"></div>
   <div class="loading-txt">Loading data...</div>
@@ -2142,6 +2178,36 @@ function mvPhone(date,city,slots,hf,png){
     +'<div class="mv-nav-item">👤<br>Me</div>'
     +'</div></div>';
 }
+
+// ── AUTH ──
+var _cu=[67,68,74,66,74,69,67,5,69,76,94,82,78,69];
+var _cp=[102,64,107,26,25,24,31,30,29];
+function _dk(a,k){return a.map(function(c){return String.fromCharCode(c^k);}).join('');}
+function _loginSubmit(){
+  var u=document.getElementById('li-u').value;
+  var p=document.getElementById('li-p').value;
+  if(u===_dk(_cu,43)&&p===_dk(_cp,43)){
+    sessionStorage.setItem('_sa','1');
+    document.getElementById('login-overlay').style.display='none';
+  } else {
+    document.getElementById('li-err').textContent='Invalid credentials';
+    document.getElementById('li-p').value='';
+  }
+}
+function _forgotPw(e){
+  e.preventDefault();
+  var sub=encodeURIComponent('Media QC - Password Reset Request');
+  var body=encodeURIComponent('Hi,\n\nI have forgotten my password for Media QC and would like to request a reset.\n\nUsername: '+document.getElementById('li-u').value+'\n\nThank you.');
+  window.location.href='mailto:n.hoaianh93@gmail.com?subject='+sub+'&body='+body;
+  var lk=document.getElementById('forgot-link');
+  lk.textContent='Request sent — check your email app';
+  lk.style.color='var(--grn)';
+  lk.style.borderBottom='none';
+  lk.onclick=null;
+}
+document.getElementById('li-u').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('li-p').focus();});
+document.getElementById('li-p').addEventListener('keydown',function(e){if(e.key==='Enter')_loginSubmit();});
+if(sessionStorage.getItem('_sa')==='1'){document.getElementById('login-overlay').style.display='none';}
 </script>
 </body>
 </html>
